@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/tobrut/';
+$config['base_url']	= 'http://localhost/simpeg_ppsdmk/';
 
 /*
 |--------------------------------------------------------------------------
