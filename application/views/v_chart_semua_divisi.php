@@ -60,7 +60,7 @@ $(function () {
 	<div class="pageicon"><span class="iconfa-signal"></span></div>
 	<div class="pagetitle">
 		<h5>.</h5>
-		<h1>Statistik Divisi</h1>
+		<h1>Statistik Seluruh Bagian PPSDMK</h1>
 	</div>
 </div>
 <h4 class="widgettitle"><span class="icon-signal icon-white"></span>Statistik Kinerja Divisi</h4>

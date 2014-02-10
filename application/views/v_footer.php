@@ -1,6 +1,6 @@
 <div class="footer">
                     <div class="footer-left">
-                        <span>&copy; 2013. PT. Semprot Packaging. All Rights Reserved.</span>
+                        <span>&copy; 2014. Pusat Pengembangan Sumber Daya Manusia Kemetrologian. All Rights Reserved. Developed by PLA UPI 2014</span>
                     </div>
                 </div><!--footer-->
                 

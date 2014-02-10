@@ -41,36 +41,57 @@
         </div>
         <div class="headerinner">
             <ul class="headmenu">
+                
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" data-target="#">
-                    <span class="head-icon head-bar"></span>
-                    <span class="headmenu-label">Statistik Divisi</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-header">Statistics</li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_marketing"><strong>Divisi Marketing</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_hrd"><strong>Divisi HRD</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_finansial"><strong>Divisi Finansial</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_operasional"><strong>Divisi Operasional</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_it"><strong>Divisi IT</strong></a></li>
-                    </ul>
-                </li>
-				
-                <li>
-                    <a class="dropdown-toggle" href="<?php echo base_url(); ?>manager/allpegawai">
                     <span class="head-icon head-users"></span>
                     <span class="headmenu-label">Pegawai</span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header">Daftar Pegawai</li>
+                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Daftar Seluruh Pegawai</strong></a></li>
+                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Cetak DUK</strong></a></li>
+                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Cetak DSP</strong></a></li>
+                     </ul>
                 </li>
-				
+                
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+                    <span class="head-icon head-bar"></span>
+                    <span class="headmenu-label">Grafik</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header">Grafik Jumlah Pegawai</li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_marketing"><strong>Jabatan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_hrd"><strong>Golongan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_finansial"><strong>Pendidikan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_operasional"><strong>Jenjang Umur</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_it"><strong>Status Kepegawaian</strong></a></li>
+                    </ul>
+                </li>
+                
+               <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+                    <span class="head-icon head-archive"></span>
+                    <span class="headmenu-label">Peringatan</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header">Peringatan</li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_marketing"><strong>Kenaikan Pangkat</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_hrd"><strong>Kenaikan Gaji Berkala</strong></a></li>
+                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_finansial"><strong>Pegawai Pensiun</strong></a></li>
+                    </ul>
+                </li>
+			
                 <li class="right">
                     <div class="userloggedinfo">
                         <img src="<?php echo base_url();?>assets/shamcey/images/photos/foto_profil.png" alt="" />
                         <div class="userinfo">
                             <h5>Manager</h5>
                             <h5><small>manager@sempack.com</small></h5>
-							<br />
                             <ul>
+                                <li><a href="<?php echo base_url();?>login/logout">Ubah Data Pribadi</a></li>
+                                <li><a href="<?php echo base_url();?>login/logout">Pengaturan Akun</a></li>
                                 <li><a href="<?php echo base_url();?>login/logout">Keluar</a></li>
                             </ul>
                         </div>

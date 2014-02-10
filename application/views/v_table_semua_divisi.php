@@ -32,7 +32,7 @@
 		<tr>
 			<th class="head0 nosort"><input type="checkbox" class="checkall" /></th>
 			<th class="head0">No</th>
-			<th class="head1">Nama Divisi</th>
+			<th class="head1">Nama Bagian</th>
 			<th class="head0">Jumlah Pegawai</th>
 			<th class="head1">Nilai Rata-rata</th>
 		</tr>

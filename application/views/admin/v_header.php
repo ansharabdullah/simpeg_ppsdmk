@@ -54,9 +54,9 @@
                         <img src="<?php echo base_url();?>assets/shamcey/images/photos/foto_profil.png" alt="" />
                         <div class="userinfo">
                             <h5>Supervisor <br/><small> supervisor@sempack.com</small></h5>
-							<br/>
                             <ul>
-                                <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
+                                <li><a href="<?php echo base_url();?>login/logout">Pengaturan Akun</a></li>
+                                <li><a href="<?php echo base_url();?>login/logout">Keluar</a></li>
                             </ul>
                         </div>
                     </div>
