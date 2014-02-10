@@ -39,6 +39,12 @@ class supervisor extends CI_Controller {
 		$this->load->view("admin/v_input_nilai",array('biodata' => $query1,'periode' => $query2, 'nama' => $nama_pegawai, 'cek' => $cek_penilaian));
 		$this->load->view("admin/v_footer");
 	}
+        
+        public function input_biodata(){
+		
+		$this->load->view("admin/v_form_input_biodata");
+		$this->load->view("admin/v_footer");
+	}
 	
 	public function submit_input_nilai(){
 		$id_pegawai = $this->input->post('nama');

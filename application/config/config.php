@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/simpeg_ppsdmk/';
+$config['base_url']	= 'http://192.168.99.18/simpeg_ppsdmk/';
 
 /*
 |--------------------------------------------------------------------------

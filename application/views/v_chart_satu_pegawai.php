@@ -199,19 +199,19 @@ $(function () {
 
 <div id="dashboard-right" class="span4" style="width:53%; margin-left:28px;">
 	<div class="widgetbox">
-		<h4 class="widgettitle"><span class="icon-tasks icon-white"></span>Grafik Kinerja: <?php echo $title;?><a class="close">&times;</a> <a class="minimize">&#8211;</a></h4>
+		<h4 class="widgettitle"><span class="icon-tasks icon-white"></span>Riwayat Pendidikan : <?php echo $title;?><a class="close">&times;</a> <a class="minimize">&#8211;</a></h4>
 		<div class="widgetcontent" style="padding:10px 50px 10px 50px">
 			<div style="width:100%">
 				<!-- spyderchart -->
-				<div id="container1" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto;"></div>
+				<!--<div id="container1" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto;"></div>-->
 			</div>
 		</div>
 	</div>
 </div>
 
 <div id="dashboard-right" class="span4" style="width:95%;">
-<h4 class="widgettitle"><span class="icon-user icon-white"></span>Statistik Kinerja Pegawai: <?php echo $title;?></h4>
+<h4 class="widgettitle"><span class="icon-user icon-white"></span>Riwayat Pelatihan : <?php echo $title;?></h4>
 <div class="widgetcontent">
-	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<!-- <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> -->
 </div>
 </div>
