@@ -37,7 +37,7 @@
     
     <div class="header">
         <div class="logo" style="margin-top:-10px;">
-            <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/shamcey/images/logi.png" alt="" width="85%" /></a>
+            <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/shamcey/images/logo_ppsdmk.png" alt="" width="85%" /></a>
         </div>
         <div class="headerinner">
             <ul class="headmenu">
@@ -49,9 +49,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-header">Daftar Pegawai</li>
-                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Daftar Seluruh Pegawai</strong></a></li>
-                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Cetak DUK</strong></a></li>
-                        <li><a href="<?php echo base_url(); ?>manager/allpegawai"><strong>Cetak DSP</strong></a></li>
+                        <li><a href="<?php echo base_url(); ?>pegawai/seluruh_pegawai"><strong>Daftar Seluruh Pegawai</strong></a></li>
+                        <li><a href="<?php echo base_url(); ?>pegawai/seluruh_pegawai"><strong>Cetak DUK</strong></a></li>
+                        <li><a href="<?php echo base_url(); ?>pegawai/seluruh_pegawai"><strong>Cetak DSP</strong></a></li>
                      </ul>
                 </li>
                 
@@ -62,11 +62,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-header">Grafik Jumlah Pegawai</li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_marketing"><strong>Jabatan</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_hrd"><strong>Golongan</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_finansial"><strong>Pendidikan</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_operasional"><strong>Jenjang Umur</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_it"><strong>Status Kepegawaian</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/semua_bagian"><strong>Bagian</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/bagian/divisi_marketing"><strong>Jabatan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/bagian/divisi_hrd"><strong>Golongan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/bagian/divisi_finansial"><strong>Pendidikan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/bagian/divisi_operasional"><strong>Jenjang Umur</strong></a></li>
+                        <li><a href="<?php echo base_url();?>grafik/bagian/divisi_it"><strong>Status Kepegawaian</strong></a></li>
                     </ul>
                 </li>
                 
@@ -77,9 +78,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-header">Peringatan</li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_marketing"><strong>Kenaikan Pangkat</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_hrd"><strong>Kenaikan Gaji Berkala</strong></a></li>
-                        <li><a href="<?php echo base_url();?>manager/divisi/divisi_finansial"><strong>Pegawai Pensiun</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai"><strong>Persetujuan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Pangkat</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Gaji Berkala</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai"><strong>Pegawai Pensiun</strong></a></li>
                     </ul>
                 </li>
 			
@@ -88,10 +90,10 @@
                         <img src="<?php echo base_url();?>assets/shamcey/images/photos/foto_profil.png" alt="" />
                         <div class="userinfo">
                             <h5>Manager</h5>
-                            <h5><small>manager@sempack.com</small></h5>
+                            <h5><small>admin@ppsdmk.com</small></h5>
                             <ul>
                                 <li><a href="<?php echo base_url();?>login/logout">Ubah Data Pribadi</a></li>
-                                <li><a href="<?php echo base_url();?>login/logout">Pengaturan Akun</a></li>
+                                <li><a href="<?php echo base_url();?>pegawai/pengaturan_akun">Pengaturan Akun</a></li>
                                 <li><a href="<?php echo base_url();?>login/logout">Keluar</a></li>
                             </ul>
                         </div>

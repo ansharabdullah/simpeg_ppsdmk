@@ -18,8 +18,7 @@
     });
 </script>
             
-<div id="dashboard-left" class="span8" style="width:95.5%;">
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Kinerja <?php echo $title;?></h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Kinerja Divisi</h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
 <table id="dyntable" class="table table-bordered responsive">
 	<colgroup>
@@ -28,15 +27,13 @@
 		<col class="con0" />
 		<col class="con1" />
 		<col class="con0" />
-		<col class="con1" />
 	</colgroup>
 	<thead>
 		<tr>
 			<th class="head0 nosort"><input type="checkbox" class="checkall" /></th>
 			<th class="head0">No</th>
-			<th class="head1">NIP</th>
-			<th class="head0">Nama Pegawai</th>
-			<th class="head0">Jenis Kelamin</th>
+			<th class="head1">Nama Bagian</th>
+			<th class="head0">Jumlah Pegawai</th>
 			<th class="head1">Nilai Rata-rata</th>
 		</tr>
 	</thead>
@@ -45,7 +42,8 @@
 		$no = 1;
 		foreach($query as $row){
 		$rerata = $row->rerata;
-		$link = $row->nama_pegawai;
+		$link = $row->nama_divisi;
+		$link = strtolower($link);
 		$link = str_replace(" ", "_", $link);
 		$warna1 = "";
 		$warna3 = "";
@@ -59,9 +57,8 @@
 			<input type="checkbox" />
 		  </span></td>
 			<td><?php echo $no;?></td>
-			<td><?php echo $row->nip;?></td>
-			<td><a style="color:<?php echo $warna3; ?>;" href="<?php echo base_url();?>manager/pegawai/<?php echo $link; ?>/<?php echo $periode; ?>"><?php echo $row->nama_pegawai;?></a></td>
-			<td class="center"><?php echo $row->jenis_kelamin;?></td>
+			<td><a style="color:<?php echo $warna3; ?>;" href="<?php echo base_url(); ?>admin/divisi/<?php echo $link;?>"><?php echo $row->nama_divisi;?></a></td>
+			<td class="center"><?php echo $row->jml_pegawai;?></td>
 			<td class="center"><?php echo !empty($rerata) ? $rerata : '0';?></td>
 		</tr>
 		<?php 
@@ -73,6 +70,5 @@
 <div style="margin-top:6px; margin-left:6px; margin-right:8px; background-color:indianred; border-radius:2px; width:30px; height:10px; float:left;">
 </div>Di bawah rata-rata
 <br />
-</div>
 </div>
 </div>

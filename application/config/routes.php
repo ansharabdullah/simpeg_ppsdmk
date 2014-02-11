@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "manager";
+$route['default_controller'] = "grafik";
 $route['404_override'] = '';
 
 

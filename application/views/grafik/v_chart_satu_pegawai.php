@@ -97,7 +97,7 @@ $(function () {
 							click: function() {									
 								var nama = this.category;
 								//nama = nama.toLowerCase(); 
-								window.location.href = '<?php echo base_url(); ?>manager/pegawai/<?php echo str_replace(" ", "_", $title); ?>/' + nama; 
+								window.location.href = '<?php echo base_url(); ?>admin/pegawai/<?php echo str_replace(" ", "_", $title); ?>/' + nama; 
 							}
 						}
 					}
@@ -121,7 +121,7 @@ $(function () {
 	<div class="pageicon"><span class="iconfa-user"></span></div>
 	<div class="pagetitle">
 		<h5>.</h5>
-		<h1>Statistik Pegawai</h1>
+                <h1>Data Pegawai</h1>
 	</div>
 </div>
 

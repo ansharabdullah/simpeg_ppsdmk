@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class manager extends CI_Controller {
+class admin extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -11,9 +11,9 @@ class manager extends CI_Controller {
         if (!$this->session->userdata('user')) {
             redirect(base_url() . "login");
         } else if ($this->session->userdata('user') == "supervisor") {
-            redirect(base_url() . "supervisor");
+            redirect(base_url() . "pegawai");
         } else if ($this->session->userdata('user') == "manager") {
-            $this->load->view("v_header");
+            $this->load->view("laman/v_header");
         } else {
             $this->load->view("v_login");
         }
@@ -22,8 +22,8 @@ class manager extends CI_Controller {
     public function index() {
         $this->home();
     }
-    
-    public function home(){
+
+    public function home() {
         $query = $this->m_nilai->grafikDivisi();
         $divisi = array();
         $jml_peg = array();
@@ -40,7 +40,7 @@ class manager extends CI_Controller {
         $this->load->view("v_footer");
     }
 
-    public function divisi($nama_divisi) {
+    public function bagian($nama_divisi) {
         $periode = $this->m_nilai->getPeriode();
 
         $id = 0;
@@ -169,10 +169,10 @@ class manager extends CI_Controller {
         $pilihan3 = ceil($pilihan3);
         //$pilihan1 = $nilai_AHP;
 
-        $this->load->view("v_chart_satu_pegawai", array('title' => $nama, 'tgl' => $tgl_periode, 'nilai' => $nilai, 'nilai1' => $nilai1, 'biodata' => $query1, 'subkriteria' => $subkriteria, 'nilai' => $nilai, 'periode' => $periode, 'periode_skrng' => $periode_skrng));
+        $this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nama, 'tgl' => $tgl_periode, 'nilai' => $nilai, 'nilai1' => $nilai1, 'biodata' => $query1, 'subkriteria' => $subkriteria, 'nilai' => $nilai, 'periode' => $periode, 'periode_skrng' => $periode_skrng));
 
         //$this->load->view("v_table_satu_pegawai", array('title' => $nama, 'query' => $query, 'title' => $nama, 'periode' => $periode, 'rekomendasi' => $hasil, 'pilihan1' => $pilihan1, 'pilihan2' => $pilihan2, 'pilihan3' => $pilihan3, 'nilai1' => $nilai1));
-        $this->load->view("v_footer");
+        $this->load->view("laman/v_footer");
     }
 
     public function allpegawai() {

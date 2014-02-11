@@ -27,7 +27,7 @@
 </div>
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Pegawai</h4>
 <div class="widgetcontent">
-    <a href="<?php echo base_url();?>supervisor/input_biodata">Tambah Data Pegawai</a>
+    <a href="<?php echo base_url();?>pegawai/input_biodata">Tambah Data Pegawai</a>
 <table class="table table-bordered table-infinite" id="dyntable2">
 	<colgroup>
 		<col class="con1" />
@@ -58,11 +58,11 @@
 		<tr class="gradeX">
 			<td class="center"><?php echo $no; ?></td>
 			<td class="center"><?php echo $row->NIP; ?></td>
-			<td><a href="<?php echo base_url();?>supervisor/input_nilai/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI; ?></td>
+			<td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI; ?></td>
 			<td class="center"><?php echo $row->JENIS_KELAMIN; ?></td>
 			<td class="center"><?php echo $row->TANGGAL_LAHIR; ?></td>
 			<td class="center"><?php echo $row->NAMA_DIVISI; ?></td>
-                        <td class="center"><a href="#" class="">Edit</a></td>
+                        <td class="center"><a href="<?php echo base_url();?>pegawai/input_biodata">Edit</a></td>
 			<td class="center"><a href="#" class="">Hapus</a></td>
 		</tr>
 		<?php $no++; } ?>		
