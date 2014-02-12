@@ -25,7 +25,39 @@ class pegawai extends CI_Controller {
     }
     
     public function pengaturan_akun(){
-        $this->load->view('laman/v_akun');
+        $this->load->view('form/v_akun');
+        $this->load->view('laman/v_footer');
+    }
+        
+    public function persetujuan(){
+        
+        $this->load->view('laman/v_footer');
+    }
+    
+    public function kenaikan_pangkat(){
+        
+        $this->load->view('laman/v_footer');
+    }
+    
+    public function gaji_berkala(){
+        
+        $this->load->view('laman/v_footer');
+    }
+        
+    public function input_biodata() {
+
+        $this->load->view("form/v_form_biodata");
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function ubah_biodata() {
+
+        $this->load->view("form/v_form_biodata");
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function pegawai_pensiun(){
+        
         $this->load->view('laman/v_footer');
     }
     
@@ -34,6 +66,8 @@ class pegawai extends CI_Controller {
         redirect(base_url());
     }
 
+    
+//    program
     public function input_nilai($nama) {
         $nama_pegawai = str_replace("_", " ", $nama);
         $query1 = $this->m_pegawai->get_pegawai($nama_pegawai);
@@ -45,12 +79,6 @@ class pegawai extends CI_Controller {
         $this->load->view("admin/v_footer");
     }
 
-    public function input_biodata() {
-
-        $this->load->view("form/v_form_biodata");
-        $this->load->view("laman/v_footer");
-    }
-    
     public function allpegawai() {
         $query = $this->m_pegawai->get_all_pegawai();
         $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $query));
