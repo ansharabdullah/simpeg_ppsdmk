@@ -48,6 +48,7 @@ class pegawai extends CI_Controller {
     public function input_biodata() {
 
         $this->load->view("form/v_form_biodata");
+        $this->load->view("form/v_form_medis");
         $this->load->view("laman/v_footer");
     }
     

@@ -13,7 +13,25 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#lA">Biodata</a></li>
         <li><a data-toggle="tab" href="#lB">Data Tambahan</a></li>
-        <li><a data-toggle="tab" href="#lC">Dataaaa</a></li>
+        <li><a data-toggle="tab" href="#lC">Riwayat Jabatan</a></li>
+        <li><a data-toggle="tab" href="#lD">Riwayat Pangkat</a></li>
+        <li><a data-toggle="tab" href="#lE">Riwayat Pendidikan</a></li>
+        <li><a data-toggle="tab" href="#lF">Riwayat Diklat Struktural</a></li>
+        <li><a data-toggle="tab" href="#lG">Riwayat Diklat Fungsional</a></li>
+        <li><a data-toggle="tab" href="#lH">Riwayat Diklat Teknis</a></li>
+        <li><a data-toggle="tab" href="#lI">Riwayat TOEFL</a></li>
+        <li><a data-toggle="tab" href="#lJ">Riwayat Tugas Ke Luar Negeri</a></li>
+        <li><a data-toggle="tab" href="#lK">Riwayat Seminar</a></li>
+        <li><a data-toggle="tab" href="#lL">Riwayat Organisasi</a></li>
+        <li><a data-toggle="tab" href="#lM">Riwayat Alamat</a></li>
+        <li><a data-toggle="tab" href="#lN">Riwayat Pasangan</a></li>
+        <li><a data-toggle="tab" href="#lO">Riwayat Anak</a></li>
+        <li><a data-toggle="tab" href="#lP">Riwayat Orang Tua</a></li>
+        <li><a data-toggle="tab" href="#lQ">Riwayat Saudara</a></li>
+        <li><a data-toggle="tab" href="#lR">Riwayat Gaji Berkala</a></li>
+        <li><a data-toggle="tab" href="#lS">Riwayat Tanda Jasa</a></li>
+        <li><a data-toggle="tab" href="#lT">Riwayat Medis</a></li>
+       
     </ul>
     <div class="tab-content">
         <div id="lA" class="tab-pane active">
