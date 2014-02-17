@@ -32,7 +32,7 @@
 
                     <div class="par">
                         <label>Tanggal Ijazah</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_ijazah" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_ijazah" class="input-small" /></span>
                     </div>
 
                     <p>
@@ -50,12 +50,12 @@
 
                     <div class="par">
                         <label>Tanggal Mulai</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_mulai" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_mulai" class="input-small" /></span>
                     </div> 
 
                     <div class="par">
                         <label>Tanggal Selesai</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_selesai" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_selesai" class="input-small" /></span>
                     </div>
 
                     <p>
