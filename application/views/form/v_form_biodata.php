@@ -44,7 +44,7 @@
                     
                     <div class="par">
                         <label>Tanggal Lahir</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_lahir" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-medium" /></span>
                     </div> 
                     
                     <p>
@@ -83,12 +83,12 @@
                     <!-- id="datepicker" cuma bisa dipake sekali? kalo yang kedua kali ga mau muncul kalendernya-->
                     <div class="par">
                         <label>TMT CPNS</label>
-                        <span class="field"><input id="datepicker" type="text" name="tmt_cpns" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" type="text" name="tmt_cpns" class="input-medium" /></span>
                     </div> 
                     
                     <div class="par">
                         <label>TMT PNS</label>
-                        <span class="field"><input id="datepicker" type="text" name="tmt_pns" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" type="text" name="tmt_pns" class="input-medium" /></span>
                     </div> 
                     
                     <p>
