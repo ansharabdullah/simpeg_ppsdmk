@@ -13,7 +13,7 @@
         <div class="widgetbox box">
             <h4 class="widgettitle">DATA UTAMA</h4>
             <div class="widgetcontent nopadding">
-                <form class="stdform stdform2" action=<?php echo base_url();?>pegawai/biodata_tes method="post">
+                <form class="stdform stdform2" action=<?php echo base_url();?>pegawai/input_pegawai method="post">
                     
                     <p>
                         <label>NIP</label>

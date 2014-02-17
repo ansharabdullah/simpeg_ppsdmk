@@ -63,5 +63,8 @@ class m_pegawai extends CI_Model {
 		return $tanggal;		
     }
     
+    public function insert_pegawai($data){
+        $this->db->insert('pegawai', $data);
+    }
 
 }
