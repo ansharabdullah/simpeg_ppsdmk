@@ -35,7 +35,7 @@
 
                     <div class="par">
                         <label>Tanggal Sertifikat</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_sertifikat" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_sertifikat" class="input-small" /></span>
                     </div> 
 
                     <p>

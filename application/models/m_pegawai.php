@@ -65,5 +65,8 @@ where p.ID_PEGAWAI=lk.ID_PEGAWAI and lk.ID_JENIS_GOLONGAN=jg.ID_JENIS_GOLONGAN a
 		return $tanggal;		
     }
     
+    public function insert_pegawai($data){
+        $this->db->insert('pegawai', $data);
+    }
 
 }

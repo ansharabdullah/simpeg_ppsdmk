@@ -10,7 +10,7 @@
                     
                     <div class="par">
                         <label>Tanggal Kartu Pegawai</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_kartu_pegawai" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_kartu_pegawai" class="input-small" /></span>
                     </div> 
                    
                     
@@ -32,7 +32,7 @@
                     <!-- id="datepicker" cuma bisa dipake sekali? kalo yang kedua kali ga mau muncul kalendernya-->
                     <div class="par">
                         <label>Tanggal Askes</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_askes" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_askes" class="input-small" /></span>
                     </div> 
        
                     

@@ -36,17 +36,17 @@
 
                     <div class="par">
                         <label>Tanggal SK</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_sk" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_sk" class="input-small" /></span>
                     </div> 
                    
                     <div class="par">
-                        <label>Masa Kerja</label>
-                        <span class="field"><input id="datepicker" type="text" name="masa_kerja" class="input-small" /></span>
+                        <label>Masa Kerja Tahun</label>
+                        <span class="field"><input type="text" name="masa_kerja" class="input-small" /></span>
                     </div> 
 
                     <p>
-                        <label>Bulannya</label>
-                        <span class="field"><input type="text" name="bulan" class="input-large" placeholder="" /></span>
+                        <label>Masa Kerja Bulan</label>
+                        <span class="field"><input type="text" name="bulan" class="input-small" placeholder="" /></span>
                     </p>
 
                     <div class="par">

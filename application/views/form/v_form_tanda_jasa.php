@@ -20,7 +20,7 @@
 
                     <div class="par">
                         <label>Tanggal SK</label>
-                        <span class="field"><input id="datepicker" type="text" name="tanggal_sk" class="input-small" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tanggal_sk" class="input-small" /></span>
                     </div> 
                    
                     <p>
