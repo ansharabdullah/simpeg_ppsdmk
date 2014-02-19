@@ -19,7 +19,7 @@
 </script>
             
 <div id="dashboard-left" class="span8" style="width:95.5%;">
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Jumlah Pegawai<?php echo $title;?></h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL JUMLAH PEGAWAI <?php echo $title;?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
 <table id="dyntable" class="table table-bordered responsive">
 	<colgroup>
@@ -37,8 +37,10 @@
 			<th class="head1">NIP</th>
 			<th class="head0">Nama Pegawai</th>
 			<th class="head0">Jenis Kelamin</th>
+			<th class="head0">PEND.AKHIR</th>
 			<th class="head1">Golongan</th>
 			<th class="head1">Jabatan</th>
+			<th class="head1">UNIT KERJA</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,11 +55,12 @@
 		  </span></td>
 			<td><?php echo $no;?></td>
 			<td><?php echo $row->NIP;?></td>
-			<td><a style="color:<?php echo $warna3; ?>;" href="<?php echo base_url();?>admin/pegawai/<?php echo $link; ?>/<?php echo $periode; ?>"><?php echo $row->nama_pegawai;?></a></td>
-			<td class="center"><?php echo $row->jenis_kelamin;?></td>
-			<td class="center"><?php echo $row->golongan;?></td>
-			<td class="center"><?php echo $row->jabatan;?></td>
-			<td class="center"><?php echo $row->nama_unit;?></td>
+			<td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI;?></a></td>
+			<td class="center"><?php echo $row->JENIS_KELAMIN;?></td>
+			<td class="center"><?php echo $row->TINGKAT_PENDIDIKAN;?></td>
+			<td class="center"><?php echo $row->GOLONGAN;?></td>
+			<td class="center"><?php echo $row->JABATAN;?></td>
+			<td class="center"><?php echo $row->NAMA_UNIT;?></td>
 		</tr>
 		<?php 
 		$no++;

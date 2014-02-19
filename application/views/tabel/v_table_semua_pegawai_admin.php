@@ -42,6 +42,7 @@
 			<th class="head0 center">NIP</th>
 			<th class="head1 center">NAMA PEGAWAI</th>
 			<th class="head0 center">JENIS KELAMIN</th>
+			<th class="head0 center">PENDIDIKAN TERAKHIR</th>
 			<th class="head1 center">UNIT</th>
 			<th class="head1 center">JABATAN</th>
 			<th class="head0 right">Aksi</th>
@@ -52,15 +53,16 @@
 		<?php 
                 $no=1;
                 foreach($query as $row){
-		$link = $row->nip;
+		$link = $row->NIP;
 		?>
 		<tr class="gradeX">
 			<td class="center"><?php echo $no; ?></td>
-			<td class="center"><?php echo $row->nip; ?></td>
-                        <td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo strtoupper($row->nama_pegawai); ?></td>
-			<td class="center"><?php echo $row->jenis_kelamin; ?></td>
-			<td><?php echo $row->nama_unit; ?></td>
-                        <td><?php echo strtoupper($row->jabatan); ?></td>
+			<td class="center"><?php echo $row->NIP; ?></td>
+                        <td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo strtoupper($row->NAMA_PEGAWAI); ?></td>
+			<td class="center"><?php echo $row->JENIS_KELAMIN; ?></td>
+			<td class="center"><?php echo $row->TINGKAT_PENDIDIKAN; ?></td>
+			<td><?php echo $row->NAMA_UNIT; ?></td>
+                        <td><?php echo strtoupper($row->JABATAN); ?></td>
                         <td class="center"><a href="<?php echo base_url();?>pegawai/input_biodata">Edit</a></td>
 			<td class="center"><a href="#" class="">Hapus</a></td>
 		</tr>

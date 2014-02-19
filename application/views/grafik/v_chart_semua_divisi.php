@@ -8,10 +8,10 @@
                 text: 'JUMLAH PEGAWAI'
             },
             subtitle: {
-                text: 'Seluruh Bagian'
+                text: '<?php echo $subtitle?>'
             },
             xAxis: {
-                categories: [<?php echo '"' . implode('","', $nama_bagian) . '"'; ?>]
+                categories: [<?php echo '"' . implode('","', $x) . '"'; ?>]
             },
             yAxis: {
                 max: 30,
@@ -41,8 +41,9 @@
                                 var nama = this.category;
                                 nama = nama.replace(" ", "_");
                                 nama = nama.replace(" ", "_");
+                                nama = nama.replace(" ", "_");
                                 nama = nama.toLowerCase();
-                                location.href = '<?php echo base_url(); ?>grafik/perbagian/' + nama;
+                                location.href = '<?php echo base_url(),"",$alamat; ?>/' + nama;
                             }
                         }
                     }
@@ -50,7 +51,7 @@
             },
             series: [{
                     name: 'Jumlah Pegawai ',
-                    data: [<?php echo implode(', ', $jumlah_pegawai); ?>]
+                    data: [<?php echo implode(', ', $y); ?>]
                 }]
         });
     });

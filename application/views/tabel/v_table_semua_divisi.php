@@ -49,7 +49,7 @@
                             <input type="checkbox" />
                         </span></td>
                     <td><?php echo $no; ?></td>
-                    <td><a href="<?php echo base_url(); ?>grafik/perbagian/<?php echo $link; ?>"><?php echo $row->NAMA_UNIT; ?></a></td>
+                    <td><a href="<?php echo base_url(); ?>grafik/bagian/<?php echo $link; ?>"><?php echo $row->NAMA_UNIT; ?></a></td>
                     <td class="center"><?php echo $row->JUMLAH; ?></td>
                 </tr>
                 <?php
