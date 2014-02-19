@@ -51,8 +51,8 @@
                         <label>Jenis Kelamin</label>
                         <span class="field"><select name="jenis_kelamin" id="selection2" class="uniformselect" >
                                 <option value="">--</option>
-                                <option value="A">Laki-laki</option>
-                                <option value="B">Perempuan</option>
+                                <option value="LAKI-LAKI">Laki-laki</option>
+                                <option value="PEREMPUAN">Perempuan</option>
                             </select></span>
                     </p>
                     

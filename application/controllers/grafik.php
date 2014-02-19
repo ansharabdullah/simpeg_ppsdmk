@@ -100,60 +100,42 @@ class grafik extends CI_Controller {
         $jml_peg = array();
         $rerata = array();
         foreach ($query as $q) {
-            $bagian[] = $q->nama_divisi;
-            $jml_peg[] = $q->jml_pegawai;
-            $rerata[] = !empty($q->rerata) ? $q->rerata : '0';
+            $bagian[] = $q->NAMA_UNIT;
+            $jml_peg[] = $q->JUMLAH;
         }
 
         $data['nilai'] = $this->m_nilai->grafikDivisi();
 
-        $this->load->view("grafik/v_chart_semua_divisi", array('divisi' => $bagian, 'jml_peg' => $jml_peg, 'rerata' => $rerata));
+        $this->load->view("grafik/v_chart_semua_divisi", array('nama_bagian' => $bagian, 'jumlah_pegawai' => $jml_peg));
         $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
     }
 
     public function perbagian($nama_bagian) {
-        $periode = $this->m_nilai->getPeriode();
-
         $id = 0;
-        if ($nama_bagian == "divisi_marketing") {
+        if ($nama_bagian == "tata_usaha") {
             $id = 1;
-            $nama_bagian = "Divisi Marketing";
-        } else if ($nama_bagian == "divisi_hrd") {
+            $nama_bagian = "BAGIAN TATA USAHA";
+        } else if ($nama_bagian == "program_dan_kerjasama") {
             $id = 2;
-            $nama_bagian = "Divisi HRD";
-        } else if ($nama_bagian == "divisi_finansial") {
+            $nama_bagian = "BAGIAN PROGRAM DAN KERJASAMA";
+        } else if ($nama_bagian == "pengembangan_kompetensi_dan_kemetrologian") {
             $id = 3;
-            $nama_bagian = "Divisi Finansial";
-        } else if ($nama_bagian == "divisi_operasional") {
-            $id = 4;
-            $nama_bagian = "Divisi Operasional";
-        } else if ($nama_bagian == "divisi_it") {
-            $id = 5;
-            $nama_bagian = "Divisi IT";
+            $nama_bagian = "BAGIAN PENGEMBNGAN KOMPETENSI DAN KEMETROLOGIAN";
+        }else{
+            header("HTTP/1.1 404 Not Found");
         }
-
+        $title=$nama_bagian;
         $query = $this->m_nilai->grafikPegawaiDivisi($id);
-        $nip = array();
-        $nama = array();
-        $jk = array();
-        $rerata = array();
-        $jumlah_baik = 0;
-        $jumlah_jahat = 0;
+        $query1 = $this->m_nilai->tabelPegawaiDivisi($id);
+        
+        $jabatan[] ='';
+        $jumlah[] ='';
         foreach ($query as $q) {
-            $nip[] = $q->nip;
-            $nama_pegawai[] = $q->nama_pegawai;
-            $jk[] = $q->jenis_kelamin;
-            //$rerata[] = $q->rerata;
-            $rerata[] = !empty($q->rerata) ? $q->rerata : '0';
-            if ($q->rerata == null || $q->rerata <= 50) {
-                $jumlah_jahat++;
-            } else {
-                $jumlah_baik++;
-            }
+            $jabatan[]=$q->JABATAN;
+            $jumlah[]=$q->JUMLAH;
         }
-
-        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $nama_bagian, 'nama_pegawai' => $nama_pegawai, 'rerata' => $rerata, 'periode' => $periode, 'jumlah_baik' => $jumlah_baik, 'jumlah_jahat' => $jumlah_jahat));
-        $this->load->view("tabel/v_table_satu_divisi", array('query' => $query, 'periode' => $periode));
+        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'jabatan' => $jabatan, 'jml' => $jumlah));
+        $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
     }
 
 }

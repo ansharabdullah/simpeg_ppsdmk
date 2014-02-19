@@ -1,128 +1,10 @@
-<script type="text/javascript">
-    $(function () {
-        
-        $('#container1').highcharts({
-            
-            chart: {
-                polar: true,
-                type: 'area'
-            },
-
-            title: {
-                text: '<?php echo $title; ?>',
-                x: -80
-            },
-
-            pane: {
-                size: '80%'
-            },
-
-            xAxis: {
-                categories: [<?php echo '"'.implode('","',$subkriteria).'"'; ?>],
-                tickmarkPlacement: 'on',
-                lineWidth: 0
-            },	
-            
-            yAxis: {
-                gridLineInterpolation: 'polygon',
-                lineWidth: 0,
-                min: 0,
-                max: 100
-            },
-	    
-            tooltip: {
-                shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
-            },
-	    
-            legend: {
-                align: 'right',
-                verticalAlign: 'top',
-                y: 70,
-                layout: 'vertical'
-            },
-	    
-            series: [{
-                    name: 'Penilaian',
-                    data: [<?php echo implode(', ',$nilai); ?>],
-                    pointPlacement: 'on'
-                }]
-            
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'spline'
-            },
-            title: {
-                text: '<?php echo $title; ?>'
-            },
-            subtitle: {
-                text: 'Perkembangan Kinerja'
-            },
-            xAxis: {
-                categories: [<?php echo '"'.implode('", "',$tgl).'"'; ?>]
-            },
-            yAxis: {
-                title: {
-                    text: 'Rentang Nilai'
-                },
-                labels: {
-                    formatter: function() {
-                        return this.value 
-                    }
-                },
-                max: 100,
-                min: 0
-            },
-            tooltip: {
-                crosshairs: true,
-                shared: true
-            },
-            plotOptions: {
-                spline: {
-                    marker: {
-                        radius: 4,
-                        lineColor: '#666666',
-                        lineWidth: 1
-                    }
-                },
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function() {									
-                                var nama = this.category;
-                                //nama = nama.toLowerCase(); 
-                                window.location.href = '<?php echo base_url(); ?>admin/pegawai/<?php echo str_replace(" ", "_", $title); ?>/' + nama; 
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                    name: 'Nilai',
-                    marker: {
-                        symbol: 'square'
-                    },
-                    data: [<?php echo implode(', ',$nilai1); ?>]
-                    
-                }]
-        });
-    });
-    
-    
-</script>
 
 <div class="pageheader">
     <div class="pageicon"><span class="iconfa-user"></span></div>
     <div class="pagetitle">
         <h5>.</h5>
         <h1>Data Pegawai </h1>
-            
+
     </div>
 </div>
 
@@ -136,76 +18,127 @@
                     <li><a href="#"><i class="iconfa-pencil"></i> &nbsp;Edit Data</a></li>
                 </ul>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-book icon-white"></span>BIODATA</h4>
         </div>
-            
-            
-            
+
+
+
         <div class="widgetcontent" >
-		<?php foreach($biodata as $row){?>
+            <?php
+            $NIP = "";
+            $NIP_LAMA = "";
+            $NAMA_PEGAWAI = "";
+            $TEMPAT_LAHIR = "";
+            $TGL_LAHIR = "";
+            $JENIS_KELAMIN = "";
+            $TMT_CPNS = "";
+            $TMT_PNS = "";
+            $GOLONGAN = "";
+            $NAMA_PANGKAT = "";
+            $TMT_GOLONGAN = "";
+            $JABATAN = "";
+            $NAMA_UNIT = "";
+            $AGAMA = "";
+            $STATUS_PERKAWINAN = "";
+            $ALAMAT = "";
+            $KELURAHAN = "";
+            $KECAMATAN = "";
+            $KABUPATEN = "";
+            $PROVINSI = "";
+            $KODE_POS = "";
+            $NO_HANDPHONE = "";
+            $EMAIL = "";
+            $NO_NPWP = "";
+            $MASA_KERJA="";
+            foreach ($query as $row) {
+                $NIP = $row->nip;
+                $NIP_LAMA = $row->nip_lama;
+                $NAMA_PEGAWAI = $row->gelar_depan + $row->nama_lengkap + $row->gelar_belakang;
+                $TEMPAT_LAHIR = $row->tempat_lahir;
+                $TGL_LAHIR = $row->tgl_lahir;
+                $JENIS_KELAMIN = $row->jenis_kelamin;
+                $TMT_CPNS = $row->tmt_cpns;
+                $TMT_PNS = $row->tmt_pns;
+                $GOLONGAN = $row->golongan;
+                $NAMA_PANGKAT = $row->nama_pangkat;
+                $TMT_GOLONGAN = $row->tmt_golongan;
+                $JABATAN = $row->jabatan;
+                $NAMA_UNIT = $row->nama_unit;
+                $AGAMA = $row->agama;
+                $STATUS_PERKAWINAN = $row->status_perkawinan;
+                $ALAMAT = $row->alamat;
+                $KELURAHAN = $row->kelurahan;
+                $KECAMATAN = $row->kecamatan;
+                $KABUPATEN = $row->kabupaten;
+                $PROVINSI = $row->provinsi;
+                $KODE_POS = $row->kode_pos;
+                $NO_HANDPHONE = $row->no_handphone;
+                $EMAIL = $row->email;
+                $NO_NPWP = $row->no_npwp;
+            }
+            ?>
             <br />
-                
+
             <div class="row-fluid">    
                 <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/foto_profil.png"  class="pull-right"/></center>
-                
+
                 <div class="span9">
                     <table class="table table-bordered table-invoice">
                         <tr>
                             <td class="width30">NIP/NIP Lama</td>
-                            <td><?php echo $row->NIP;?> / </td>
+                            <td><?php echo $NIP; ?> / <?php echo $NIP_LAMA; ?></td>
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
-                            <td><?php echo $row->NAMA_PEGAWAI;?></td>
+                            <td><?php echo $NAMA_PEGAWAI; ?></td>
                         </tr>
                         <tr>
                             <td>Tempat, Tanggal Lahir</td>
-                            <td><?php echo $row->TEMPAT_LAHIR;?>, <?php echo $row->TANGGAL_LAHIR;?></td>
+                            <td><?php echo $TEMPAT_LAHIR; ?>, <?php echo $TGL_LAHIR; ?></td>
                         </tr>
                         <tr>
                             <td>Jenis Kelamin</td>
-                            <td><?php echo $row->JENIS_KELAMIN;?></td>
+                            <td><?php echo $JENIS_KELAMIN; ?></td>
                         </tr>
                         <tr>
                             <td>TMT CPNS/Masa Kerja</td>
-                            <td></td>
+                            <td><?php echo $TMT_CPNS," / ",$MASA_KERJA; ?></td>
                         </tr>
                         <tr>
                             <td>Pangkat/Gol.Ruang/TMT</td>
-                            <td></td>
+                            <td><?php echo $NAMA_PANGKAT," / ",$GOLONGAN," / ",$TMT_PNS; ?></td>
                         </tr>
                         <tr>
                             <td>Jabatan</td>
-                            <td></td>
+                            <td><?php echo $JABATAN; ?></td>
                         </tr>
-                            
+
                         <tr>
                             <td>Agama</td>
-                            <td></td>
+                            <td><?php echo $AGAMA; ?></td>
                         </tr>
                         <tr>
                             <td>Status Perkawinan</td>
-                            <td></td>
+                            <td><?php echo $STATUS_PERKAWINAN; ?></td>
                         </tr>
                         <tr>
                             <td>Alamat Rumah</td>
-                            <td><?php echo $row->ALAMAT;?></td>
+                            <td><?php echo $ALAMAT,",",$KELURAHAN,",",$KECAMATAN,",",$KABUPATEN,",",$PROVINSI,",",$KODE_POS; ?></td>
                         </tr>
                         <tr>
                             <td>No Handphone</td>
-                            <td>0<?php echo $row->NO_KONTAK;?></td>
+                            <td><?php echo $NO_HANDPHONE; ?></td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td></td>
+                            <td><?php echo $EMAIL; ?></td>
                         </tr>
                         <tr>
                             <td>NPWP</td>
-                            <td></td>
+                            <td><?php echo $NO_NPWP; ?></td>
                         </tr>
                     </table>
-				<?php } ?>
                 </div>
             </div>
         </div>
@@ -224,10 +157,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT JABATAN</h4>
         </div>
-            
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -279,10 +212,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT KEPANGKATAN</h4>
         </div>
-            
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -340,10 +273,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENDIDIKAN</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -400,10 +333,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT STRUKTURAL</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -456,10 +389,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT FUNGSIONAL</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -512,10 +445,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT TEKNIS</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -568,10 +501,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT TOEFL</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -618,10 +551,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT TUGAS KE LUAR NEGERI</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -670,10 +603,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SEMINAR</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -729,10 +662,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORGANISASI</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -775,10 +708,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ALAMAT</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -831,10 +764,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PASANGAN</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -886,10 +819,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ANAK</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -936,10 +869,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SAUDARA</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -986,10 +919,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORANG TUA</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -1032,10 +965,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT GAJI BERKALA</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -1084,10 +1017,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT TANDA JASA</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>
@@ -1132,10 +1065,10 @@
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-            
+
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT MEDIS</h4> 
         </div>
-        
+
         <div class="widgetcontent" >
             <table class="table table-bordered ">
                 <thead>

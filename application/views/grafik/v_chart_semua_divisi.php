@@ -11,10 +11,10 @@
                 text: 'Seluruh Bagian'
             },
             xAxis: {
-                categories: [<?php echo '"' . implode('","', $divisi) . '"'; ?>]
+                categories: [<?php echo '"' . implode('","', $nama_bagian) . '"'; ?>]
             },
             yAxis: {
-                max: 100,
+                max: 30,
                 min: 0,
                 title: {
                     text: 'Jumlah'
@@ -23,7 +23,7 @@
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.1f}<br></b></td></tr>',
+                        '<td style="padding:0"><b>{point.y:f}<br></b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -50,7 +50,7 @@
             },
             series: [{
                     name: 'Jumlah Pegawai ',
-                    data: [<?php echo implode(', ', $rerata); ?>]
+                    data: [<?php echo implode(', ', $jumlah_pegawai); ?>]
                 }]
         });
     });

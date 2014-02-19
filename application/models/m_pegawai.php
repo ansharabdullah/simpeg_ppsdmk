@@ -7,12 +7,14 @@ class m_pegawai extends CI_Model {
     }
 
     public function get_all_pegawai() {
-        $query = $this->db->query("Select * from pegawai p, divisi j where p.id_jabatan=j.id_jabatan order by p.nama_pegawai ASC");
+        $query = $this->db->query("Select * from get_all_pegawai");
         return $query->result();
     }
 
-    public function get_pegawai($nama_pegawai) {
-        $query = $this->db->query("Select * from pegawai p, divisi j where p.id_jabatan=j.id_jabatan and p.nama_pegawai='$nama_pegawai'");
+    public function get_pegawai($nip) {
+        $query = $this->db->query("select p.nip_lama, p.nip, p.nama_pegawai, p.GELAR_DEPAN, p.GELAR_BELAKANG, p.TEMPAT_LAHIR, p.TGL_LAHIR, p.JENIS_KELAMIN, p.TMT_CPNS, p.TMT_PNS, jg.golongan, jg.NAMA_PANGKAT, lk.TMT_GOLONGAN, j.JABATAN, uk.NAMA_UNIT, p.AGAMA, p.STATUS_PERKAWINAN, la.ALAMAT, la.KELURAHAN, la.KECAMATAN, la.KABUPATEN, la.PROVINSI, la.KODE_POS, p.NO_HANDPHONE, p.EMAIL, p.NO_NPWP
+from pegawai p, jenis_golongan jg, log_kepangkatan lk, jabatan j, unit_kerja uk, log_alamat la, log_jabatan lj
+where p.ID_PEGAWAI=lk.ID_PEGAWAI and lk.ID_JENIS_GOLONGAN=jg.ID_JENIS_GOLONGAN and lj.ID_JABATAN=j.ID_JENIS_JABATAN and lj.ID_PEGAWAI=p.ID_PEGAWAI and lj.ID_UNIT=uk.ID_UNIT and la.ID_PEGAWAI=p.ID_PEGAWAI and p.nip='$nip'");
         return $query->result();
     }
 

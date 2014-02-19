@@ -57,12 +57,17 @@ class m_nilai extends CI_Model {
 
     //------------- high chart
     public function grafikDivisi() {
-        $query = $this->db->query("select d.id_jabatan, d.nama_divisi, (select count(id_jabatan) from pegawai where id_jabatan=d.id_jabatan) as jml_pegawai, (select avg(l.nilai_total) from log_nilai l, pegawai p where p.ID_PEGAWAI=l.ID_PEGAWAI and p.ID_JABATAN=d.id_jabatan) as rerata from divisi d,pegawai p where p.ID_JABATAN=d.id_jabatan group by d.id_jabatan order by rerata desc;");
+        $query = $this->db->query("SELECT U.NAMA_UNIT, (SELECT COUNT(P.ID_PEGAWAI) FROM PEGAWAI P, LOG_JABATAN LJ WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.STATUS_JABATAN=1 AND U.ID_UNIT=LJ.ID_UNIT) AS JUMLAH FROM UNIT_KERJA U;");
         return $query->result();
     }
 
     public function grafikPegawaiDivisi($id_jabatan) {
-        $query = $this->db->query("select p.id_pegawai, p.nip, p.nama_pegawai, d.nama_divisi, p.jenis_kelamin, (select avg(nilai_total) from log_nilai where id_pegawai=p.id_pegawai and p.id_jabatan=d.id_jabatan) as rerata from pegawai p, divisi d where p.id_jabatan=d.id_jabatan and p.id_jabatan='$id_jabatan' order by rerata desc;");
+        $query = $this->db->query("SELECT JJ.JABATAN, (SELECT COUNT(P.ID_PEGAWAI) AS JUMLAH FROM PEGAWAI P, LOG_JABATAN LJ, JABATAN J WHERE LJ.ID_PEGAWAI=P.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.STATUS_JABATAN='1' AND JJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN) AS JUMLAH FROM JABATAN JJ WHERE JJ.BAGIAN='$id_jabatan'");
+        return $query->result();
+    }
+    
+    public function tabelPegawaiDivisi($id_divisi){
+        $query = $this->db->query("SELECT P.NIP, P.NAMA_PEGAWAI, P.JENIS_KELAMIN, JG.GOLONGAN, J.JABATAN, U.NAMA_UNIT FROM PEGAWAI P, UNIT_KERJA U, LOG_JABATAN LJ, JABATAN J, LOG_KEPANGKATAN LK, JENIS_GOLONGAN JG WHERE LJ.ID_UNIT=U.ID_UNIT AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND J.BAGIAN='$id_divisi'");
         return $query->result();
     }
 
