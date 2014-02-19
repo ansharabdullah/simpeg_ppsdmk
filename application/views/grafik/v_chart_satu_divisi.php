@@ -2,58 +2,50 @@
     $(function() {
         $('#container').highcharts({
             chart: {
-                type: 'column'
+                type: 'bar'
             },
             title: {
-                text: 'JUMLAH PEGAWAI'
+                text: '<?php echo $title; ?>'
             },
-            subtitle: {
-                text: 'Jabatan'
-            },
-            xAxis: {
-                categories: [<?php echo '"' . implode('","', $jabatan) . '"'; ?>]
+            xAxis: {categories: [<?php echo '"' . implode('", "', $jbtn) . '"'; ?>],
+                title: {
+                    text: null
+                }
             },
             yAxis: {
-                max: 10,
                 min: 0,
                 title: {
-                    text: 'Jumlah'
+                    text: 'Jumlah Pegawai',
+                },
+                labels: {
+                    overflow: 'justify'
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:f}<br></b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
+                valueSuffix: ' '
             },
             plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
                 },
                 series: {
                     cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function() {
-                                var nama = this.category;
-                                nama = nama.replace(" ", "_");
-                                nama = nama.replace(" ", "_");
-                                nama = nama.toLowerCase();
-                                location.href = '<?php echo base_url(); ?>grafik/perbagian/' + nama;
-                            }
-                        }
-                    }
+                    
                 }
             },
+            credits: {
+                enabled: false
+            },
             series: [{
-                    name: 'Jumlah Pegawai ',
+                    name: 'Jabatan',
                     data: [<?php echo implode(', ', $jml); ?>]
                 }]
         });
     });
+
+
 </script>
 
 <div class="pageheader">
@@ -61,6 +53,8 @@
     <div class="pagetitle">
         <h5>.</h5>
         <h1>GRAFIK <?php echo $title; ?></h1>
+        jbtn<?php print_r($jbtn); ?>
+        jml<?php print_r($jml); ?>
     </div>
 </div>
 <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>JUMLAH PEGAWAI <?php echo $title; ?></h4>

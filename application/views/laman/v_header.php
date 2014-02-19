@@ -63,7 +63,6 @@
                     <ul class="dropdown-menu">
                         <li class="nav-header">Grafik Jumlah Pegawai</li>
                         <li><a href="<?php echo base_url();?>grafik/semua_bagian"><strong>Bagian</strong></a></li>
-                        <li><a href="<?php echo base_url();?>grafik/semua_jabatan"><strong>Jabatan</strong></a></li>
                         <li><a href="<?php echo base_url();?>grafik/semua_golongan"><strong>Golongan</strong></a></li>
                         <li><a href="<?php echo base_url();?>grafik/semua_pendidikan"><strong>Pendidikan</strong></a></li>
                         <li><a href="<?php echo base_url();?>grafik/semua_jenjang_umur"><strong>Jenjang Umur</strong></a></li>
