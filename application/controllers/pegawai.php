@@ -70,10 +70,10 @@ class pegawai extends CI_Controller {
         $data['nip']=$this->input->post('nip', true);
         $data['nip_lama']=$this->input->post('nip_lama', true);
         $data['gelar_depan']=$this->input->post('gelar_depan', true);
-        $data['nama']=$this->input->post('nama', true);
+        $data['nama_pegawai']=$this->input->post('nama_pegawai', true);
         $data['gelar_belakang']=$this->input->post('gelar_belakang', true);
         $data['tempat_lahir']=$this->input->post('tempat_lahir', true);
-        $data['tanggal_lahir']=$this->input->post('tanggal_lahir', true);
+        $data['tgl_lahir']=$this->input->post('tgl_lahir', true);
         $data['jenis_kelamin']=$this->input->post('jenis_kelamin', true);
         $data['agama']=$this->input->post('agama', true);
         $data['status_perkawinan']=$this->input->post('status_perkawinan', true);
@@ -81,7 +81,7 @@ class pegawai extends CI_Controller {
         $data['tmt_pns']=$this->input->post('tmt_pns', true);
         $data['pendidikan_awal']=$this->input->post('pendidikan_awal', true);
         $data['keterangan']=$this->input->post('keterangan', true);
-        $data['status']=$this->input->post('status', true);
+        $data['status_pegawai']=$this->input->post('status_pegawai', true);
         
         $this->m_pegawai->insert_pegawai($data);
 	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nama));

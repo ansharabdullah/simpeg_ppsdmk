@@ -30,7 +30,7 @@
                     </p>
                     <p>
                         <label>Nama</label>
-                        <span class="field"><input type="text" name="nama" class="input-large" placeholder="" /></span>
+                        <span class="field"><input type="text" name="nama_pegawai" class="input-large" placeholder="" /></span>
                     </p>
                     <p>
                         <label>Gelar Belakang</label>
@@ -44,7 +44,7 @@
                     
                     <div class="par">
                         <label>Tanggal Lahir</label>
-                        <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-medium" /></span>
+                        <span class="field"><input id="datepicker" type="date" name="tgl_lahir" class="input-medium" /></span>
                     </div> 
                     
                     <p>
@@ -107,7 +107,7 @@
                     
                     <p>
                         <label>Status</label>
-                        <span class="field"><select name="status" id="selection2" class="uniformselect" >
+                        <span class="field"><select name="status_pegawai" id="selection2" class="uniformselect" >
                                 <option value="">--</option>
                                 <option value="pns">PNS</option>
                             </select></span>
