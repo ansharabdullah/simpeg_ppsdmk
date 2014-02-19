@@ -83,8 +83,9 @@ class pegawai extends CI_Controller {
         $data['keterangan']=$this->input->post('keterangan', true);
         $data['status_pegawai']=$this->input->post('status_pegawai', true);
         
+        $nip=$this->input->post('nip', true);
         $this->m_pegawai->insert_pegawai($data);
-	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nama));
+	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nip));
     }
 //    program
     public function input_nilai($nama) {
@@ -99,8 +100,8 @@ class pegawai extends CI_Controller {
     }
 
     public function allpegawai() {
-        $query = $this->m_pegawai->get_all_pegawai();
-        $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $query));
+        $nip = $this->m_pegawai->get_all_pegawai();
+        $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $nip));
      }
      
     public function info_pegawai($nip) {

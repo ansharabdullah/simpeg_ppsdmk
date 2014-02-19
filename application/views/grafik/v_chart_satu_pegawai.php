@@ -51,7 +51,7 @@
             $EMAIL = "";
             $NO_NPWP = "";
             $MASA_KERJA="";
-            foreach ($query as $row) {
+            foreach ($nip as $row) {
                 $NIP = $row->nip;
                 $NIP_LAMA = $row->nip_lama;
                 $NAMA_PEGAWAI = $row->gelar_depan + $row->nama_lengkap + $row->gelar_belakang;
