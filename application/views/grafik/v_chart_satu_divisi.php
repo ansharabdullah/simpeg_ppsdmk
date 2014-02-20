@@ -57,7 +57,7 @@
         jml<?php print_r($jml); ?>
     </div>
 </div>
-<h4 class="widgettitle"><span class="icon-tasks icon-white"></span>JUMLAH PEGAWAI <?php echo $title; ?></h4>
+<h4 class="widgettitle"><span class="icon-tasks icon-white"></span>TABEL JUMLAH PEGAWAI <?php echo $title; ?></h4>
 <div class="widgetcontent">
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>

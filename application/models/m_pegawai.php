@@ -68,5 +68,23 @@ class m_pegawai extends CI_Model {
     public function insert_pegawai($data) {
         $this->db->insert('pegawai', $data);
     }
+    
+    public function get_pensiun() {
+        $query = $this->db->query("SELECT P.ID_PEGAWAI, P.NIP, P.NAMA_PEGAWAI, JG.GOLONGAN, P.JENIS_KELAMIN, LP.TINGKAT_PENDIDIKAN, J.JABATAN, U.NAMA_UNIT, (ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0)) AS UMUR, (687 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) AS PENSIUN
+        FROM PEGAWAI P, UNIT_KERJA U, JABATAN J, LOG_JABATAN LJ, LOG_PENDIDIKAN LP, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK
+        WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.ID_UNIT=U.ID_UNIT AND LP.ID_PEGAWAI=P.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LP.KETERANGAN_PENDIDIKAN=1 AND LK.ID_PEGAWAI=P.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND (687 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) <= 3
+        ORDER BY P.NAMA_PEGAWAI ");
+        return $query->result();
+    }
+    
+    public function get_kgb() {
+        $query = $this->db->query("Select * from get_all_pegawai");
+        return $query->result();
+    }
+    
+    public function get_naikPangkat() {
+        $query = $this->db->query("Select * from get_all_pegawai");
+        return $query->result();
+    }
 
 }

@@ -53,6 +53,7 @@
 		$link = str_replace(" ", "_", $link);
 		$warna1 = "";
 		$warna3 = "";
+                
 		if($row->rerata<=50){
 			$warna1 = "indianred";
 			$warna3 = "whitesmoke";

@@ -11,81 +11,83 @@ class pegawai extends CI_Controller {
     }
 
     public function index() {
+        
     }
-    
+
 //    method halaman
-    public function seluruh_pegawai(){
+    public function seluruh_pegawai() {
         $this->allpegawai();
         $this->load->view("laman/v_footer");
     }
-    
-    public function biodata($nama_pegawai){
+
+    public function biodata($nama_pegawai) {
         $this->info_pegawai($nama_pegawai);
         $this->load->view("laman/v_footer");
     }
-    
-    public function pengaturan_akun(){
+
+    public function pengaturan_akun() {
         $this->load->view('form/v_akun');
         $this->load->view('laman/v_footer');
     }
-        
-    public function persetujuan(){
-        
+
+    public function persetujuan() {
+
         $this->load->view('laman/v_footer');
     }
-    
-    public function kenaikan_pangkat(){
-        
+
+    public function kenaikan_pangkat() {
+
         $this->load->view('laman/v_footer');
     }
-    
-    public function gaji_berkala(){
-        
+
+    public function gaji_berkala() {
+
         $this->load->view('laman/v_footer');
     }
-        
+
     public function input_biodata() {
 
         $this->load->view("form/v_form_biodata");
         $this->load->view("laman/v_footer");
     }
-    
+
     public function ubah_biodata() {
 
         $this->load->view("form/v_form_biodata");
         $this->load->view("laman/v_footer");
     }
-    
-    public function pegawai_pensiun(){
-        
+
+    public function pegawai_pensiun() {
+        $this->usiaPensiun();
         $this->load->view('laman/v_footer');
     }
-    
+
     public function logout() {
         $this->session->sess_destroy();
         redirect(base_url());
     }
 
-    public function input_pegawai(){
-        $data['nip']=$this->input->post('nip', true);
-        $data['nip_lama']=$this->input->post('nip_lama', true);
-        $data['gelar_depan']=$this->input->post('gelar_depan', true);
-        $data['nama_pegawai']=$this->input->post('nama_pegawai', true);
-        $data['gelar_belakang']=$this->input->post('gelar_belakang', true);
-        $data['tempat_lahir']=$this->input->post('tempat_lahir', true);
-        $data['tgl_lahir']=$this->input->post('tgl_lahir', true);
-        $data['jenis_kelamin']=$this->input->post('jenis_kelamin', true);
-        $data['agama']=$this->input->post('agama', true);
-        $data['status_perkawinan']=$this->input->post('status_perkawinan', true);
-        $data['tmt_cpns']=$this->input->post('tmt_cpns', true);
-        $data['tmt_pns']=$this->input->post('tmt_pns', true);
-        $data['pendidikan_awal']=$this->input->post('pendidikan_awal', true);
-        $data['keterangan']=$this->input->post('keterangan', true);
-        $data['status_pegawai']=$this->input->post('status_pegawai', true);
-        
+    public function input_pegawai() {
+        $data['nip'] = $this->input->post('nip', true);
+        $data['nip_lama'] = $this->input->post('nip_lama', true);
+        $data['gelar_depan'] = $this->input->post('gelar_depan', true);
+        $data['nama_pegawai'] = $this->input->post('nama_pegawai', true);
+        $data['gelar_belakang'] = $this->input->post('gelar_belakang', true);
+        $data['tempat_lahir'] = $this->input->post('tempat_lahir', true);
+        $data['tgl_lahir'] = $this->input->post('tgl_lahir', true);
+        $data['jenis_kelamin'] = $this->input->post('jenis_kelamin', true);
+        $data['agama'] = $this->input->post('agama', true);
+        $data['status_perkawinan'] = $this->input->post('status_perkawinan', true);
+        $data['tmt_cpns'] = $this->input->post('tmt_cpns', true);
+        $data['tmt_pns'] = $this->input->post('tmt_pns', true);
+        $data['pendidikan_awal'] = $this->input->post('pendidikan_awal', true);
+        $data['keterangan'] = $this->input->post('keterangan', true);
+        $data['status_pegawai'] = $this->input->post('status_pegawai', true);
+
         $this->m_pegawai->insert_pegawai($data);
-	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nama));
+        $this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nama));
     }
+
 //    program
     public function input_nilai($nama) {
         $nama_pegawai = str_replace("_", " ", $nama);
@@ -101,8 +103,8 @@ class pegawai extends CI_Controller {
     public function allpegawai() {
         $query = $this->m_pegawai->get_all_pegawai();
         $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $query));
-     }
-     
+    }
+
     public function info_pegawai($nip) {
         /* biodata pegawai */
         $query = $this->m_pegawai->get_pegawai($nip);
@@ -110,7 +112,23 @@ class pegawai extends CI_Controller {
         $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query));
 
         //$this->load->view("v_table_satu_pegawai", array('title' => $nama, 'query' => $query, 'title' => $nama, 'periode' => $periode, 'rekomendasi' => $hasil, 'pilihan1' => $pilihan1, 'pilihan2' => $pilihan2, 'pilihan3' => $pilihan3, 'nilai1' => $nilai1));
-     }
+    }
 
-     
+//====================================================================================================
+//notifikasi
+
+    public function usiaPensiun() {
+        $query = $this->m_pegawai->get_pensiun();
+        $title = "PENSIUN";
+        $this->load->view("tabel/v_table_peringatan", array('query' => $query,'title'=>$title));
+    }
+
+    public function kenaikanGajiBerkala() {
+        
+    }
+
+    public function kenaikanPangkat() {
+        
+    }
+
 }
