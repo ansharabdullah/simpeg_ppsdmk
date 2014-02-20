@@ -84,8 +84,9 @@ class pegawai extends CI_Controller {
         $data['status_pegawai']=$this->input->post('status_pegawai', true);
         
         $nip=$this->input->post('nip', true);
+        $query = $this->m_pegawai->get_pegawai($nip);
         $this->m_pegawai->insert_pegawai($data);
-	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $nip));
+	$this->load->view("grafik/v_chart_satu_pegawai", array('title' => $query));
     }
 //    program
     public function input_nilai($nama) {
@@ -100,18 +101,24 @@ class pegawai extends CI_Controller {
     }
 
     public function allpegawai() {
-        $nip = $this->m_pegawai->get_all_pegawai();
-        $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $nip));
+        $query = $this->m_pegawai->get_all_pegawai();
+        $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $query));
      }
      
     public function info_pegawai($nip) {
         /* biodata pegawai */
         $query = $this->m_pegawai->get_pegawai($nip);
+        $query2 = $this->m_pegawai->get_log_jabatan($nip);
+        $query3 = $this->m_pegawai->get_log_kepangkatan($nip);
+        $query4 = $this->m_pegawai->get_log_pendidikan($nip);
+        $query5 = $this->m_pegawai->get_log_diklat_struktural($nip);
+        $query6 = $this->m_pegawai->get_log_diklat_fungsional($nip);
+        $query7 = $this->m_pegawai->get_log_diklat_teknis($nip);
 
-        $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query));
+        $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2'=>$query2, 'query3'=>$query3, 'query4'=>$query4, 'query4'=>$query5, 'query4'=>$query6, 'query4'=>$query7));
 
         //$this->load->view("v_table_satu_pegawai", array('title' => $nama, 'query' => $query, 'title' => $nama, 'periode' => $periode, 'rekomendasi' => $hasil, 'pilihan1' => $pilihan1, 'pilihan2' => $pilihan2, 'pilihan3' => $pilihan3, 'nilai1' => $nilai1));
      }
-
+     
      
 }

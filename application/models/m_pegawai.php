@@ -12,9 +12,8 @@ class m_pegawai extends CI_Model {
     }
 
     public function get_pegawai($nip) {
-        $query = $this->db->query("select p.nip_lama, p.nip, p.nama_pegawai, p.GELAR_DEPAN, p.GELAR_BELAKANG, p.TEMPAT_LAHIR, p.TGL_LAHIR, p.JENIS_KELAMIN, p.TMT_CPNS, p.TMT_PNS, jg.golongan, jg.NAMA_PANGKAT, lk.TMT_GOLONGAN, j.JABATAN, uk.NAMA_UNIT, p.AGAMA, p.STATUS_PERKAWINAN, la.ALAMAT, la.KELURAHAN, la.KECAMATAN, la.KABUPATEN, la.PROVINSI, la.KODE_POS, p.NO_HANDPHONE, p.EMAIL, p.NO_NPWP
-        from pegawai p, jenis_golongan jg, log_kepangkatan lk, jabatan j, unit_kerja uk, log_alamat la, log_jabatan lj
-        where p.ID_PEGAWAI=lk.ID_PEGAWAI and lk.ID_JENIS_GOLONGAN=jg.ID_JENIS_GOLONGAN and lj.ID_JABATAN=j.ID_JENIS_JABATAN and lj.ID_PEGAWAI=p.ID_PEGAWAI and lj.ID_UNIT=uk.ID_UNIT and la.ID_PEGAWAI=p.ID_PEGAWAI and p.nip='$nip'");
+        $query = $this->db->query("select p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp from pegawai p, jenis_golongan jg, jabatan j, log_alamat la, log_kepangkatan lk, log_jabatan lj 
+where p.id_pegawai=lj.id_pegawai and p.id_pegawai=lk.id_pegawai and p.id_pegawai=la.id_pegawai and lj.id_jenis_jabatan=j.id_jenis_jabatan and lk.id_jenis_golongan=jg.id_jenis_golongan and p.nip='$nip' and la.status_alamat=1 and lj.status_jabatan=1");
         return $query->result();
     }
 
@@ -68,5 +67,48 @@ class m_pegawai extends CI_Model {
     public function insert_pegawai($data) {
         $this->db->insert('pegawai', $data);
     }
-
+    
+    
+    public function get_log_jabatan($nip){
+        $query = $this->db->query("SELECT LJ.STATUS_JABATAN,J.JABATAN, UK.NAMA_UNIT, LJ.NO_SK_JABATAN, LJ.TGL_SK_JABATAN, LJ.TMT_JABATAN FROM JABATAN J, UNIT_KERJA UK, LOG_JABATAN LJ, PEGAWAI P
+        WHERE J.ID_JENIS_JABATAN=LJ.ID_JENIS_JABATAN AND LJ.ID_PEGAWAI=P.ID_PEGAWAI AND LJ.ID_UNIT=UK.ID_UNIT AND P.NIP='$nip' order by lj.status_jabatan desc");
+        return $query->result();
+    }
+    
+    public function get_log_kepangkatan($nip){
+         $query = $this->db->query("SELECT LK.STATUS_KEPANGKATAN, JG.NAMA_PANGKAT, JG.GOLONGAN, JK.JENIS_KENAIKAN, LK.TMT_GOLONGAN, LK.NO_SK_GOLONGAN, LK.TGL_SK_GOLONGAN, LK.MASA_KERJA_GOLONGAN, KG.BESAR_GAJI, LK.PERATURAN, LK.KETERANGAN_KEPANGKATAN
+        FROM LOG_KEPANGKATAN LK, PEGAWAI P, JENIS_GOLONGAN JG, JENIS_KENAIKAN JK, KATEGORI_GAJI KG
+        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_KENAIKAN=JK.ID_JENIS_KENAIKAN AND 
+        LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.ID_KATEGORI_GAJI=KG.ID_KATEGORI_GAJI AND P.NIP='$nip' order by lk.status_kepangkatan desc");
+         return $query->result();
+    }
+    
+    public function get_log_pendidikan($nip){
+        $query = $this->db->query("SELECT LP.STATUS_PENDIDIKAN_TERAKHIR, LP.TINGKAT_PENDIDIKAN, LP.NAMA_SEKOLAH, LP.LOKASI, LP.FAKULTAS,LP.JURUSAN, LP.INSTANSI, LP.NO_IJAZAH, LP.TGL_IJAZAH, LP.IPK 
+                    FROM LOG_PENDIDIKAN LP, PEGAWAI P
+                    WHERE P.ID_PEGAWAI=LP.ID_PEGAWAI AND P.NIP='$nip' order by LP.STATUS_PENDIDIKAN_TERAKHIR desc");
+        
+        return $query->result();
+    }
+    
+    PUBLIC FUNCTION get_log_diklat_struktural($nip){
+        $query = $this->db->query("SELECT LD.STATUS_DIKLAT,D.NAMA_DIKLAT, LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
+FROM DIKLAT D, LOG_DIKLAT LD, PEGAWAI P
+WHERE D.ID_JENIS_DIKLAT=LD.ID_JENIS_DIKLAT AND P.ID_PEGAWAI=LD.ID_PEGAWAI AND D.JENIS_DIKLAT=1 AND P.NIP='$nip' order by LD.STATUS_DIKLAT desc");
+         return $query->result();
+    }
+    
+    PUBLIC FUNCTION get_log_diklat_fungsional($nip){
+        $query = $this->db->query("SELECT LD.STATUS_DIKLAT,D.NAMA_DIKLAT, LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
+FROM DIKLAT D, LOG_DIKLAT LD, PEGAWAI P
+WHERE D.ID_JENIS_DIKLAT=LD.ID_JENIS_DIKLAT AND P.ID_PEGAWAI=LD.ID_PEGAWAI AND D.JENIS_DIKLAT=2 AND P.NIP='$nip' order by LD.STATUS_DIKLAT desc");
+         return $query->result();
+    }
+    
+    PUBLIC FUNCTION get_log_diklat_teknis($nip){
+        $query = $this->db->query("SELECT LD.STATUS_DIKLAT,D.NAMA_DIKLAT, LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
+FROM DIKLAT D, LOG_DIKLAT LD, PEGAWAI P
+WHERE D.ID_JENIS_DIKLAT=LD.ID_JENIS_DIKLAT AND P.ID_PEGAWAI=LD.ID_PEGAWAI AND D.JENIS_DIKLAT=3 AND P.NIP='$nip' order by LD.STATUS_DIKLAT desc");
+         return $query->result();
+    }
 }
