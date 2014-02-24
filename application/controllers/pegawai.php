@@ -45,23 +45,97 @@ class pegawai extends CI_Controller {
         $this->load->view('laman/v_footer');
     }
 
+    //INPUT
     public function input_biodata() {
-
         $this->load->view("form/v_form_biodata");
         $this->load->view("laman/v_footer");
     }
-
+    
+    public function input_log_jabatan() {
+        $this->load->view("form/v_form_jabatan");
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function input_log_pangkat() {
+        $this->load->view("form/v_form_pangkat");
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function input_log_pendidikan() {
+        $this->load->view("form/v_form_pendidikan");
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function input_log_diklat_struktural() {
+        $this->load->view("form/v_form_diklat_struktural");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_diklat_fungsional() {
+        $this->load->view("form/v_form_diklat_fungsional");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_diklat_teknis() {
+        $this->load->view("form/v_form_diklat_teknis");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_toefl() {
+        $this->load->view("form/v_form_toefl");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_penugasan() {
+        $this->load->view("form/v_form_penugasan");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_seminar() {
+        $this->load->view("form/v_form_seminar");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_organisasi() {
+        $this->load->view("form/v_form_organisasi");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_alamat() {
+        $this->load->view("form/v_form_alamat");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_pasangan() {
+        $this->load->view("form/v_form_pasangan");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_anak() {
+        $this->load->view("form/v_form_anak");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_saudara() {
+        $this->load->view("form/v_form_saudara");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_orangtua() {
+        $this->load->view("form/v_form_orangtua");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_gaji_berkala() {
+        $this->load->view("form/v_form_gaji_berkala");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_peghargaan() {
+        $this->load->view("form/v_form_tanda_jasa");
+        $this->load->view("laman/v_footer");
+    }
+    public function input_log_medis() {
+        $this->load->view("form/v_form_medis");
+        $this->load->view("laman/v_footer");
+    }
+    
     public function ubah_biodata() {
-
         $this->load->view("form/v_form_biodata");
+        $this->load->view("form/v_data_tambahan");
         $this->load->view("laman/v_footer");
     }
-
     public function pegawai_pensiun() {
         $this->usiaPensiun();
         $this->load->view('laman/v_footer');
     }
-
     public function logout() {
         $this->session->sess_destroy();
         redirect(base_url());
@@ -115,10 +189,21 @@ class pegawai extends CI_Controller {
         $query5 = $this->m_pegawai->get_log_diklat_struktural($nip);
         $query6 = $this->m_pegawai->get_log_diklat_fungsional($nip);
         $query7 = $this->m_pegawai->get_log_diklat_teknis($nip);
+        $query8 = $this->m_pegawai->get_log_toefl($nip);
+        $query9 = $this->m_pegawai->get_log_penugasan($nip);
+        $query10 = $this->m_pegawai->get_log_seminar($nip);
+        $query11 = $this->m_pegawai->get_log_organisasi($nip);
+        $query12 = $this->m_pegawai->get_log_alamat($nip);
+        $query13 = $this->m_pegawai->get_log_pasangan($nip);
+        $query14 = $this->m_pegawai->get_log_anak($nip);
+        $query15 = $this->m_pegawai->get_log_saudara($nip);
+        $query16 = $this->m_pegawai->get_log_orang_tua($nip);
+        $query17 = $this->m_pegawai->get_log_medis($nip);
+        $query18 = $this->m_pegawai->get_log_penghargaan($nip);
 
-        $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2'=>$query2, 'query3'=>$query3, 'query4'=>$query4, 'query4'=>$query5, 'query4'=>$query6, 'query4'=>$query7));
-
-        //$this->load->view("v_table_satu_pegawai", array('title' => $nama, 'query' => $query, 'title' => $nama, 'periode' => $periode, 'rekomendasi' => $hasil, 'pilihan1' => $pilihan1, 'pilihan2' => $pilihan2, 'pilihan3' => $pilihan3, 'nilai1' => $nilai1));
+        $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2'=>$query2, 'query3'=>$query3, 'query4'=>$query4, 'query5'=>$query5, 'query6'=>$query6,
+            'query7'=>$query7, 'query8'=>$query8, 'query9'=>$query9, 'query10'=>$query10, 'query11'=>$query11, 
+            'query12'=>$query12, 'query13'=>$query13, 'query14'=>$query14, 'query15'=>$query15,'query16'=>$query16,'query17'=>$query17,'query18'=>$query18 ));
      }
      
      
