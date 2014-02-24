@@ -454,7 +454,7 @@
                 $IPK =$row->IPK;
                 $NO_PEND=1;
                 
-            ?>
+            }?>
                 <tbody>
                     <tr>
                         <td>1</td>

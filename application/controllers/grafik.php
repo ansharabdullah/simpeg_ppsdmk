@@ -85,6 +85,7 @@ class grafik extends CI_Controller {
         $this->load->view('laman/v_footer');
     }
 
+//====================================================================================================
 //    function program
     public function grafik_bagian_all() {
         $query = $this->m_grafik->grafikDivisi();
@@ -95,8 +96,10 @@ class grafik extends CI_Controller {
 
         $subtitle = "SEMUA BAGIAN";
         $alamat = "grafik/bagian";
-        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat));
-        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
+        $status = 1;
+        $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul'=>$judul));
     }
 
     public function perbagian($nama_bagian) {
@@ -142,12 +145,17 @@ class grafik extends CI_Controller {
 
         $subtitle = "SEMUA GOLONGAN";
         $alamat = "grafik/golongan";
-        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat));
-        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
+        $status = 2;
+        $judul = "Jumlah Pegawai Seluruh Golongan PPSDMK";
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul'=>$judul));
     }
 
     public function grafik_golongan($golongan) {
-        $title = $golongan;
+        $title = "Golongan $golongan";
+        $title = strtoupper($title);
+        $title = str_replace("_"," ",$title);
+        
         $query = $this->m_grafik->grafikPergolongan($golongan);
 
         $jabatan[] = '';
@@ -179,12 +187,16 @@ class grafik extends CI_Controller {
 
         $subtitle = "SEMUA JENJANG PENDIDIKAN";
         $alamat = "grafik/pendidikan";
-        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat));
-        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
+        $status = 3;
+        $judul = "Jumlah Pegawai Seluruh Jenjang Pendidikan Akhir PPSDMK";
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status,'jdul'=>$judul));
     }
 
     public function grafik_pendidikan($tingkat_pendidikan) {
-        $title = $tingkat_pendidikan;
+        $title = "Pendidikan Akhir $tingkat_pendidikan";
+        $title = strtoupper($title);
+        $title = str_replace("_"," ",$title);
         $query = $this->m_grafik->grafikPerPendidikan($tingkat_pendidikan);
 
         $jabatan[] = '';
@@ -213,16 +225,27 @@ class grafik extends CI_Controller {
 
         $subtitle = "SEMUA JENJANG UMUR";
         $alamat = "grafik/jenjang_umur";
-        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat));
-        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
+        $status = 4;
+        $judul = "Jumlah Pegawai Seluruh Jenjang Umur PPSDMK";
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status,'judul'=>$judul));
     }
 
     public function grafik_umur($rentang) {
         $awal = substr($rentang, 0, 2);
         $akhir = substr($rentang, 3, 5);
-        $title = $rentang;
+         
+        $title = "Rentang Umur $rentang";   
+        if ($rentang == '%3E50') {
+            echo"masuuuk";
+            $awal = substr($rentang, 3, 5);
+            $akhir = 100;
+            $title = 'Rentang Umur >50';
+        }
+        $title = strtoupper($title);
+        $title = str_replace("_"," ",$title);
         $query = $this->m_grafik->grafikPerJenjangUmur($awal, $akhir);
-        echo $awal;
+        echo $rentang;
         echo $akhir;
         $jabatan[] = '';
         $jumlah[] = '';
@@ -250,12 +273,16 @@ class grafik extends CI_Controller {
 
         $subtitle = "SEMUA STATUS_PEGAWAI";
         $alamat = "grafik/status_pegawai";
-        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat));
-        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query));
+        $status = 5;
+        $judul = "Jumlah Pegawai Seluruh Status Kepegawaian PPSDMK";
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status,'judul'=>$judul));
     }
 
     public function grafik_status_pegawai($id) {
-        $title = $id;
+        $title = "Status Kepegawaian :  $id";
+        $title = strtoupper($title);
+        $title = str_replace("_"," ",$title);
         $query = $this->m_grafik->grafikPerStatusPegawai($id);
 
         $jabatan[] = '';

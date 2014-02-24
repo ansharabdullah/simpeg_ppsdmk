@@ -18,7 +18,7 @@
     });
 </script>
 
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Kinerja Divisi</h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL <?php echo strtoupper($judul); ?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
     <table id="dyntable" class="table table-bordered responsive">
         <colgroup>
@@ -31,26 +31,68 @@
         <thead>
             <tr>
                 <th class="head0 nosort"><input type="checkbox" class="checkall" /></th>
-                <th class="head0">No</th>
-                <th class="head1">Nama Bagian</th>
-                <th class="head0">Jumlah Pegawai</th>
+                <th class="head0 center">No</th>
+                <?php
+                if ($status == 1) {
+                    echo "<th class='head1 center'>Nama Bagian</th>";
+                } else if ($status == 2) {
+                    echo "<th class='head1 center'>Nama Golongan</th>";
+                } else if ($status == 3) {
+                    echo "<th class='head1 center'>Nama Pendidikan Terakhir</th>";
+                } else if ($status == 4) {
+                    echo "<th class='head1 center'>Jenjang Umur</th>";
+                } else if ($status == 5) {
+                    echo "<th class='head1 center'>Status Kepegawaian</th>";
+                }
+                ?>
+                <th class="head0 center">Jumlah Pegawai</th>
             </tr>
         </thead>
         <tbody>
             <?php
             $no = 1;
             foreach ($query as $row) {
-                $link = $row->NAMA_UNIT;
-                $link = strtolower($link);
-                $link = str_replace(" ", "_", $link);
+                $kolom1 = '';
+                $kolom2 = '';
+                if ($status == 1) {
+                    $link = "grafik/bagian/$row->NAMA_UNIT";
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = $row->NAMA_UNIT;
+                    $kolom2 = $row->JUMLAH;
+                } else if ($status == 2) {
+                    $link = "grafik/golongan/$row->GOLONGAN";
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = $row->GOLONGAN;
+                    $kolom2 = $row->JUMLAH;
+                } else if ($status == 3) {
+                    $link = "grafik/pendidikan/$row->TINGKAT_PENDIDIKAN";
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = $row->TINGKAT_PENDIDIKAN;
+                    $kolom2 = $row->JUMLAH;
+                } else if ($status == 4) {
+                    $link = "grafik/jenjang_umur/$row->UMUR";
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = $row->UMUR;
+                    $kolom2 = $row->JUMLAH;
+                } else if ($status == 5) {
+                    $link = "grafik/status_pegawai/$row->STATUS_PEGAWAI";
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = strtoupper($row->STATUS_PEGAWAI);
+                    $kolom2 = $row->JUMLAH;
+                }
                 ?>
                 <tr>
                     <td><span class="center">
                             <input type="checkbox" />
                         </span></td>
-                    <td><?php echo $no; ?></td>
-                    <td><a href="<?php echo base_url(); ?>grafik/bagian/<?php echo $link; ?>"><?php echo $row->NAMA_UNIT; ?></a></td>
-                    <td class="center"><?php echo $row->JUMLAH; ?></td>
+                    <td class="center"><?php echo $no; ?></td>
+                    <td class="center"><a href="<?php echo base_url(); ?><?php echo $link; ?>"><?php echo $kolom1; ?></a></td>
+                    <td class="center"><b><?php echo $kolom2; ?></b>&nbsp &nbsp Orang</td>
                 </tr>
                 <?php
                 $no++;

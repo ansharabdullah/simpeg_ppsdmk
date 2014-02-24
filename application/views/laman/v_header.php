@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PT. Semprot Packaging</title>
+<title>PPSDMK</title>
 
 <!--icon-->
 <link rel="icon" type="image/png" href="<?php echo base_url();?>/assets/shamcey/images/logi1.png">
@@ -80,7 +80,7 @@
                         <li><a href="<?php echo base_url();?>pegawai"><strong>Persetujuan</strong></a></li>
                         <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Pangkat</strong></a></li>
                         <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Gaji Berkala</strong></a></li>
-                        <li><a href="<?php echo base_url();?>pegawai"><strong>Pegawai Pensiun</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai/pegawai_pensiun"><strong>Pegawai Pensiun</strong></a></li>
                     </ul>
                 </li>
 			

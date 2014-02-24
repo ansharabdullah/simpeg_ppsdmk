@@ -61,10 +61,10 @@
     <div class="pageicon"><span class="iconfa-signal"></span></div>
     <div class="pagetitle">
         <h5>.</h5>
-        <h1>Statistik Jumlah Pegawai Seluruh Bagian PPSDMK</h1>
+        <h1><?php echo $judul?></h1>
     </div>
 </div>
-<h4 class="widgettitle"><span class="icon-signal icon-white"></span>Statistik Jumlah Pegawai Seluruh Bagian PPSDMK</h4>
+<h4 class="widgettitle"><span class="icon-signal icon-white"></span>GRAFIK <?php echo strtoupper($judul);?></h4>
 <div class="widgetcontent">
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>

@@ -18,12 +18,13 @@
     });
 </script>
             
-<div id="dashboard-left" class="span8" style="width:95.5%;">
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL JUMLAH PEGAWAI <?php echo $title;?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
-<table id="dyntable" class="table table-bordered responsive">
+<table id="dyntable" class="table table-bordered responsive" style="width:100%;">
 	<colgroup>
-		<col class="con0" style="align: center; width: 4%" />
+		<col class="con0" />
+		<col class="con1" />
+		<col class="con0" />
 		<col class="con1" />
 		<col class="con0" />
 		<col class="con1" />
@@ -33,14 +34,14 @@
 	<thead>
 		<tr>
 			<th class="head0 nosort"><input type="checkbox" class="checkall" /></th>
-			<th class="head0">No</th>
-			<th class="head1">NIP</th>
-			<th class="head0">Nama Pegawai</th>
-			<th class="head0">Jenis Kelamin</th>
-			<th class="head0">PEND.AKHIR</th>
-			<th class="head1">Golongan</th>
-			<th class="head1">Jabatan</th>
-			<th class="head1">UNIT KERJA</th>
+			<th class="head0 center">No</th>
+			<th class="head1 center">NIP</th>
+			<th class="head0 center">NAMA PEGAWAI</th>
+			<th class="head0 center">JENIS<br/>KELAMIN</th>
+			<th class="head0 center">PENDIDIKAN<br/>TERAKHIR</th>
+			<th class="head1 center">GOL</th>
+			<th class="head1 center">JABATAN</th>
+			<th class="head0 center">UNIT KERJA</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -59,7 +60,7 @@
 			<td class="center"><?php echo $row->JENIS_KELAMIN;?></td>
 			<td class="center"><?php echo $row->TINGKAT_PENDIDIKAN;?></td>
 			<td class="center"><?php echo $row->GOLONGAN;?></td>
-			<td class="center"><?php echo $row->JABATAN;?></td>
+                        <td class="center"><?php echo strtoupper($row->JABATAN);?></td>
 			<td class="center"><?php echo $row->NAMA_UNIT;?></td>
 		</tr>
 		<?php 
@@ -67,6 +68,5 @@
 		} ?>
 	</tbody>
 </table>
-</div>
 </div>
 </div>

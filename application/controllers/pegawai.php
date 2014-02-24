@@ -11,56 +11,57 @@ class pegawai extends CI_Controller {
     }
 
     public function index() {
+        
     }
-    
+
 //    method halaman
-    public function seluruh_pegawai(){
+    public function seluruh_pegawai() {
         $this->allpegawai();
         $this->load->view("laman/v_footer");
     }
-    
-    public function biodata($nama_pegawai){
+
+    public function biodata($nama_pegawai) {
         $this->info_pegawai($nama_pegawai);
         $this->load->view("laman/v_footer");
     }
-    
-    public function pengaturan_akun(){
+
+    public function pengaturan_akun() {
         $this->load->view('form/v_akun');
         $this->load->view('laman/v_footer');
     }
-        
-    public function persetujuan(){
-        
+
+    public function persetujuan() {
+
         $this->load->view('laman/v_footer');
     }
-    
-    public function kenaikan_pangkat(){
-        
+
+    public function kenaikan_pangkat() {
+
         $this->load->view('laman/v_footer');
     }
-    
-    public function gaji_berkala(){
-        
+
+    public function gaji_berkala() {
+
         $this->load->view('laman/v_footer');
     }
-        
+
     public function input_biodata() {
 
         $this->load->view("form/v_form_biodata");
         $this->load->view("laman/v_footer");
     }
-    
+
     public function ubah_biodata() {
 
         $this->load->view("form/v_form_biodata");
         $this->load->view("laman/v_footer");
     }
-    
-    public function pegawai_pensiun(){
-        
+
+    public function pegawai_pensiun() {
+        $this->usiaPensiun();
         $this->load->view('laman/v_footer');
     }
-    
+
     public function logout() {
         $this->session->sess_destroy();
         redirect(base_url());
@@ -103,8 +104,8 @@ class pegawai extends CI_Controller {
     public function allpegawai() {
         $query = $this->m_pegawai->get_all_pegawai();
         $this->load->view("tabel/v_table_semua_pegawai_admin", array('query' => $query));
-     }
-     
+    }
+
     public function info_pegawai($nip) {
         /* biodata pegawai */
         $query = $this->m_pegawai->get_pegawai($nip);
@@ -121,4 +122,22 @@ class pegawai extends CI_Controller {
      }
      
      
+    
+    
+//notifikasi
+
+    public function usiaPensiun() {
+        $query = $this->m_pegawai->get_pensiun();
+        $title = "PENSIUN";
+        $this->load->view("tabel/v_table_peringatan", array('query' => $query,'title'=>$title));
+    }
+
+    public function kenaikanGajiBerkala() {
+        
+    }
+
+    public function kenaikanPangkat() {
+        
+    }
+
 }
