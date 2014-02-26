@@ -20,7 +20,7 @@
 
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL PERINGATAN <?php echo $title; ?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
-    <table id="dyntable" class="table table-bordered responsive" style="width:100%;">
+    <table class="table table-bordered table-infinite" id="dyntable2">
         <colgroup>
             <col class="con0" />
             <col class="con1" />
@@ -34,7 +34,6 @@
         </colgroup>
         <thead>
             <tr>
-                <th class="head0 nosort"><input type="checkbox" class="checkall" /></th>
                 <th class="head0 center">No</th>
                 <th class="head1 center">NIP</th>
                 <th class="head0 center">NAMA PEGAWAI</th>
@@ -58,9 +57,6 @@
                 }
                 ?>
                 <tr style="background-color: <?php echo $warna ?>;">
-                    <td><span class="center">
-                            <input type="checkbox" />
-                        </span></td>
                     <td><?php echo $no; ?></td>
                     <td><?php echo $row->NIP; ?></td>
                     <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI; ?></a></td>
