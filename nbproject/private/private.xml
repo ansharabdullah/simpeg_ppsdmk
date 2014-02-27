@@ -6,6 +6,10 @@
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_pegawai_admin.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
+<<<<<<< HEAD
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_biodata.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_pegawai.php</file>
+=======
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_developer.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_peringatan.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_grafik.php</file>
@@ -14,6 +18,7 @@
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_peringatan.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_satu_divisi.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_kgb.php</file>
+>>>>>>> 42545efc5031c0867d948537f3d06735e55144d3
         </group>
     </open-files>
 </project-private>
