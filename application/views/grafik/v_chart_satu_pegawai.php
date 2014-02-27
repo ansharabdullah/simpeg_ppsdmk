@@ -4,28 +4,10 @@
     <div class="pagetitle">
         <h5>.</h5>
         <h1>Data Pegawai </h1>
-            
+        
     </div>
 </div>
-    
-<!-- biodata -->
-<div id="dashboard-right">
-    <div class="widgetbox">
-        <div class="headtitle">
-            <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#"><i class="iconfa-pencil"></i> &nbsp;Edit Data</a></li>
-                </ul>
-            </div>
-                
-            <h4 class="widgettitle"><span class="icon-book icon-white"></span>BIODATA</h4>
-        </div>
-            
-            
-            
-        <div class="widgetcontent" >
-            <?php
+<?php
             $NIP = "";
             $NIP_LAMA = "";
             $GELAR_DEPAN ="";
@@ -55,6 +37,7 @@
             $TMT_PNS="";
             $KETERANGAN="";
             $STATUS_PEGAWAI="";
+            $NO_KARTU_PEGAWAI="";
             $TGL_KARTU_PEGAWAI="";
             $NO_KTP="";
             $NO_ASKES="";
@@ -71,8 +54,9 @@
             $BAHASA_ASING="";
             $HOBI="";
             $FOTO="";
-            
+                
             foreach ($query as $row) {
+                $id_pegawai = $row->id_pegawai;
                 $NIP = $row->nip;
                 $NIP_LAMA = $row->nip_lama;
                 $GELAR_DEPAN = $row->gelar_depan;
@@ -99,6 +83,7 @@
                 $TMT_PNS=$row->tmt_pns;
                 $KETERANGAN=$row->keterangan;
                 $STATUS_PEGAWAI=$row->status_pegawai;
+                $NO_KARTU_PEGAWAI=$row->no_kartu_pegawai;
                 $TGL_KARTU_PEGAWAI=$row->tgl_kartu_pegawai;
                 $NO_KTP=$row->no_ktp;
                 $NO_ASKES=$row->no_askes;
@@ -116,13 +101,29 @@
                 $HOBI=$row->hobi;
                 $FOTO=$row->foto;
             }
-            ?>
+ ?>
+<!-- biodata -->
+<div id="dashboard-right">
+    <div class="widgetbox">
+        <div class="headtitle">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="iconfa-pencil"></i> &nbsp;Edit Biodata</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_data_tambahan/<?php echo $NIP;?>"><i class="iconfa-pencil"></i> &nbsp;Tambah Data Tambahan</a></li>
+                </ul>
+            </div>
+            
+            <h4 class="widgettitle"><span class="icon-book icon-white"></span>BIODATA</h4>
+        </div>
+        <div class="widgetcontent" >
+            
             <br />
-                
+            
             <div class="row-fluid" style="text-transform:uppercase;">    
                 <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/foto_profil.png"  class="pull-right"/></center>
-                    
-                <div class="span4">
+                
+                <div class="span4"> 
                     <table class="table table-bordered table-invoice">
                         <th>DATA UTAMA</th>
                         <th></th>
@@ -158,7 +159,7 @@
                             <td>Jabatan</td>
                             <td><?php echo $JABATAN; ?></td>
                         </tr>
-                            
+                        
                         <tr>
                             <td>Agama</td>
                             <td><?php echo $AGAMA; ?></td>
@@ -186,8 +187,8 @@
                         <th>DATA TAMBAHAN</th>
                         <th></th>
                         <tr>
-                            <td>TANGGAL KARTU PEGAWAI</td>
-                            <td><?php echo $TGL_KARTU_PEGAWAI; ?></td>
+                            <td>TANGGAL KARTU PEGAWAI/NO_KARTU_PEGAWAI</td>
+                            <td><?php echo $TGL_KARTU_PEGAWAI; ?>/<?php echo $NO_KARTU_PEGAWAI; ?></td>
                         </tr>
                         <tr>
                             <td>NO KTP</td>
@@ -213,7 +214,7 @@
                             <td>GOLONGAN DARAH</td>
                             <td><?php echo $GOL_DARAH; ?></td>
                         </tr>
-                            
+                        
                         <tr>
                             <td>RAMBUT</td>
                             <td><?php echo $RAMBUT; ?></td>
@@ -252,23 +253,24 @@
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT JABATAN--->
-    
+
 <div id="dashboard-right">
     <div class="widgetbox">
         <div class="headtitle">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_jabatan"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_jabatan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                        
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT JABATAN</h4>
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -326,23 +328,23 @@
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT KEPANGKATAN--->
-    
+
 <div id="dashboard-right">
     <div class="widgetbox">
         <div class="headtitle">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pangkat"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pangkat/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT KEPANGKATAN</h4>
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -354,7 +356,6 @@
                         <th>TMT Golongan</th>
                         <th>Nomor SK</th>
                         <th>Tanggal SK</th>
-                        <th>Masa Kerja Tahun</th>
                         <th>Masa Kerja Bulan</th>
                         <th>Gaji</th>
                         <th>Peraturan</th>
@@ -363,7 +364,7 @@
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-                
+                    
                 <?php
             $STATUS_KEPANGKATAN = "";
             $PANGKAT = "";
@@ -376,6 +377,7 @@
             $PERATURAN ="";
             $KETERANGAN_KEPANGKATAN ="";
             $NO_KP=1;
+            $MASA_KERJA_GOLONGAN="";
                 
             foreach ($query3 as $row) {
                 $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
@@ -387,12 +389,13 @@
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
                 $GAJI = $row->BESAR_GAJI;
                 $PERATURAN =$row->PERATURAN;
+                $MASA_KERJA_GOLONGAN=$row->MASA_KERJA_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
-                
+                    
                 $datetime1 = new DateTime($TMT_GOLONGAN);
                 $datetime2 = new DateTime();
                 $interval = $datetime1->diff($datetime2);
-                
+                    
             ?>
                 <tbody>
                     <tr>
@@ -408,8 +411,7 @@
                 <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
                 <td><?php echo $NO_SK_KEPANGKATAN;?></td>
                 <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
-                <td><?php echo $interval->format('%y TAHUN');?></td>
-                <td><?php echo $interval->format('%m BULAN')?></td>
+                <td><?php echo $MASA_KERJA_GOLONGAN;?> BULAN</td>
                 <td><?php echo $GAJI;?></td>
                 <td><?php echo $PERATURAN;?></td>
                 <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
@@ -422,23 +424,23 @@
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT PENDIDIKAN--->
-    
+
 <div id="dashboard-right">
     <div class="widgetbox">
         <div class="headtitle">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pendidikan"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pendidikan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENDIDIKAN</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -479,7 +481,7 @@
                 $NO_IJAZAH = $row->NO_IJAZAH;
                 $TGL_IJAZAH =$row->TGL_IJAZAH;
                 $IPK =$row->IPK;
-                
+                    
             ?>
                 <tbody>
                     
@@ -491,24 +493,24 @@
                         <?php }else if($STATUS_PENDIDIKAN==0){?>
                 <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?PHP echo $TINGKAT_PENDIDIKAN;?></td>
-                        <td><?PHP echo $NAMA_SEKOLAH; ?></td>
-                        <td><?PHP echo $LOKASI; ?></td>
-                        <td><?PHP echo $FAKULTAS; ?></td>
-                        <td><?PHP echo $JURUSAN; ?></td>
-                        <td><?PHP echo $NO_IJAZAH; ?></td>
-                        <td><?PHP echo $TGL_IJAZAH; ?></td>
-                        <td><?PHP echo $IPK; ?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?PHP echo $TINGKAT_PENDIDIKAN;?></td>
+                <td><?PHP echo $NAMA_SEKOLAH; ?></td>
+                <td><?PHP echo $LOKASI; ?></td>
+                <td><?PHP echo $FAKULTAS; ?></td>
+                <td><?PHP echo $JURUSAN; ?></td>
+                <td><?PHP echo $NO_IJAZAH; ?></td>
+                <td><?PHP echo $TGL_IJAZAH; ?></td>
+                <td><?PHP echo $IPK; ?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
                 <?php $NO_PEND++; } ?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT Diklat Struktural--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -516,14 +518,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_struktural"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_struktural/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT STRUKTURAL</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -567,7 +569,7 @@
                 $TANGGAL_SELESAI_DIKLAT= $row->TGL_SELESAI_DIKLAT;
                 $ANGKATAN_DIKLAT= $row->ANGKATAN_DIKLAT;
                 $RANGKING_DIKLAT= $row->RANGKING_DIKLAT;
-                
+                    
             ?>
                 <tbody>
                     <tr>
@@ -576,27 +578,27 @@
                         <?php if($STATUS_DIKLAT==1){?>
                             <input type="checkbox" checked="checked" disabled="disabled" /></td>
                         <?php }else if($STATUS_DIKLAT==0){?>
-                            <input type="checkbox"  disabled="disabled" /></td>
+                <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?PHP echo $NAMA_DIKLAT;?></td>
-                        <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
-                        <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
-                        <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
-                        <td><?PHP echo $LAMA_DIKLAT;?></td>
-                        <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
-                        <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
-                        <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
-                        <td><?PHP echo $RANGKING_DIKLAT;?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?PHP echo $NAMA_DIKLAT;?></td>
+                <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
+                <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
+                <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
+                <td><?PHP echo $LAMA_DIKLAT;?></td>
+                <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
+                <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
+                <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
+                <td><?PHP echo $RANGKING_DIKLAT;?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
                 <?php $NO_DS++; } ?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT Diklat FUNGSIONAL--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -604,14 +606,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_fungsional"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_fungsional/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT FUNGSIONAL</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -619,6 +621,7 @@
                         <th>No.</th>
                         <th>Aktif</th>
                         <th>Jenis</th>
+                        <th>Nama Diklat</th>
                         <th>Instansi</th>
                         <th>No Ijazah</th>
                         <th>Tanggal Ijazah</th>
@@ -635,6 +638,7 @@
                 foreach ($query6 as $row) {
                 $STATUS_DIKLAT = $row->STATUS_DIKLAT;
                 $NAMA_DIKLAT = $row->NAMA_DIKLAT;
+                $JUDUL_DIKLAT = $row->JUDUL_DIKLAT;
                 $INSTANSI_DIKLAT= $row->INSTANSI_DIKLAT;
                 $NO_IJAZAH_DIKLAT= $row->NO_IJAZAH_DIKLAT;
                 $TGL_IJAZAH_DIKLAT=$row->TGL_IJAZAH_DIKLAT;
@@ -642,8 +646,8 @@
                 $TANGGAL_MULAI_DIKLAT= $row->TGL_MULAI_DIKLAT;
                 $TANGGAL_SELESAI_DIKLAT= $row->TGL_SELESAI_DIKLAT;
                 $ANGKATAN_DIKLAT= $row->ANGKATAN_DIKLAT;
-                
-                
+                    
+                    
             ?>
                 <tbody>
                     <tr>
@@ -652,26 +656,27 @@
                         <?php if($STATUS_DIKLAT==1){?>
                             <input type="checkbox" checked="checked" disabled="disabled" /></td>
                         <?php }else if($STATUS_DIKLAT==0){?>
-                            <input type="checkbox"  disabled="disabled" /></td>
+                <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?PHP echo $NAMA_DIKLAT;?></td>
-                        <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
-                        <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
-                        <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
-                        <td><?PHP echo $LAMA_DIKLAT;?></td>
-                        <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
-                        <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
-                        <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?PHP echo $NAMA_DIKLAT;?></td>
+                <td><?PHP echo $JUDUL_DIKLAT;?></td>
+                <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
+                <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
+                <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
+                <td><?PHP echo $LAMA_DIKLAT;?></td>
+                <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
+                <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
+                <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
                 <?php $NO_DF++; } ?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT Diklat TEKNIS--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -679,14 +684,15 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_teknis"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_teknis/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                        
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT TEKNIS</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -707,20 +713,20 @@
                 <?php
                  $NO_DT=1;
                 foreach ($query7 as $row) {
-                $NAMA_DIKLAT = $row->NAMA_DIKLAT;
+                $JUDUL_DIKLAT = $row->JUDUL_DIKLAT;
                 $INSTANSI_DIKLAT= $row->INSTANSI_DIKLAT;
                 $NO_IJAZAH_DIKLAT= $row->NO_IJAZAH_DIKLAT;
                 $TGL_IJAZAH_DIKLAT=$row->TGL_IJAZAH_DIKLAT;
                 $LAMA_DIKLAT= $row->LAMA_DIKLAT;
                 $TANGGAL_MULAI_DIKLAT= $row->TGL_MULAI_DIKLAT;
                 $TANGGAL_SELESAI_DIKLAT= $row->TGL_SELESAI_DIKLAT;
-               
-                
+                    
+                    
             ?>
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_DT;?></td>
-                        <td><?PHP echo $NAMA_DIKLAT;?></td>
+                        <td><?PHP echo $JUDUL_DIKLAT;?></td>
                         <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
                         <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
                         <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
@@ -736,7 +742,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT TOEFL--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -744,14 +750,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_toefl"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_toefl/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT TOEFL</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -774,12 +780,12 @@
                 $STATUS_PENDIDIKAN = $row->STATUS_PENDIDIKAN_TERAKHIR;
                 $JENIS_PENDIDIKAN= $row->JENIS_PENDIDIKAN;
                 $TAHUN_PENDIDIKAN = $row->TAHUN_PENDIDIKAN;
-                $INSTANSI_PENDIDIKAN = $row->INSTANSI_PENDIDIKAN;
+                $INSTANSI_PENDIDIKAN = $row->INSTANSI;
                 $NO_IJAZAH = $row->NO_IJAZAH;
                 $TGL_IJAZAH =$row->TGL_IJAZAH;
                 $IPK =$row->IPK;
-                
-                
+                    
+                    
             ?>
                 <tbody>
                     <tr>
@@ -790,22 +796,22 @@
                         <?php }else if($STATUS_PENDIDIKAN==0){?>
                 <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?PHP echo $JENIS_PENDIDIKAN;?></td>
-                        <td><?PHP echo $TAHUN_PENDIDIKAN; ?></td>
-                        <td><?PHP echo $INSTANSI_PENDIDIKAN; ?></td>
-                        <td><?PHP echo $NO_IJAZAH; ?></td>
-                        <td><?PHP echo $TGL_IJAZAH; ?></td>
-                        <td><?PHP echo $IPK; ?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?PHP echo $JENIS_PENDIDIKAN;?></td>
+                <td><?PHP echo $TAHUN_PENDIDIKAN; ?></td>
+                <td><?PHP echo $INSTANSI_PENDIDIKAN; ?></td>
+                <td><?PHP echo $NO_IJAZAH; ?></td>
+                <td><?PHP echo $TGL_IJAZAH; ?></td>
+                <td><?PHP echo $IPK; ?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
                  <?php $NO_PEND++; } ?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT PENUGASAN--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -813,14 +819,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_penugasan"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_penugasan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENUGASAN</h4> 
         </div>
-            
+        
         <div class="widgetcontent"style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -861,8 +867,8 @@
                 $LAMA_PENUGASAN = $row->LAMA_PENUGASAN;
                 $TAHUN_PENUGASAN =$row->TAHUN_PENUGASAN;
                 $KETERANGAN_PENUGASAN =$row->KETERANGAN_PENUGASAN;
-                
-                
+                    
+                    
             ?>
                 <tbody>
                     <tr>
@@ -885,7 +891,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--RIWAYAT SEMINAR--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -893,14 +899,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_seminar"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_seminar/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SEMINAR</h4> 
         </div>
-            
+        
         <div class="widgetcontent"style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -941,8 +947,8 @@
                 $TGL_MULAI_PENUGASAN =$row->TGL_MULAI_PENUGASAN;
                 $TGL_SELESAI_PENUGASAN =$row->TGL_SELESAI_PENUGASAN;
                 $KETERANGAN_PENUGASAN =$row->KETERANGAN_PENUGASAN;
-            
-                
+                    
+                    
             ?>
                 <tbody>
                     <tr>
@@ -966,8 +972,8 @@
         </div>
     </div>
 </div>
-    
-    
+
+
 <!--RIWAYAT Organisasi--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -975,14 +981,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_organisasi"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_organisasi/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORGANISASI</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -1004,21 +1010,21 @@
                     $TAHUN_ORGANISASI = "";
                     $KETERANGAN_ORGANISASI = "";
                     $NO_ORG=1;
-
+                        
                 foreach ($query11 as $row) {
                     $JENIS_ORGANISASI =$row->JENIS_ORGANISASI;
                     $NAMA_ORGANISASI =$row->NAMA_ORGANISASI;
                     $JABATAN_ORGANISASI= $row->JABATAN_ORGANISASI;
                     $TAHUN_ORGANISASI = $row->TAHUN_ORGANISASI;
                     $KETERANGAN_ORGANISASI= $row->KETERANGAN_ORGANISASI;
-                  
+                        
                 ?>
-                
+                    
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_ORG;?></td>
                         <td><?PHP echo $JENIS_ORGANISASI;?></td>
-                        <td><?PHP echo $NAMA_ORGANIASAI;?></td>
+                        <td><?PHP echo $NAMA_ORGANISASI;?></td>
                         <td><?PHP echo $JABATAN_ORGANISASI;?></td>
                         <td><?PHP echo $TAHUN_ORGANISASI;?></td>
                         <td><?PHP echo $KETERANGAN_ORGANISASI;?></td>
@@ -1031,7 +1037,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Alamat--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1039,14 +1045,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_alamat"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_alamat/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ALAMAT</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -1061,6 +1067,7 @@
                         <th>Kode POS</th>
                         <th>TELEPON</th>
                         <th>FAX</th>
+                        <th>Tahun Aktif</th>
                         <th>Keterangan</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
@@ -1072,7 +1079,7 @@
                     $FAX= "";
                     $KETERANGAN_ALAMAT= "";
                     $NO_ALAMAT=1;
-
+                        
                 foreach ($query12 as $row) {
                     $STATUS_ALAMAT =$row->STATUS_ALAMAT;
                     $ALAMAT =$row->ALAMAT;
@@ -1083,6 +1090,7 @@
                     $KODE_POS= $row->KODE_POS;
                     $TELEPON= $row->TELEPON;
                     $FAX= $row->FAX;
+                    $TAHUN= $row->TAHUN_AKTIF;
                     $KETERANGAN_ALAMAT= $row->KETERANGAN_ALAMAT;
                 ?>
                 <tbody>
@@ -1092,27 +1100,28 @@
                         <?php if($STATUS_ALAMAT==1){?>
                             <input type="checkbox" checked="checked" disabled="disabled" /></td>
                         <?php }else if($STATUS_ALAMAT==0){?>
-                            <input type="checkbox"  disabled="disabled" /></td>
+                <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?PHP echo $ALAMAT;?></td>
-                        <td><?PHP echo $PROVINSI;?></td>
-                        <td><?PHP echo $KABUPATEN;?></td>
-                        <td><?PHP echo $KELURAHAN;?></td>
-                        <td><?PHP echo $KECAMATAN;?></td>
-                        <td><?PHP echo $KODE_POS;?></td>
-                        <td><?PHP echo $TELEPON;?></td>
-                        <td><?PHP echo $FAX;?></td>
-                        <td><?PHP echo $KETERANGAN_ALAMAT;?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?PHP echo $ALAMAT;?></td>
+                <td><?PHP echo $PROVINSI;?></td>
+                <td><?PHP echo $KABUPATEN;?></td>
+                <td><?PHP echo $KELURAHAN;?></td>
+                <td><?PHP echo $KECAMATAN;?></td>
+                <td><?PHP echo $KODE_POS;?></td>
+                <td><?PHP echo $TELEPON;?></td>
+                <td><?PHP echo $FAX;?></td>
+                <td><?PHP echo $TAHUN;?></td>
+                <td><?PHP echo $KETERANGAN_ALAMAT;?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
                 <?php $NO_ALAMAT++; } ?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Pasangan--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1120,20 +1129,20 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pasangan"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_pasangan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PASANGAN</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Aktif</th>
+                        <th>Status</th>
                         <th>Nama</th>
                         <th>Tanggal Lahir</th>
                         <th>Tempat Lahir</th>
@@ -1157,7 +1166,7 @@
                     $PEKERJAAN_PASANGAN= "";
                     $KETERANGAN_PASANGAN= "";
                     $NO_PASANGAN=1;
-
+                        
                 foreach ($query13 as $row) {
                     $STATUS_PASANGAN = $row->STATUS_PASANGAN;
                     $NAMA_PASANGAN= $row->NAMA_PASANGAN;
@@ -1172,14 +1181,7 @@
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_PASANGAN;?></td>
-                        <td>
-                            <?php if($STATUS_PASANGAN=="AKTIF"){?>
-                                AKTIF
-                            <?php }else if($STATUS_PASANGAN=="MENINGGAL"){?>
-                                MENINGGAL
-                            <?php }else if($STATUS_PASANGAN=="CERAI"){?>
-                                CERAI
-                            <?php }?>
+                        <td><?PHP echo $STATUS_PASANGAN;?></td>
                         <td><?PHP echo $NAMA_PASANGAN;?></td>
                         <td><?PHP echo $TGL_LAHIR_PASANGAN;?></td>
                         <td><?PHP echo $TEMPAT_LAHIR_PASANGAN;?></td>
@@ -1188,7 +1190,7 @@
                         <td><?PHP echo $TGL_KARISKARSU;?></td>
                         <td><?PHP echo $PEKERJAAN_PASANGAN;?></td>
                         <td><?PHP echo $KETERANGAN_PASANGAN;?></td>
-                        
+                            
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
                         <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
@@ -1198,8 +1200,8 @@
         </div>
     </div>
 </div>
-    
-    
+
+
 <!--Riwayat Anak--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1207,14 +1209,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_anak"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_anak/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ANAK</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -1240,7 +1242,7 @@
                     $PEKERJAAN_AK= "";
                     $KETERANGAN_AK= "";
                     $NO_AK=1;
-
+                        
                 foreach ($query14 as $row) {
                     $STATUS_AK = $row->STATUS_AK;
                     $NAMA_AK= $row->NAMA_AK;
@@ -1253,14 +1255,7 @@
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_AK;?></td>
-                        <td>
-                            <?php if($STATUS_AK=="ANAK KANDUNG"){?>
-                                ANAK KANDUNG
-                            <?php }else if($STATUS_PASANGAN=="ANAK TIRI"){?>
-                                ANAK TIRI
-                            <?php }else if($STATUS_PASANGAN=="ANAK ANGKAT"){?>
-                                ANAK ANGKAT
-                            <?php }?>
+                        <td><?PHP echo $STATUS_AK;?></td>
                         <td><?PHP echo $NAMA_AK;?></td>
                         <td><?PHP echo $TGL_LAHIR_AK;?></td>
                         <td><?PHP echo $TEMPAT_LAHIR_AK;?></td>
@@ -1276,7 +1271,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Saudara--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1284,14 +1279,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_saudara"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_saudara/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SAUDARA</h4> 
         </div>
-            
+        
         <div class="widgetcontent"style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -1310,7 +1305,7 @@
                 </thead>
                 <?php
                 $NO_AK_S=1;
-
+                    
                 foreach ($query15 as $row) {
                     $STATUS_AK = $row->STATUS_AK;
                     $NAMA_AK= $row->NAMA_AK;
@@ -1323,14 +1318,7 @@
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_AK_S;?></td>
-                        <td>
-                            <?php if($STATUS_AK=="SAUDARA KANDUNG"){?>
-                               SAUDARA KANDUNG
-                            <?php }else if($STATUS_PASANGAN=="SAUDARA TIRI"){?>
-                                SAUDARA TIRI
-                            <?php }else if($STATUS_PASANGAN=="SAUDARA ANGKAT"){?>
-                                SAUDARA ANGKAT
-                            <?php }?>
+                        <td><?PHP echo $STATUS_AK;?></td>
                         <td><?PHP echo $NAMA_AK;?></td>
                         <td><?PHP echo $TGL_LAHIR_AK;?></td>
                         <td><?PHP echo $TEMPAT_LAHIR_AK;?></td>
@@ -1346,7 +1334,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Orang Tua--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1354,14 +1342,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_orangtua"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_orangtua/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORANG TUA</h4> 
         </div>
-            
+        
         <div class="widgetcontent"style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -1370,6 +1358,7 @@
                         <th>Status</th>
                         <th>Nama</th>
                         <th>Tanggal Lahir</th>
+                        <th>Tempat Lahir</th>
                         <th>Pekerjaan</th>
                         <th>Keterangan</th>
                         <th>&nbsp;</th>
@@ -1378,7 +1367,7 @@
                 </thead>
                 <?php
                 $NO_AK_O=1;
-
+                    
                 foreach ($query16 as $row) {
                     $STATUS_AK = $row->STATUS_AK;
                     $NAMA_AK= $row->NAMA_AK;
@@ -1390,16 +1379,7 @@
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_AK_S;?></td>
-                        <td>
-                            <?php if($STATUS_AK=="BAPAK KANDUNG"){?>
-                               BAPAK KANDUNG
-                            <?php }else if($STATUS_PASANGAN=="IBU KANDUNG"){?>
-                                IBU KANDUNG
-                            <?php }else if($STATUS_PASANGAN=="BAPAK MERTUA"){?>
-                                BAPAK MERTUA
-                            <?php }else if($STATUS_PASANGAN=="IBU MERTUA"){?>
-                               IBU MERTUA
-                            <?php }?>
+                        <td><?php echo $STATUS_AK;?></td>
                         <td><?PHP echo $NAMA_AK;?></td>
                         <td><?PHP echo $TGL_LAHIR_AK;?></td>
                         <td><?PHP echo $TEMPAT_LAHIR_AK;?></td>
@@ -1414,7 +1394,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Gaji Berkala--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1422,14 +1402,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_gaji_berkala"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_gaji_berkala/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT GAJI BERKALA</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -1449,7 +1429,7 @@
                 </thead>
                 <?php
                 $NO_KGB=1;
-                
+                    
             foreach ($query3 as $row) {
                 $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
@@ -1457,11 +1437,11 @@
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
                 $GAJI = $row->BESAR_GAJI;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
-                
+                    
                 $datetime1 = new DateTime($TMT_GOLONGAN);
                 $datetime2 = new DateTime();
                 $interval = $datetime1->diff($datetime2);
-                
+                    
             ?>
                 <tbody>
                     <tr>
@@ -1470,25 +1450,25 @@
                         <?php if($STATUS_KEPANGKATAN==1){?>
                             <input type="checkbox" checked="checked" disabled="disabled" /></td>
                         <?php }else if($STATUS_KEPANGKATAN==0){?>
-                             <input type="checkbox"  disabled="disabled" /></td>
+                <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                        <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
-                        <td><?php echo $NO_SK_KEPANGKATAN;?></td>
-                        <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
-                        <td><?php echo $interval->format('%y TAHUN');?></td>
-                        <td><?php echo $interval->format('%m BULAN')?></td>
-                        <td><?php echo $GAJI;?></td>
-                        <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
-                        <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
-                    </tr>
+                <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
+                <td><?php echo $NO_SK_KEPANGKATAN;?></td>
+                <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
+                <td><?php echo $interval->format('%y TAHUN');?></td>
+                <td><?php echo $interval->format('%m BULAN')?></td>
+                <td><?php echo $GAJI;?></td>
+                <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
+                <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                </tr>
                 </tbody>
             <?php $NO_KGB++; }?>
             </table>
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Tanda Jasa--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1496,14 +1476,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_peghargaan"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_penghargaan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENGHARGAAN</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;">
             <table class="table table-bordered ">
                 <thead>
@@ -1527,7 +1507,7 @@
                 $TGL_SK_PENGHARGAAN= "";
                 $TAHUN_PENGHARGAAN= "";
                 $KETERANGAN_PENGHARGAAN= "";
-
+                    
                 foreach ($query18 as $row) {
                     $NAMA_PENGHARGAAN = $row->NAMA_PENGHARGAAN;
                     $INSTANSI_PENGHARGAAN= $row->INSTANSI_PENGHARGAAN;
@@ -1554,7 +1534,7 @@
         </div>
     </div>
 </div>
-    
+
 <!--Riwayat Medis--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1562,14 +1542,14 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_medis"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_medis/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
                 <a class="close">&times;</a> <a class="minimize">&#8211;</a>
             </div>
-                
+            
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT MEDIS</h4> 
         </div>
-            
+        
         <div class="widgetcontent" style="text-transform:uppercase;" >
             <table class="table table-bordered ">
                 <thead>
@@ -1589,7 +1569,7 @@
                 $TINDAKAN= "";
                 $TAHUN_PEMERIKSAAN= "";
                 $KETERANGAN_MEDIS= "";
-
+                    
                 foreach ($query17 as $row) {
                     $INDIKASI = $row->INDIKASI;
                     $TINDAKAN= $row->TINDAKAN;
