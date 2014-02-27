@@ -1,74 +1,71 @@
-<html
-    xmlns:o='urn:schemas-microsoft-com:office:office'
-    xmlns:w='urn:schemas-microsoft-com:office:word'
-    xmlns='http://www.w3.org/TR/REC-html40'>
-    <head>
-        <title>DUP PPSDMK</title>
-        <!--[if gte mso 9]-->
-        <xml>
-            <w:WordDocument>
-                <w:View>Print</w:View>
-                <w:Zoom>90</w:Zoom>
-                <w:DoNotOptimizeForBrowser/>
-            </w:WordDocument>
-        </xml>
-        <!-- [endif]-->
-        <style>
-            p.MsoFooter, li.MsoFooter, div.MsoFooter{
-                margin: 0cm;
-                margin-bottom: 0001pt;
-                mso-pagination:widow-orphan;
-                font-size: 12.0 pt;
-                text-align: right;
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        // dynamic table
+        jQuery('#dyntable').dataTable({
+            "sPaginationType": "full_numbers",
+            "aaSortingFixed": [[0,'asc']],
+            "fnDrawCallback": function(oSettings) {
+                jQuery.uniform.update();
             }
-
-
-            @page Section1{
-                size: 21cm 29.7cm;
-                margin: 2cm 1cm 2cm 1cm;
-                mso-page-orientation: potrait;
-                mso-footer:f1;
-            }
-            div.Section1 { page:Section1;}
-        </style>
-    </head>
-    <body>
-        <div class='Section1'>
-            <h1>DPU</h1>
-            <table border="1">
-                <tr class="head-archive">
-                    <th>NO</th>
-                    <th>NIP</th>
-                    <th>NAMA PEGAWAI</th>
-                    <th>JENIS KELAMIN</th>
-                    <th>PENDIDIKAN TERAKHIR</th>
-                    <th>UNIT</th>
-                    <th>JABATAN</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($query as $row) {
-                        ?>
-                        <tr>
-                            <td><?php echo $no; ?></td>
-                            <td><?php echo $row->NIP; ?></td>
-                            <td><?php echo strtoupper($row->NAMA_PEGAWAI); ?></td>
-                            <td><?php echo $row->JENIS_KELAMIN; ?></td>
-                            <td><?php echo $row->TINGKAT_PENDIDIKAN; ?></td>
-                            <td><?php echo $row->NAMA_UNIT; ?></td>
-                            <td><?php echo strtoupper($row->JABATAN); ?></td>
-                        </tr>
-                        <?php $no++;
-                    }
-                    ?>		
-                </tbody>
-            </table>
-            <br clear=all style='mso-special-character:line-break;' />
-    </body>
-</html>
-<?php
-header("Content-type: application/vnd.ms-word");
-header("Content-Disposition: attachment;Filename=DSP.doc");
-?>
+        });
+        
+        jQuery('#dyntable2').dataTable( {
+            "bScrollInfinite": true,
+            "bScrollCollapse": true,
+            "sScrollY": "300px"
+        });
+        
+    });
+</script>
+<div class="pageheader">
+	<div class="pageicon"><span class="iconfa-group"></span></div>
+	<div class="pagetitle">
+		<h5>.</h5>
+		<h1>TABEL <?php echo $link?></h1>
+	</div>
+</div>          
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span><?php echo $title;?></h4>
+<div class="widgetcontent" style="padding-bottom:50px;">
+    <a href="<?php echo base_url();?>pegawai/cetak_<?php echo $link?>" class=" btn btn-success btn-rounded "><i class="iconfa-print icon-white"></i> Cetak</a>
+    <table class="table table-bordered table-infinite" id="dyntable2">
+	<colgroup>
+		<col class="con0" />
+		<col class="con1" />
+		<col class="con0" />
+		<col class="con1" />
+		<col class="con0" />
+		<col class="con1" />
+		<col class="con0" />
+		<col class="con1" />
+	</colgroup>
+	<thead>
+    <tr>
+        <th class="head0 center">NO</th>
+        <th class="head1 center">NAMA / NIP</th>
+        <th class="head0 center">PANGKAT / GOLONGAN</th>
+        <th class="head1 center">TMT PANGKAT</th>
+        <th class="head0 center">JABATAN</th>
+        <th class="head1 center">TMT JABATAN</th>
+        <th class="head0 center">TGL_LAHIR</th>
+        <th class="head1 center">KET.</th>
+    </tr>
+    </thead>
+</thead>
+<tbody>
+    <?php
+    $no = 1;
+    foreach ($query as $q) {
+        $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+        $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
+        echo "<tr>
+                    <td>$no</td>
+                    <td>$nama /<br>$q->NIP</td>
+                    <td>$q->NAMA_PANGKAT / $q->GOLONGAN</td>
+                    <td>$q->TMT_GOLONGAN</td>
+                    <td>$q->JABATAN</td>
+                    <td>$q->TMT_JABATAN</td>
+                    <td>$q->TGL_LAHIR</td>
+                    <td></td>
+                </tr>";
+        $no++;
+    }?>

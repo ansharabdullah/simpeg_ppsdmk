@@ -262,28 +262,171 @@ class pegawai extends CI_Controller {
         }
     }
 
-    public function cetakDUK() {
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=DUK.doc");
-
-        echo "<html>";
-        echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">";
-        echo "<body>";
-        echo "<b>My first document</b>"
-        . "<table border='1'>"
-        . "<tr>"
-        . "<td>a</td>"
-        . "<td>b</td>"
-        . "<td>c</td>"
-        . "</tr>"
-        . "</table>";
-        echo "</body>";
-        echo "</html>";
+    public function DUK() {
+        $query = $this->m_pegawai->get_duk();
+        $title = "DAFTAR URUT KEPANGKATAN PEGAWAI NEGERI SIPIL PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN";
+        $this->load->view("tabel/v_table_cetak", array('query' => $query, 'title' => $title, 'link' => "DUK"));
     }
 
-    public function cetakDSP() {
-        $query = $this->m_pegawai->get_all_pegawai();
-        $this->load->view("tabel/v_table_cetak", array('query' => $query));
+    public function cetak_DUK() {
+        $query = $this->m_pegawai->get_duk();
+        echo"<html
+            xmlns:o='urn:schemas-microsoft-com:office:office'
+            xmlns:w='urn:schemas-microsoft-com:office:word'
+            xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <title>DUP PPSDMK</title>
+                <!--[if gte mso 9]-->
+                <xml>
+                    <w:WordDocument>
+                        <w:View>Print</w:View>
+                        <w:Zoom>90</w:Zoom>
+                        <w:DoNotOptimizeForBrowser/>
+                    </w:WordDocument>
+                </xml>
+                <!-- [endif]-->
+                <style>
+                    p.MsoFooter, li.MsoFooter, div.MsoFooter{
+                        margin: 0cm;
+                        margin-bottom: 0001pt;
+                        mso-pagination:widow-orphan;
+                        font-size: 12.0 pt;
+                        text-align: right;
+                    }
+
+
+                    @page Section1{
+                        size: 29.7cm 21cm;
+                        margin: 2cm 1cm 2cm 1cm;
+                        mso-page-orientation: landscape;
+                        mso-footer:f1;
+                    }
+                    div.Section1 { page:Section1;}
+                </style>
+            </head>
+            <body>
+                <div class='Section1'>
+                    <center><h2>DAFTAR URUT KEPANGKATAN PEGAWAI NEGERI SIPIL<br>PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN</h2></center><br />
+                    <table border='1'>
+                        <tr class='head-archive'>
+                            <th>NO</th>
+                            <th>NAMA / NIP</th>
+                            <th>PANGKAT / GOLONGAN</th>
+                            <th>TMT PANGKAT</th>
+                            <th>JABATAN</th>
+                            <th>TMT JABATAN</th>
+                            <th>TGL_LAHIR</th>
+                            <th>KET.</th>
+                        </tr>
+                        </thead>
+                        <tbody>";
+        header("Content-type: application/vnd.ms-word");
+            header("Content-Disposition: attachment;Filename=DUK PPSDMK.doc");
+            header("Content-Disposition: attachment;Filename=DSP PPSDMK.doc");
+        $no = 1;
+        foreach ($query as $q) {
+            $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+            $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
+            echo "<tr>
+                            <td>$no</td>
+                            <td>$nama /<br>$q->NIP</td>
+                            <td>$q->NAMA_PANGKAT / $q->GOLONGAN</td>
+                            <td>$q->TMT_GOLONGAN</td>
+                            <td>$q->JABATAN</td>
+                            <td>$q->TMT_JABATAN</td>
+                            <td>$q->TGL_LAHIR</td>
+                            <td></td>
+                        </tr>";
+            $no++;
+        }
+        echo"</tbody>
+                    </table>
+                    <br clear=all style='mso-special-character:line-break;' />
+                </body>
+            </html>";
+    }
+
+    public function DSP() {
+        $query = $this->m_pegawai->get_duk();
+        $title = "DAFTAR SEMUA PEGAWAI NEGERI SIPIL PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN";
+        $this->load->view("tabel/v_table_cetak", array('query' => $query, 'title' => $title, 'link' => "DSP"));
+    }
+
+    public function cetak_DSP() {
+        $query = $this->m_pegawai->get_duk();
+        echo"<html
+            xmlns:o='urn:schemas-microsoft-com:office:office'
+            xmlns:w='urn:schemas-microsoft-com:office:word'
+            xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <title>DUP PPSDMK</title>
+                <!--[if gte mso 9]-->
+                <xml>
+                    <w:WordDocument>
+                        <w:View>Print</w:View>
+                        <w:Zoom>90</w:Zoom>
+                        <w:DoNotOptimizeForBrowser/>
+                    </w:WordDocument>
+                </xml>
+                <!-- [endif]-->
+                <style>
+                    p.MsoFooter, li.MsoFooter, div.MsoFooter{
+                        margin: 0cm;
+                        margin-bottom: 0001pt;
+                        mso-pagination:widow-orphan;
+                        font-size: 12.0 pt;
+                        text-align: right;
+                    }
+
+
+                    @page Section1{
+                        size: 29.7cm 21cm;
+                        margin: 2cm 1cm 2cm 1cm;
+                        mso-page-orientation: landscape;
+                        mso-footer:f1;
+                    }
+                    div.Section1 { page:Section1;}
+                </style>
+            </head>
+            <body>
+                <div class='Section1'>
+                    <center><h2>DAFTAR URUT KEPANGKATAN PEGAWAI NEGERI SIPIL<br>PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN</h2></center><br />
+                    <table border='1'>
+                        <tr class='head-archive'>
+                            <th>NO</th>
+                            <th>NAMA / NIP</th>
+                            <th>PANGKAT / GOLONGAN</th>
+                            <th>TMT PANGKAT</th>
+                            <th>JABATAN</th>
+                            <th>TMT JABATAN</th>
+                            <th>TGL_LAHIR</th>
+                            <th>KET.</th>
+                        </tr>
+                        </thead>
+                        <tbody>";
+        header("Content-type: application/vnd.ms-word");
+        header("Content-Disposition: attachment;Filename=DSP PPSDMK.doc");
+        $no = 1;
+        foreach ($query as $q) {
+            $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+            $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
+            echo "<tr>
+                            <td>$no</td>
+                            <td>$nama /<br>$q->NIP</td>
+                            <td>$q->NAMA_PANGKAT / $q->GOLONGAN</td>
+                            <td>$q->TMT_GOLONGAN</td>
+                            <td>$q->JABATAN</td>
+                            <td>$q->TMT_JABATAN</td>
+                            <td>$q->TGL_LAHIR</td>
+                            <td></td>
+                        </tr>";
+            $no++;
+        }
+        echo"</tbody>
+                    </table>
+                    <br clear=all style='mso-special-character:line-break;' />
+                </body>
+            </html>";
     }
 
     public function developer() {

@@ -22,14 +22,13 @@
 	<div class="pageicon"><span class="iconfa-group"></span></div>
 	<div class="pagetitle">
 		<h5>.</h5>
-		<h1>Daftar Pegawai</h1>
+		<h1>Daftar Seluruh Pegawai</h1>
 	</div>
 </div>
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Pegawai</h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai</h4>
 <div class="widgetcontent">
     <a href="<?php echo base_url();?>pegawai/input_biodata" class=" btn btn-success btn-rounded "><i class="iconfa-plus-sign icon-white"></i> Tambah Data Pegawai</a>
-    <a href="<?php echo base_url();?>pegawai/cetakDUK" class=" btn btn-success btn-rounded "><i class="iconfa-print icon-white"></i> Cetak DUK</a>
-    <a href="<?php echo base_url();?>pegawai/cetakDSP" class=" btn btn-success btn-rounded "><i class="iconfa-print icon-white"></i> Cetak DSP</a>
+    <a href="<?php echo base_url();?>pegawai/cetak_DSP" class=" btn btn-success btn-rounded "><i class="iconfa-print icon-white"></i> Cetak DSP</a>
 <table class="table table-bordered table-infinite" id="dyntable2">
 	<colgroup>
 		<col class="con1" />
