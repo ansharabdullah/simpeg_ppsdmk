@@ -77,9 +77,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-header">Peringatan</li>
-                        <li><a href="<?php echo base_url();?>pegawai"><strong>Persetujuan</strong></a></li>
-                        <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Pangkat</strong></a></li>
-                        <li><a href="<?php echo base_url();?>pegawai"><strong>Kenaikan Gaji Berkala</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai/persetujuan"><strong>Persetujuan</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai/kenaikanPangkat"><strong>Kenaikan Pangkat</strong></a></li>
+                        <li><a href="<?php echo base_url();?>pegawai/kenaikanGajiBerkala"><strong>Kenaikan Gaji Berkala</strong></a></li>
                         <li><a href="<?php echo base_url();?>pegawai/pegawai_pensiun"><strong>Pegawai Pensiun</strong></a></li>
                     </ul>
                 </li>

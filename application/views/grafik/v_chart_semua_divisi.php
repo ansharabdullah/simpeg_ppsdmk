@@ -14,7 +14,6 @@
                 categories: [<?php echo '"' . implode('","', $x) . '"'; ?>]
             },
             yAxis: {
-                max: 30,
                 min: 0,
                 title: {
                     text: 'Jumlah'
