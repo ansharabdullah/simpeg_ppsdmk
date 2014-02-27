@@ -17,7 +17,13 @@
 
     });
 </script>
-
+<div class="pageheader">
+	<div class="pageicon"><span class="iconfa-group"></span></div>
+	<div class="pagetitle">
+		<h5>.</h5>
+		<h1>TABEL PERKIRAAN PENSIUN PEGAWAI PPSDMK </h1>
+	</div>
+</div>
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL PERINGATAN <?php echo $title; ?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
     <table class="table table-bordered table-infinite" id="dyntable2">

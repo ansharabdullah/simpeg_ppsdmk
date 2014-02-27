@@ -17,15 +17,14 @@
 
     });
 </script>
-
 <div class="pageheader">
 	<div class="pageicon"><span class="iconfa-group"></span></div>
 	<div class="pagetitle">
 		<h5>.</h5>
-		<h1>TABEL PERKIRAAN KENAIKAN GAJI BERKALA PEGAWAI PPSDMK</h1>
+		<h1>TABEL PERKIRAAN KENAIKAN PANGKAT PEGAWAI PPSDMK</h1>
 	</div>
 </div>
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL PERINGATAN PERKIRAAN <?php echo $title; ?></h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>TABEL PERINGATAN PERKIRAAN <?php echo $title; ?> "REGULER"</h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
     <table class="table table-bordered table-infinite" id="dyntable2">
         <colgroup>
@@ -44,11 +43,11 @@
                 <th class="head0 center">No</th>
                 <th class="head1 center">NIP</th>
                 <th class="head0 center">NAMA PEGAWAI</th>
-                <th class="head0 center">JENIS<br/>KELAMIN</th>
-                <th class="head1 center">GOL/<br>JABATAN</th>
+                <th class="head0 center">PANGKAT/<br/>GOLONGAN</th>
                 <th class="head0 center">UNIT KERJA</th>
-                <th class="head0 center">KGB</th>
-                <th class="head0 center">SISA KE<br />KGB SELANJUTNYA</th>
+                <th class="head0 center">TMT TERAKHIR</th>
+                <th class="head0 center">PERKIRAAN <br >KP</th>
+                <th class="head0 center">SISA KE<br >KP SELANJUTNYA</th>
             </tr>
         </thead>
         <tbody>
@@ -56,33 +55,22 @@
             $no = 1;
             foreach ($query as $q) {
                 $link = $q->NIP;
-
-                $tmt_tahun = substr($q->NIP, 8, 4);
-                $tmt_bulan = substr($q->NIP, 12, 2);
-
-                if (substr($tmt_bulan, 0, 1) == 0) {
-                    $tmt_bulan = substr($tmt_bulan, 1, 1);
+                //echo $q->TMT_GOLONGAN . " - ";
+                $tmt = new DateTime($q->TMT_GOLONGAN);
+                $kp = strtotime(date("Y-m-d", strtotime($q->TMT_GOLONGAN)) . " +4 year");
+                //echo date('Y-m-d',$kp) . "<br>";
+                if (date('Y-m-d', $kp) <= date('Y-m-d')) {
+                    $kp = $tmt->getTimestamp();
+                    $y = date('Y') + 1;
+                    $m = date('m', $kp);
+                    $d = date('d', $kp);
+                    $kp = $y . '-' . $m . '-' . $d;
+                    $kp = strtotime(date("Y-m-d", strtotime($kp)));
                 }
 
-                // kgb yang akan datang
-                $tmt_tgl = $tmt_tahun . "-" . $tmt_bulan . "-01";
-                if ($tmt_tahun % 2 == 0 && date('Y') % 2 == 0 && $tmt_bulan <= date('m')) {
-                    $kgb = date('Y') + 2 . "-" . $tmt_bulan . "-01";
-                } else if ($tmt_tahun % 2 == 0 && date('Y') % 2 == 0 && $tmt_bulan > date('m')) {
-                    $kgb = date('Y') . "-" . $tmt_bulan . "-01";
-                } else if ($tmt_tahun % 2 == 0 && date('Y') % 2 != 0) {
-                    $kgb = date('Y') + 1 . "-" . $tmt_bulan . "-01";
-                } else if ($tmt_tahun % 2 != 0 && date('Y') % 2 == 0) {
-                    $kgb = date('Y') + 1 . "-" . $tmt_bulan . "-01";
-                } else if ($tmt_tahun % 2 != 0 && date('Y') % 2 != 0 && $tmt_bulan <= date('m')) {
-                    $kgb = date('Y') + 2 . "-" . $tmt_bulan . "-01";
-                } else if ($tmt_tahun % 2 != 0 && date('Y') % 2 != 0 && $tmt_bulan > date('m')) {
-                    $kgb = date('Y') . "-" . $tmt_bulan . "-01";
-                }
-
-                $yad = new DateTime($kgb);
+                $kp_yad = new DateTime(date('Y-m-d', $kp));
                 $now = new DateTime(date('Y-m-d'));
-                $diff = $now->diff($yad);
+                $diff = $now->diff($kp_yad);
                 $sisa_tahun = $diff->y;
                 $sisa_bulan = $diff->m;
                 $sisa_hari = $diff->d;
@@ -101,10 +89,10 @@
                         <td><?php echo $no; ?></td>
                         <td><?php echo $q->NIP; ?></td>
                         <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $q->NAMA_PEGAWAI; ?></a></td>
-                        <td class="center"><?php echo $q->JENIS_KELAMIN; ?></td>
-                        <td class="center"><?php echo $q->GOLONGAN; ?>/<?php echo $q->JABATAN; ?></td>
+                        <td class="center"><?php echo $q->GOLONGAN; ?>/<?php echo $q->NAMA_PANGKAT; ?></td>
                         <td class="center"><?php echo $q->NAMA_UNIT; ?></td>
-                        <td class="center"><?php echo $kgb; ?></td>
+                        <td class="center"><?php echo $q->TMT_GOLONGAN; ?></td>  
+                        <td class="center"><?php echo date('Y-m-d', $kp); ?></td>
                         <td class="center"><b><?php echo $sisa_tahun . " tahun - " . $sisa_bulan . " bulan - " . $sisa_hari . " hari"; ?> </b></td>  
                     </tr>
                     <?php
@@ -119,10 +107,10 @@
             <tr>
                 <td><div style="margin-top:6px; margin-left:6px; margin-right:8px; background-color:#FFF467; border-radius:2px; width:30px; height:10px; float:left;">
                     </div></td>
-                <td>< 12 Bulan KGB</td>
+                <td>< 12 Bulan KP</td>
                 <td><div style="margin-top:6px; margin-left:6px; margin-right:8px; background-color:#F26D7D; border-radius:2px; width:30px; height:10px; float:left;">
                     </div></td>
-                <td>< 3 Bulan KGB</td>
+                <td>< 3 Bulan KP</td>
             </tr>
         </table>
         <br />
