@@ -31,12 +31,12 @@ class pegawai extends CI_Controller {
     }
 
     public function kenaikan_pangkat() {
-
+        $this->kenaikanPangkat();
         $this->load->view('laman/v_footer');
     }
 
-    public function gaji_berkala() {
-
+    public function kenaikan_gaji_berkala() {
+        $this->kenaikanGajiBerkala();
         $this->load->view('laman/v_footer');
     }
 
@@ -654,11 +654,11 @@ class pegawai extends CI_Controller {
 
     //belum
     public function kenaikanPangkat() {
-        $query = $this->m_pegawai->get_naikPangkat();
+        $query = $this->m_pegawai->get_kp();
         $title = "KENAIKAN PANGKAT";
 
-
-        $this->load->view("tabel/v_table_peringatan", array('query' => $query, 'title' => $title));
+        
+        $this->load->view("tabel/v_table_naikpangkat", array('query' => $query, 'title' => $title));
     }
 
     public function persetujuan() {
