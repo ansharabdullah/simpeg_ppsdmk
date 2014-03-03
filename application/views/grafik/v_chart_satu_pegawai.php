@@ -1,12 +1,5 @@
     
-<div class="pageheader">
-    <div class="pageicon"><span class="iconfa-user"></span></div>
-    <div class="pagetitle">
-        <h5>.</h5>
-        <h1>Data Pegawai </h1>
-        
-    </div>
-</div>
+
 <?php
             $NIP = "";
             $NIP_LAMA = "";
@@ -102,6 +95,14 @@
                 $FOTO=$row->foto;
             }
  ?>
+<div class="pageheader">
+    <div class="pageicon"><span class="iconfa-user"></span></div>
+    <div class="pagetitle">
+        <h5>.</h5>
+        <h1>Data Pegawai </h1>
+        <a href="<?php echo base_url(); ?>cetak/cetak_pegawai/<?php echo $NIP;?>" class=" btn btn-success btn-rounded pull-right"><i class="iconfa-print icon-white"></i> Cetak Data Pegawai</a>
+    </div>
+</div>
 <!-- biodata -->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -294,6 +295,7 @@
             $TGL_SK_JABATAN = "";
             $TMT_JABATAN = "";
             $NO=1;
+            $ID_JABATAN="";
                 
             foreach ($query2 as $row) {
                 $STATUS_JABATAN = $row->STATUS_JABATAN;
@@ -301,8 +303,7 @@
                 $NAMA_UNIT_KERJA = $row->NAMA_UNIT;
                 $NO_SK_JABATAN = $row->NO_SK_JABATAN;
                 $TGL_SK_JABATAN = $row->TGL_SK_JABATAN;
-                $TMT_JABATAN = $row->TMT_JABATAN;
-                    
+                $TMT_JABATAN = $row->TMT_JABATAN; 
             ?>
                 
                 <tbody>
@@ -320,7 +321,9 @@
                 <td><?php echo $TGL_SK_JABATAN;?></td>
                 <td><?php echo $TMT_JABATAN;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign">
+                    <a href="<?php echo site_url('pegawai/delete_log_jabatan'.'/'.$row->ID_JABATAN.'/'.$NIP)?>" class="deleterow">
+                    <span class="icon-trash"></span></a></td>
                 </tr>
                     <?php $NO++; } ?>
                 </tbody>
@@ -366,6 +369,7 @@
                 </thead>
                     
                 <?php
+                $ID_KEPANGKATA="";
             $STATUS_KEPANGKATAN = "";
             $PANGKAT = "";
             $GOLONGAN_KEPANGKATAN = "";
@@ -416,7 +420,7 @@
                 <td><?php echo $PERATURAN;?></td>
                 <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pangkat'.'/'.$row->ID_KEPANGKATAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                 <?php $NO_KP++; } ?>
@@ -502,7 +506,7 @@
                 <td><?PHP echo $TGL_IJAZAH; ?></td>
                 <td><?PHP echo $IPK; ?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pendidikan'.'/'.$row->ID_PENDIDIKAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                 <?php $NO_PEND++; } ?>
@@ -590,7 +594,7 @@
                 <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
                 <td><?PHP echo $RANGKING_DIKLAT;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_diklat'.'/'.$row->ID_DIKLAT.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                 <?php $NO_DS++; } ?>
@@ -668,7 +672,7 @@
                 <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
                 <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_diklat'.'/'.$row->ID_DIKLAT.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                 <?php $NO_DF++; } ?>
@@ -700,7 +704,6 @@
                         <th>No.</th>
                         <th>Nama Diklat</th>
                         <th>Instansi</th>
-                        <th>Lokasi</th>
                         <th>No Ijazah</th>
                         <th>Tanggal Ijazah</th>
                         <th>Lama</th>
@@ -734,7 +737,7 @@
                         <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
                         <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_diklat'.'/'.$row->ID_DIKLAT.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                  <?php $NO_DT++; } ?>
@@ -803,7 +806,7 @@
                 <td><?PHP echo $TGL_IJAZAH; ?></td>
                 <td><?PHP echo $IPK; ?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pendidikan'.'/'.$row->ID_PENDIDIKAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                  <?php $NO_PEND++; } ?>
@@ -883,7 +886,7 @@
                         <td><?PHP echo $TAHUN_PENUGASAN;?></td>
                         <td><?PHP echo $KETERANGAN_PENUGASAN;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_penugasan'.'/'.$row->ID_PENUGASAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_PEND++; } ?>
@@ -964,7 +967,7 @@
                         <td><?PHP echo $TGL_SELESAI_PENUGASAN;?></td>
                         <td><?PHP echo $KETERANGAN_PENUGASAN;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_penugasan'.'/'.$row->ID_PENUGASAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_SEMINAR++; } ?>
@@ -1029,7 +1032,7 @@
                         <td><?PHP echo $TAHUN_ORGANISASI;?></td>
                         <td><?PHP echo $KETERANGAN_ORGANISASI;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_organisasi'.'/'.$row->ID_ORGANISASI.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_ORG++; }?>
@@ -1113,7 +1116,7 @@
                 <td><?PHP echo $TAHUN;?></td>
                 <td><?PHP echo $KETERANGAN_ALAMAT;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_alamat'.'/'.$row->ID_ALAMAT.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
                 <?php $NO_ALAMAT++; } ?>
@@ -1192,7 +1195,7 @@
                         <td><?PHP echo $KETERANGAN_PASANGAN;?></td>
                             
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pasangan'.'/'.$row->ID_PASANGAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_PASANGAN++; }?>
@@ -1263,7 +1266,7 @@
                         <td><?PHP echo $PEKERJAAN_AK;?></td>
                         <td><?PHP echo $KETERANGAN_AK;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_ak'.'/'.$row->ID_AK.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_AK++; }?>
@@ -1326,7 +1329,7 @@
                         <td><?PHP echo $PEKERJAAN_AK;?></td>
                         <td><?PHP echo $KETERANGAN_AK;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_ak'.'/'.$row->ID_AK.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_AK_S++; }?>
@@ -1386,7 +1389,7 @@
                         <td><?PHP echo $PEKERJAAN_AK;?></td>
                         <td><?PHP echo $KETERANGAN_AK;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_ak'.'/'.$row->ID_AK.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_AK_O++; }?>
@@ -1460,7 +1463,7 @@
                 <td><?php echo $GAJI;?></td>
                 <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
                 <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pangkat'.'/'.$row->ID_KEPANGKATAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
             <?php $NO_KGB++; }?>
@@ -1526,7 +1529,7 @@
                         <td><?PHP echo $TAHUN_PENGHARGAAN;?></td>
                         <td><?PHP echo $KETERANGAN_PENGHARGAAN;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_penghargaan'.'/'.$row->ID_LOG_PENGHARGAAN.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_PENGHARGAAN++; }?>
@@ -1584,7 +1587,7 @@
                         <td><?PHP echo $TAHUN_PEMERIKSAAN;?></td>
                         <td><?PHP echo $KETERANGAN_MEDIS;?></td>
                         <td class="centeralign"><a href="" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                        <td class="centeralign"><a href="" class="deleterow"><span class="icon-trash"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_medis'.'/'.$row->ID_MEDIS.'/'.$NIP)?>" class="deleterow"><span class="icon-trash"></span></a></td>
                     </tr>
                 </tbody>
                 <?php $NO_MEDIS++; }?>

@@ -65,7 +65,7 @@
 			<td><?php echo $row->NAMA_UNIT; ?></td>
                         <td><?php echo strtoupper($row->JABATAN); ?></td>
                         <td class="center"><a href="<?php echo base_url();?>pegawai/input_biodata">Edit</a></td>
-			<td class="center"><a href="#" class="">Hapus</a></td>
+			<td class="center"><a href="<?php echo site_url('pegawai/delete_pegawai'.'/'.$row->ID_PEGAWAI.'/'.$link)?>" class="">Hapus</a></td>
 		</tr>
 		<?php $no++; } ?>		
 	</tbody>

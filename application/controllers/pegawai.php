@@ -193,26 +193,31 @@ class pegawai extends CI_Controller {
 
 //PROSES INSERT    
     public function input_pegawai(){
-        $data['nip']=$this->input->post('nip', true);
-        $data['nip_lama']=$this->input->post('nip_lama', true);
-        $data['gelar_depan']=$this->input->post('gelar_depan', true);
-        $data['nama_pegawai']=$this->input->post('nama_pegawai', true);
-        $data['gelar_belakang']=$this->input->post('gelar_belakang', true);
-        $data['tempat_lahir']=$this->input->post('tempat_lahir', true);
-        $data['tgl_lahir']=$this->input->post('tgl_lahir', true);
-        $data['jenis_kelamin']=$this->input->post('jenis_kelamin', true);
-        $data['agama']=$this->input->post('agama', true);
-        $data['status_perkawinan']=$this->input->post('status_perkawinan', true);
-        $data['tmt_cpns']=$this->input->post('tmt_cpns', true);
-        $data['tmt_pns']=$this->input->post('tmt_pns', true);
-        $data['pendidikan_awal']=$this->input->post('pendidikan_awal', true);
-        $data['keterangan']=$this->input->post('keterangan', true);
-        $data['status_pegawai']=$this->input->post('status_pegawai', true);
-        
         $nip=$this->input->post('nip', true);
+        $nip_lama=$this->input->post('nip_lama', true);
+        $gelar_depan=$this->input->post('gelar_depan', true);
+        $nama_pegawai=$this->input->post('nama_pegawai', true);
+        $gelar_belakang=$this->input->post('gelar_belakang', true);
+        $tempat_lahir=$this->input->post('tempat_lahir', true);
+        $tgl_lahir=$this->input->post('tgl_lahir', true);
+        $jenis_kelamin=$this->input->post('jenis_kelamin', true);
+        $agama=$this->input->post('agama', true);
+        $status_perkawinan=$this->input->post('status_perkawinan', true);
+        $tmt_cpns=$this->input->post('tmt_cpns', true);
+        $tmt_pns=$this->input->post('tmt_pns', true); 
+        $keterangan=$this->input->post('keterangan', true);
+        $status_pegawai=$this->input->post('status_pegawai', true);
+        $foto=$this->input->post('foto', true);
+        $unit_kerja=$this->input->post('unit_kerja', true);
+        $jabatan=$this->input->post('jabatan', true);
+        $pendidikan=$this->input->post('pendidikan', true);
         
-        $this->m_pegawai->insert_pegawai($data);
-	redirect('pegawai/biodata/'.$nip);
+        
+        $this->m_pegawai->insert_pegawai($nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, 
+                $tempat_lahir, $tgl_lahir, $jenis_kelamin, $agama, $status_perkawinan, $tmt_cpns, $tmt_pns, $keterangan,
+                $status_pegawai, $foto, $unit_kerja, $jabatan, $pendidikan);
+        $this->m_pegawai->insert_pegawai_tambah($nip, $unit_kerja,$jabatan, $pendidikan);
+        redirect('pegawai/biodata/'.$nip);
     }
     
     public function proses_insert_data_tambahan(){
@@ -538,7 +543,56 @@ class pegawai extends CI_Controller {
         redirect('pegawai/biodata/'.$nip);
     }
     
+    public function delete_log_jabatan($id_jabatan,$nip){
+        $this->m_pegawai->delete_log_jabatan($id_jabatan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
     
+    public function delete_log_pangkat($id_kepangkatan,$nip){
+        $this->m_pegawai->delete_log_pangkat($id_kepangkatan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_pendidikan($id_pendidikan,$nip){
+        $this->m_pegawai->delete_log_pendidikan($id_pendidikan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_diklat($id_diklat,$nip){
+        $this->m_pegawai->delete_log_diklat($id_diklat);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_penugasan($id_penugasan,$nip){
+        $this->m_pegawai->delete_log_penugasan($id_penugasan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+     public function delete_log_organisasi($id_organisasi,$nip){
+        $this->m_pegawai->delete_log_organisasi($id_organisasi);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_alamat($id_alamat,$nip){
+        $this->m_pegawai->delete_log_alamat($id_alamat);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_pasangan($id_pasangan,$nip){
+        $this->m_pegawai->delete_log_pasangan($id_pasangan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_ak($id_ak,$nip){
+        $this->m_pegawai->delete_log_ak($id_ak);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_penghargaan($id_log_penghargaan,$nip){
+        $this->m_pegawai->delete_log_penghargaan($id_log_penghargaan);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_log_medis($id_medis,$nip){
+        $this->m_pegawai->delete_log_medis($id_medis);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+    public function delete_pegawai($id_pegawai,$nip){
+        $this->m_pegawai->delete_log_medis($id_pegawai);
+        redirect('pegawai/biodata/'.$nip,'refresh');
+    }
+
 //    program
     public function input_nilai($nama) {
         $nama_pegawai = str_replace("_", " ", $nama);
@@ -581,6 +635,7 @@ class pegawai extends CI_Controller {
             'query7' => $query7, 'query8' => $query8, 'query9' => $query9, 'query10' => $query10, 'query11' => $query11,
             'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18));
     }
+    
 
 //notifikasi
 
