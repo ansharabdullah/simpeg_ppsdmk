@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_divisi.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
@@ -13,6 +14,12 @@
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_naikpangkat.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_satu_divisi.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_kgb.php</file>
+=======
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_data_tambahan.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_pegawai.php</file>
+>>>>>>> 2b99de705bc253f0b0f61468e82ee88b54f8513d
         </group>
     </open-files>
 </project-private>

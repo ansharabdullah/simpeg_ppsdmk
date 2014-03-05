@@ -7,7 +7,7 @@ class grafik extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->view('laman/v_header');
+        $this->header_admin('admin');
     }
 
 //    function panggil halaman
@@ -131,7 +131,7 @@ class grafik extends CI_Controller {
         $where = "AND J.BAGIAN='$id'";
         $query1 = $this->m_grafik->tabelPegawai($where);
         $subtitle = $title;
-        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2,'subtitle' => $subtitle));
+        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2, 'subtitle' => $subtitle));
         $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
     }
 
@@ -155,7 +155,7 @@ class grafik extends CI_Controller {
         $title = strtoupper($title);
         $title = str_replace("_", " ", $title);
         $golongan = str_replace("_", " ", $golongan);
-        
+
         $query = $this->m_grafik->grafikPergolongan($golongan);
         foreach ($query as $q) {
             $x[] = $q->GOLONGAN;
@@ -168,7 +168,7 @@ class grafik extends CI_Controller {
         $where = "AND JG.GOLONGAN='$golongan'";
         $query1 = $this->m_grafik->tabelPegawai($where);
         $subtitle = $title;
-        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1,'y2' => $y2, 'subtitle' => $subtitle));
+        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2, 'subtitle' => $subtitle));
         $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
     }
 
@@ -202,7 +202,7 @@ class grafik extends CI_Controller {
         $where = "AND LP.TINGKAT_PENDIDIKAN='$tingkat_pendidikan'";
         $query1 = $this->m_grafik->tabelPegawai($where);
         $subtitle = $title;
-        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1,'y2' => $y2, 'subtitle' => $subtitle));
+        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2, 'subtitle' => $subtitle));
         $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
     }
 
@@ -234,14 +234,14 @@ class grafik extends CI_Controller {
         $title = strtoupper($title);
         $title = str_replace("_", " ", $title);
         $query = $this->m_grafik->grafikPerJenjangUmur($awal, $akhir);
-        $i=0;
+        $i = 0;
         foreach ($query as $q) {
             $x[] = $q->UMUR;
             $y[] = $q->JUMLAH;
-            if($q->JENIS_KELAMIN == 'LAKI-LAKI'){
-                $y1[]=$q->JUMLAH;
-            }else{
-                $y2[]=$q->JUMLAH;
+            if ($q->JENIS_KELAMIN == 'LAKI-LAKI') {
+                $y1[] = $q->JUMLAH;
+            } else {
+                $y2[] = $q->JUMLAH;
             }
             $i++;
         }
@@ -263,7 +263,7 @@ class grafik extends CI_Controller {
         $alamat = "grafik/status_pegawai";
         $status = 5;
         $judul = "Jumlah Pegawai Seluruh Status Kepegawaian PPSDMK";
-         $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+        $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
         $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
     }
 
@@ -281,8 +281,13 @@ class grafik extends CI_Controller {
         $where = "AND P.STATUS_PEGAWAI='$id'";
         $query1 = $this->m_grafik->tabelPegawai($where);
         $subtitle = $title;
-       $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1,'y2' => $y2, 'subtitle' => $subtitle));
+        $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2, 'subtitle' => $subtitle));
         $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
+    }
+
+    public function header_admin($nip) {
+        $query = $this->m_pegawai->get_akun($nip);
+        $this->load->view('laman/v_header', array('query' => $query));
     }
 
 }

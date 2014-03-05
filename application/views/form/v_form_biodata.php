@@ -6,7 +6,7 @@
         <h1>Input Data Pegawai</h1>
     </div>
 </div><!--pageheader-->
-    
+
 <div class="tabs-left">
     <div class="tab-content">
         
@@ -23,7 +23,7 @@
                         <label>NIP Lama</label>
                         <span class="field"><input type="text" name="nip_lama" class="input-large" placeholder="" /></span>
                     </p>
-                        
+                    
                     <p>
                         <label>Gelar Depan</label>
                         <span class="field"><input type="text" name="gelar_depan" class="input-large" placeholder="" /></span>
@@ -40,13 +40,13 @@
                         <label>Tempat Lahir</label>
                         <span class="field"><input type="text" name="tempat_lahir" class="input-large" placeholder="" /></span>
                     </p>
-                        
-                        
+                    
+                    
                     <div class="par">
                         <label>Tanggal Lahir</label>
                         <span class="field"><input id="datepicker" type="date" name="tgl_lahir" class="input-medium" /></span>
                     </div> 
-                        
+                    
                     <p>
                         <label>Jenis Kelamin</label>
                         <span class="field"><select name="jenis_kelamin" id="selection2" class="uniformselect" >
@@ -55,7 +55,7 @@
                                 <option value="PEREMPUAN">Perempuan</option>
                             </select></span>
                     </p>
-                        
+                    
                     <p>
                         <label>Agama</label>
                         <span class="field"><select name="agama" id="selection2" class="uniformselect" >
@@ -67,7 +67,7 @@
                                 <option value="budha">Budha</option>
                             </select></span>
                     </p>
-                        
+                    
                     <p>
                         <label>Status Perkawinan</label>
                         <span class="field"><select name="status_perkawinan" id="selection2" class="uniformselect" >
@@ -78,27 +78,32 @@
                                 <option value="cerai_mati">Cerai Mati</option>
                             </select></span>
                     </p>
-                        
-                        
+                    
+                    
                     <!-- id="datepicker" cuma bisa dipake sekali? kalo yang kedua kali ga mau muncul kalendernya-->
                     <div class="par">
                         <label>TMT CPNS</label>
                         <span class="field"><input id="datepicker" type="date" type="text" name="tmt_cpns" class="input-medium" /></span>
                     </div> 
-                        
+                    
                     <div class="par">
                         <label>TMT PNS</label>
                         <span class="field"><input id="datepicker" type="date" type="text" name="tmt_pns" class="input-medium" /></span>
                     </div> 
-                        
+                    
                     <p>
-                        <label>Pendidikan Awal</label>
-                        <span class="field"><select name="pendidikan_awal" id="selection2" class="uniformselect" >
-                                <option value="">--</option>
-                                    
+                        <label>Status Pendidikan Terakhir</label>
+                        <span class="field"><select name="pendidikan" id="selection2" class="uniformselect" >
+                                <option value="SD">SD</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                                <option value="D3">D3</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
                             </select></span>
                     </p>
-                        
+                    
                     <p>
                         <label>Jabatan</label>
                         <span class="field"><select name="jabatan" id="selection2" class="uniformselect" >
@@ -111,7 +116,7 @@
                         <?php } ?>
                             </select></span>
                     </p>
-                
+                        
                     <p>
                         <label>Unit Kerja</label>
                         <span class="field"><select name="unit_kerja" id="selection2" class="uniformselect" >
@@ -128,19 +133,20 @@
                         <label>Keterangan</label>
                         <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan"></textarea></span> 
                     </p>
-                        
+                    
                     <p>
                         <label>Status</label>
                         <span class="field"><select name="status_pegawai" id="selection2" class="uniformselect" >
                                 <option value="">--</option>
-                                <option value="pns">PNS</option>
+                                <option value="PNS">PNS</option>
+                                <option value="NON PNS">NON PNS</option>
                             </select></span>
                     </p>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><textarea cols="40" rows="3" class="span5" name="foto"></textarea></span> 
+                        <span class="field"><input type="file" name="foto"></span> 
                     </p>
-                        
+                    
                     <p class="stdformbutton">
                         <button class="btn btn-primary">Save</button>
                         <button type="reset" class="btn">Cancel</button>
@@ -149,6 +155,6 @@
             </div>
         </div>
     </div>
-        
+    
 </div><!--tab-content-->
 </div><!--tabs-left-->
