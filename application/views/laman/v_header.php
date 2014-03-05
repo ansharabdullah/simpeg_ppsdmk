@@ -85,16 +85,22 @@
 
                         <li class="right">
                             <div class="userloggedinfo">
-                                <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/foto_profil.png" alt="" />
+                                <?php
+                                foreach ($query as $q) {
+                                    
+                                
+                                ?>
+                                <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/<?php echo $q->FOTO;?>" alt="<?php echo $q->NIP;?>" />
                                 <div class="userinfo">
-                                    <h5>Manager</h5>
-                                    <h5><small>admin@ppsdmk.com</small></h5>
+                                    <h5><?php echo $q->NAMA_PEGAWAI;?></h5>
+                                    <h5><small><?php echo $q->NIP;?></small></h5>
                                     <ul>
-                                        <li><a href="<?php echo base_url(); ?>login/logout">Ubah Data Pribadi</a></li>
-                                        <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun">Pengaturan Akun</a></li>
+                                        <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP;?>">Ubah Data Pribadi</a></li>
+                                        <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP;?>">Pengaturan Akun</a></li>
                                         <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
                                     </ul>
                                 </div>
+                                 <?php    }   ?>
                             </div>
                         </li>
                     </ul><!--headmenu-->
