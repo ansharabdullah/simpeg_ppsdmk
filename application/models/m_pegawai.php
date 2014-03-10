@@ -13,7 +13,7 @@ class m_pegawai extends CI_Model {
 
     public function get_pegawai($nip) {
         $query = $this->db->query("select p.id_pegawai, p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns,p.tmt_pns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.keterangan, p.status_pegawai, p.no_kartu_pegawai,p.tgl_kartu_pegawai, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp, 
-            p.no_ktp, p.no_askes, p.tgl_askes, p.kode_wilayah_askes, p.gol_darah, p.rambut, p.bentuk_muka, p.warna_kulit, p.tinggi_badan, p.berat_badan, p.ciri_khas, p.cacat_tubuh, p.bahasa_asing, p.hobi, p.foto
+        p.no_ktp, p.no_askes, p.tgl_askes, p.kode_wilayah_askes, p.gol_darah, p.rambut, p.bentuk_muka, p.warna_kulit, p.tinggi_badan, p.berat_badan, p.ciri_khas, p.cacat_tubuh, p.bahasa_asing, p.hobi, p.foto
         from pegawai p, jenis_golongan jg, jabatan j, log_alamat la, log_kepangkatan lk, log_jabatan lj 
         where p.id_pegawai=lj.id_pegawai and p.id_pegawai=lk.id_pegawai and p.id_pegawai=la.id_pegawai and lj.id_jenis_jabatan=j.id_jenis_jabatan and lk.id_jenis_golongan=jg.id_jenis_golongan and p.nip='$nip' and la.status_alamat=1 and lj.status_jabatan=1");
         return $query->result();
@@ -100,33 +100,26 @@ class m_pegawai extends CI_Model {
     }
 
     //INSERT PEGAWAI
-    public function insert_pegawai($nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $agama, $status_perkawinan, $tmt_cpns, $tmt_pns, $keterangan, $status_pegawai, $foto, $unit_kerja, $jabatan, $pendidikan) {
+    public function insert_pegawai(
+                $nip,$nip_lama,$gelar_depan,$nama_pegawai,$gelar_belakang ,$tempat_lahir ,$tgl_lahir, 
+                $jenis_kelamin ,$alamat ,$kecamatan ,$kelurahan ,$kabupaten ,$provinsi ,$tmt_cpns ,
+                $tmt_pns ,$agama ,$status_perkawinan ,$status_pegawai ,$foto ,$keterangan ,$jabatan, 
+                $unit_kerja, $golongan ,$jenis_kenaikan,$gaji, $pendidikan ,$nama_sekolah
+            ){
         $query = $this->db->query("INSERT INTO pegawai (NIP, NIP_LAMA, NAMA_PEGAWAI, GELAR_DEPAN, GELAR_BELAKANG, JENIS_KELAMIN, 
             TEMPAT_LAHIR, TGL_LAHIR, AGAMA, STATUS_PERKAWINAN, TMT_CPNS, TMT_PNS, KETERANGAN, STATUS_PEGAWAI, FOTO) 
             VALUES ('$nip', '$nip_lama','$nama_pegawai', '$gelar_depan',  '$gelar_belakang', '$jenis_kelamin',
                 '$tempat_lahir', '$tgl_lahir',  '$agama', '$status_perkawinan', '$tmt_cpns', '$tmt_pns', '$keterangan',
                 '$status_pegawai', '$foto')");
-
-        $query2 = $this->db->query("select id_pegawai from pegawai where NIP='$nip'");
-        return $query2->result();
-
-        foreach ($query2->result() as $row) {
-            $id = $row->id_pegawai;
-            $query3 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI,ID_JENIS_JABATAN, ID_UNIT,STATUS_JABATAN)values($id, $jabatan, $unit_kerja,1) ");
-            $query4 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI,TINGKAT_PENDIDIKAN, STATUS_PENDIDIKAN_TERAKHIR)values($id, $pendidikan,1) ");
-        }
-    }
-
-    public function insert_pegawai_tambah($nip, $unit_kerja, $jabatan, $pendidikan) {
-
-        $query2 = $this->db->query("select id_pegawai from pegawai where NIP='$nip'");
-        return $query2->result();
-
-        foreach ($query2->result() as $row) {
-            $id = $row->id_pegawai;
-            $query3 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI,ID_JENIS_JABATAN, ID_UNIT,STATUS_JABATAN)values($id, $jabatan, $unit_kerja,1) ");
-            $query4 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI,TINGKAT_PENDIDIKAN, STATUS_PENDIDIKAN_TERAKHIR)values($id, $pendidikan,1) ");
-        }
+        $last_id = $this->db->insert_id();
+        $query2 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI, ID_JENIS_JABATAN, ID_UNIT, STATUS_JABATAN) 
+                VALUES ($last_id, $jabatan, $unit_kerja, 1)");
+        $query3 = $this->db->query("INSERT INTO log_kepangkatan (ID_PEGAWAI, ID_JENIS_GOLONGAN, STATUS_KEPANGKATAN,ID_JENIS_KENAIKAN, ID_KATEGORI_GAJI) VALUES ($last_id,$golongan,1, $jenis_kenaikan, $gaji)");
+        $query4 = $this->db->query("INSERT INTO log_pendidikan (ID_PEGAWAI, TINGKAT_PENDIDIKAN, NAMA_SEKOLAH,STATUS_PENDIDIKAN_TERAKHIR,KETERANGAN_PENDIDIKAN)
+                VALUES($last_id, '$pendidikan', '$nama_sekolah', 1,1)");
+        $query5 = $this->db->query("INSERT INTO log_alamat (ID_PEGAWAI, STATUS_ALAMAT, ALAMAT, PROVINSI, KABUPATEN, KELURAHAN, KECAMATAN)
+                VALUES($last_id, 1, '$alamat', '$provinsi', '$kabupaten', '$kelurahan', '$kecamatan')");
+        
     }
 
     public function insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi) {

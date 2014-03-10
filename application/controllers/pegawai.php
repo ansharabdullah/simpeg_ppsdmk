@@ -7,11 +7,22 @@ class pegawai extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->header_admin('admin');
+        $this->check_isvalidated();
+        if ($this->session->userdata('role') == 1) {
+            $this->header_admin($this->session->userdata('nip'));
+        } else {
+            $this->header_pegawai($this->session->userdata('nip'));
+        }
     }
 
     public function index() {
         
+    }
+
+    private function check_isvalidated() {
+        if (!$this->session->userdata('validated')) {
+            redirect('login');
+        }
     }
 
 //    method halaman
@@ -31,21 +42,32 @@ class pegawai extends CI_Controller {
     }
 
     public function kenaikan_pangkat() {
-        $this->kenaikanPangkat();
-        $this->load->view('laman/v_footer');
+        if ($this->session->userdata('role') == 1) {
+            $this->kenaikanPangkat();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     public function kenaikan_gaji_berkala() {
-        $this->kenaikanGajiBerkala();
-        $this->load->view('laman/v_footer');
+        if ($this->session->userdata('role') == 1) {
+            $this->kenaikanGajiBerkala();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
     }
 
 //INPUT FORM
     public function input_biodata() {
         $query = $this->m_pegawai->get_jabatan();
         $query2 = $this->m_pegawai->get_unit();
+        $query3 = $this->m_pegawai->get_golongan();
+        $query4 = $this->m_pegawai->get_jenis_kenaikan();
+        $query5 = $this->m_pegawai->get_kategori_gaji();
 
-        $this->load->view("form/v_form_biodata", array('query' => $query, 'query2' => $query2));
+        $this->load->view("form/v_form_biodata", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5));
         $this->load->view("laman/v_footer");
     }
 
@@ -187,386 +209,451 @@ class pegawai extends CI_Controller {
 
         $this->load->view("form/v_form_medis", array('query' => $query));
     }
-    
+
     //view edit
     public function edit_biodata() {
         $this->load->view("form/v_form_biodata");
         $this->load->view("form/v_data_tambahan");
         $this->load->view("laman/v_footer");
     }
-    
-    public function edit_log_jabatan($id_jabatan){
+
+    public function edit_log_jabatan($id_jabatan) {
         $query = $this->m_pegawai->edit_log_jabatan($id_jabatan);
         $query2 = $this->m_pegawai->get_jabatan();
         $query3 = $this->m_pegawai->get_unit();
-        
-        $this->load->view("form/v_form_edit_jabatan",array('query' => $query, 'query2'=>$query2, 'query3'=>$query3));
+
+        $this->load->view("form/v_form_edit_jabatan", array('query' => $query, 'query2' => $query2, 'query3' => $query3));
     }
-    
-    public function edit_log_pangkat($id_kepangkatan){
+
+    public function edit_log_pangkat($id_kepangkatan) {
         $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
         $query2 = $this->m_pegawai->get_jenis_kenaikan();
         $query3 = $this->m_pegawai->get_golongan();
         $query4 = $this->m_pegawai->get_kategori_gaji();
-        
-        $this->load->view("form/v_form_edit_pangkat",array('query'=>$query, 'query2'=>$query2, 'query3'=>$query3, 'query4'=>$query4 ));
+
+        $this->load->view("form/v_form_edit_pangkat", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4));
     }
-    
-     public function edit_log_pendidikan($id_pendidikan) {
+
+    public function edit_log_pendidikan($id_pendidikan) {
         $query = $this->m_pegawai->edit_log_pendidikan($id_pendidikan);
-        
-        $this->load->view("form/v_form_edit_pendidikan",array('query'=>$query));
+
+        $this->load->view("form/v_form_edit_pendidikan", array('query' => $query));
         $this->load->view("laman/v_footer");
     }
-    
+
     public function edit_log_diklat_struktural($id_diklat) {
         $query = $this->m_pegawai->edit_log_diklat($id_diklat);
         $query2 = $this->m_pegawai->get_diklat_struktural();
-        
-        $this->load->view("form/v_form_edit_diklat_struktural",array('query'=>$query, 'query2'=>$query2));
+
+        $this->load->view("form/v_form_edit_diklat_struktural", array('query' => $query, 'query2' => $query2));
         $this->load->view("laman/v_footer");
     }
+
     public function edit_log_diklat_fungsional($id_diklat) {
         $query = $this->m_pegawai->edit_log_diklat($id_diklat);
         $query2 = $this->m_pegawai->get_diklat_fungsional();
-        
-        $this->load->view("form/v_form_edit_diklat_fungsional",array('query'=>$query, 'query2'=>$query2));
+
+        $this->load->view("form/v_form_edit_diklat_fungsional", array('query' => $query, 'query2' => $query2));
         $this->load->view("laman/v_footer");
     }
+
     public function edit_log_diklat_teknis($id_diklat) {
         $query = $this->m_pegawai->edit_log_diklat($id_diklat);
-        
-        $this->load->view("form/v_form_edit_diklat_teknis",array('query'=>$query));
+
+        $this->load->view("form/v_form_edit_diklat_teknis", array('query' => $query));
         $this->load->view("laman/v_footer");
     }
+
     public function edit_log_toefl($id_pendidikan) {
         $query = $this->m_pegawai->edit_log_toefl($id_pendidikan);
-        
-        $this->load->view("form/v_form_edit_toefl",array('query'=>$query));
+
+        $this->load->view("form/v_form_edit_toefl", array('query' => $query));
         $this->load->view("laman/v_footer");
     }
+
     public function edit_log_penugasan($id_penugasan) {
         $query = $this->m_pegawai->edit_log_penugasan($id_penugasan);
         $query2 = $this->m_pegawai->get_jenis_penugasan();
-        
-        $this->load->view("form/v_form_edit_penugasan",array('query'=>$query, 'query2'=>$query2));
+
+        $this->load->view("form/v_form_edit_penugasan", array('query' => $query, 'query2' => $query2));
         $this->load->view("laman/v_footer");
-    }
-    public function edit_log_seminar($id_penugasan) {
-        $query = $this->m_pegawai->edit_log_seminar($id_penugasan);
-        
-        $this->load->view("form/v_form_edit_seminar",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_organisasi($id_organisasi) {
-         $query = $this->m_pegawai->edit_log_organisasi($id_organisasi);
-        
-        $this->load->view("form/v_form_edit_organisasi",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_alamat($id_alamat) {
-        $query = $this->m_pegawai->edit_log_alamat($id_alamat);
-        
-        $this->load->view("form/v_form_edit_alamat",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_pasangan($id_pasangan) {
-        $query = $this->m_pegawai->edit_log_pasangan($id_pasangan);
-        
-        $this->load->view("form/v_form_edit_pasangan",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_anak($id_ak) {
-        $query = $this->m_pegawai->edit_log_ak($id_ak);
-        
-        $this->load->view("form/v_form_edit_anak",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_saudara($id_ak) {
-         $query = $this->m_pegawai->edit_log_ak($id_ak);
-         
-        $this->load->view("form/v_form_edit_saudara",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_orangtua($id_ak) {
-        $query = $this->m_pegawai->edit_log_ak($id_ak);
-        
-        $this->load->view("form/v_form_edit_orangtua",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_gaji_berkala($id_kepangkatan) {
-        $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
-        
-        $this->load->view("form/v_form_edit_gaji_berkala",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_penghargaan($id_penghargaan) {
-        $query = $this->m_pegawai->edit_log_penghargaan($id_penghargaan);
-        
-        $this->load->view("form/v_form_edit_tanda_jasa",array('query'=>$query));
-        $this->load->view("laman/v_footer");
-    }
-    public function edit_log_medis($id_medis) {
-        $query = $this->m_pegawai->edit_log_medis($id_medis);
-        
-        $this->load->view("form/v_form_edit_medis",array('query'=>$query));
-    }
-    
-    //proses edit
-    
-    public function proses_edit_log_jabatan(){
-        $id_jabatan = $this->input->post('id_jabatan',true);
-        $aktif = $this->input->post('aktif',true);
-        $jabatan = $this->input->post('jabatan',true);
-        $unit_kerja = $this->input->post('unit_kerja',true);
-        $no_sk = $this->input->post('no_sk',true);
-        $tanggal_sk = $this->input->post('tanggal_sk',true);
-        $tmt = $this->input->post('tmt',true);
-        
-        $nip = $this->input->post('nip',true);
-        
-        
-        $this->m_pegawai->update_log_jabatan($id_jabatan,$aktif,$jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt);
-        redirect('pegawai/biodata/'.$nip);
-    }
-    
-    
-    public function proses_edit_log_pangkat(){
-        $id_kepangkatan = $this->input->post('id_kepangkatan',TRUE);
-        $aktif = $this->input->post('aktif',true);
-        $nip = $this->input->post('nip',true);
-        $golongan = $this->input->post('golongan',true);
-        $jenis_kenaikan = $this->input->post('jenis_kenaikan',true);
-        $tmt = $this->input->post('tmt',true);
-        $no_sk = $this->input->post('no_sk',true);
-        $tanggal_sk = $this->input->post('tanggal_sk',true);
-        $tahun = $this->input->post('masa_kerja',true);
-        $bulan = $this->input->post('bulan',true);
-        $gaji = $this->input->post('gaji',true);
-        $peraturan = $this->input->post('peraturan',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $masa_kerja = (($tahun*12)+$bulan);
-        
-        $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan);
-        redirect('pegawai/biodata/'.$nip);   
-    }
-    
-    public function proses_edit_log_pendidikan(){
-        $id_pendidikan = $this->input->post('id_pendidikan',TRUE);
-        $aktif = $this->input->post('aktif',true);
-        $nip = $this->input->post('nip',true);
-        $tingkat = $this->input->post('tingkat',true);
-        $nama_sekolah = $this->input->post('nama_sekolah',true);
-        $lokasi = $this->input->post('lokasi',true);
-        $fakultas = $this->input->post('fakultas',true);
-        $jurusan = $this->input->post('jurusan',true);
-        $no_ijazah = $this->input->post('no_ijazah',true);
-        $tanggal_ijazah = $this->input->post('tanggal_ijazah',true);
-        $ipk = $this->input->post('ipk',true);       
-        
-        $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif,$tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah,$ipk);
-        redirect('pegawai/biodata/'.$nip);
-    }
-    
-    public function proses_edit_log_diklat(){
-        $id_diklat = $this->input->post('id_diklat',TRUE);
-        $aktif = $this->input->post('aktif',true);
-        $nip = $this->input->post('nip',true);
-        $jenis = $this->input->post('jenis',true);
-        $instansi = $this->input->post('instansi',true);
-        $no_ijazah = $this->input->post('no_ijazah',true);
-        $tanggal_ijazah = $this->input->post('tanggal_ijazah',true);
-        $lama = $this->input->post('lama',true);
-        $tanggal_mulai = $this->input->post('tanggal_mulai',true);
-        $tanggal_selesai = $this->input->post('tanggal_selesai',true);
-        $angkatan = $this->input->post('angkatan',true);
-        $rangking = $this->input->post('rangking',true);
-        
-        $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking);
-        redirect('pegawai/biodata/'.$nip);
     }
 
-    
-    public function proses_edit_log_diklat_teknis(){
-        $id_diklat = $this->input->post('id_diklat',TRUE);
-        $nip = $this->input->post('nip',true);
-        $nama_diklat = $this->input->post('nama_diklat',true);
-        $instansi = $this->input->post('instansi',true);
-        $no_ijazah = $this->input->post('no_ijazah',true);
-        $tanggal_ijazah = $this->input->post('tanggal_ijazah',true);
-        $lama = $this->input->post('lama',true);
-        $tanggal_mulai = $this->input->post('tanggal_mulai',true);
-        $tanggal_selesai = $this->input->post('tanggal_selesai',true);
-        
-        $this->m_pegawai->update_log_diklat_teknis($id_diklat,$instansi,$nama_diklat, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai);
-        redirect('pegawai/biodata/'.$nip);
+    public function edit_log_seminar($id_penugasan) {
+        $query = $this->m_pegawai->edit_log_seminar($id_penugasan);
+
+        $this->load->view("form/v_form_edit_seminar", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-    public function proses_edit_log_toefl(){
-        $id_pendidikan = $this->input->post('id_pendidikan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $aktif = $this->input->post('aktif',true);
-        $jenis = $this->input->post('jenis',true);
-        $tahun = $this->input->post('tahun',true);
-        $instansi = $this->input->post('instansi',true);
-        $no_sertifikat = $this->input->post('no_sertifikat',true);
-        $tanggal_sertifikat = $this->input->post('tanggal_sertifikat',true);
-        $nilai = $this->input->post('nilai',true);
-        
-        $this->m_pegawai->update_log_toefl($id_pendidikan, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_organisasi($id_organisasi) {
+        $query = $this->m_pegawai->edit_log_organisasi($id_organisasi);
+
+        $this->load->view("form/v_form_edit_organisasi", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-    public function proses_edit_log_penugasan(){
-        $id_penugasan = $this->input->post('id_penugasan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $jenis = $this->input->post('jenis',true);
-        $lokasi = $this->input->post('lokasi',true);
-        $no_sk = $this->input->post('no_sk',true);
-        $tgl_sk = $this->input->post('tanggal_sk',true);
-        $tujuan = $this->input->post('tujuan',true);
-        $biaya = $this->input->post('biaya',true);
-        $lama = $this->input->post('lama',true);
-        $tahun = $this->input->post('tahun',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_penugasan($id_penugasan, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama, $tahun, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_alamat($id_alamat) {
+        $query = $this->m_pegawai->edit_log_alamat($id_alamat);
+
+        $this->load->view("form/v_form_edit_alamat", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-    public function proses_edit_log_seminar(){
-        $id_penugasan = $this->input->post('id_penugasan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $jenis = $this->input->post('jenis',true);
-        $peranan = $this->input->post('peranan',true);
-        $instansi = $this->input->post('instansi',true);
-        $lokasi = $this->input->post('lokasi',true);
-        $no_ijazah = $this->input->post('no_ijazah',true);
-        $tgl_ijazah = $this->input->post('tanggal_ijazah',true);
-        $lama = $this->input->post('lama',true);
-        $tanggal_mulai = $this->input->post('tanggal_mulai',true);
-        $tanggal_selesai = $this->input->post('tanggal_selesai',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_pasangan($id_pasangan) {
+        $query = $this->m_pegawai->edit_log_pasangan($id_pasangan);
+
+        $this->load->view("form/v_form_edit_pasangan", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-    public function proses_edit_log_organisasi(){
-        $id_organisasi = $this->input->post('id_organisasi',TRUE);
-        $nip = $this->input->post('nip',true);
-        $kd_stat_organisasi = $this->input->post('kd_stat_organisasi',true);
-        $nama_organisasi = $this->input->post('nama_organisasi',true);
-        $jabatan = $this->input->post('jabatan',true);
-        $tahun = $this->input->post('tahun',true);;
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_organisasi($id_organisasi,$kd_stat_organisasi,$nama_organisasi,$jabatan,$tahun, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_anak($id_ak) {
+        $query = $this->m_pegawai->edit_log_ak($id_ak);
+
+        $this->load->view("form/v_form_edit_anak", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-    public function proses_edit_log_alamat(){
-        $id_alamat = $this->input->post('id_alamat',TRUE);
-        $nip = $this->input->post('nip',true);
-        $aktif = $this->input->post('aktif',true);
-        $alamat = $this->input->post('alamat',true);
-        $provinsi = $this->input->post('provinsi',true);
-        $kabupaten = $this->input->post('kabupaten',true);
-        $kelurahan = $this->input->post('kelurahan',true);
-        $kecamatan = $this->input->post('kecamatan',true);
-        $kode_pos = $this->input->post('kode_pos',true);
-        $telepon = $this->input->post('telepon',true);
-        $fax = $this->input->post('fax',true);
-        $tahun = $this->input->post('tahun',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_alamat($id_alamat,$aktif,$alamat,$provinsi,$kabupaten,$kelurahan,$kecamatan,$kode_pos,$telepon,$fax,$tahun,$keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_saudara($id_ak) {
+        $query = $this->m_pegawai->edit_log_ak($id_ak);
+
+        $this->load->view("form/v_form_edit_saudara", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    public function proses_edit_log_pasangan(){
-        $id_pasangan = $this->input->post('id_pasangan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $status = $this->input->post('status',true);
-        $nama = $this->input->post('nama',true);
-        $tanggal_lahir = $this->input->post('tanggal_lahir',true);
-        $tempat_lahir = $this->input->post('tempat_lahir',true);
-        $tanggal_nikah = $this->input->post('tanggal_nikah',true);
-        $no_kariskarsu = $this->input->post('no_kariskarsu',true);
-        $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu',true);
-        $pekerjaan = $this->input->post('pekerjaan',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_pasangan($id_pasangan,$status,$nama,$tanggal_lahir,$tempat_lahir,$tanggal_nikah,$no_kariskarsu,$tanggal_kariskarsu,$pekerjaan,$keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_orangtua($id_ak) {
+        $query = $this->m_pegawai->edit_log_ak($id_ak);
+
+        $this->load->view("form/v_form_edit_orangtua", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
-        public function proses_edit_log_ak(){
-        $id_ak = $this->input->post('id_ak',TRUE);
-        $nip = $this->input->post('nip',true);
-        $status = $this->input->post('status',true);
-        $nama = $this->input->post('nama',true);
-        $jenis_kelamin = $this->input->post('jenis_kelamin',true);
-        $tanggal_lahir = $this->input->post('tanggal_lahir',true);
-        $tempat_lahir = $this->input->post('tempat_lahir',true);
-        $pekerjaan = $this->input->post('pekerjaan',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        
-        $this->m_pegawai->update_log_ak($id_ak,$status,$nama,$jenis_kelamin,$tanggal_lahir,$tempat_lahir,$pekerjaan,$keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function edit_log_gaji_berkala($id_kepangkatan) {
+        $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
+
+        $this->load->view("form/v_form_edit_gaji_berkala", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
-    
+
+    public function edit_log_penghargaan($id_penghargaan) {
+        $query = $this->m_pegawai->edit_log_penghargaan($id_penghargaan);
+
+        $this->load->view("form/v_form_edit_tanda_jasa", array('query' => $query));
+        $this->load->view("laman/v_footer");
+    }
+
+    public function edit_log_medis($id_medis) {
+        $query = $this->m_pegawai->edit_log_medis($id_medis);
+
+        $this->load->view("form/v_form_edit_medis", array('query' => $query));
+    }
+
+    //proses edit
+
+    public function proses_edit_log_jabatan() {
+        $id_jabatan = $this->input->post('id_jabatan', true);
+        $aktif = $this->input->post('aktif', true);
+        $jabatan = $this->input->post('jabatan', true);
+        $unit_kerja = $this->input->post('unit_kerja', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tanggal_sk = $this->input->post('tanggal_sk', true);
+        $tmt = $this->input->post('tmt', true);
+
+        $nip = $this->input->post('nip', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_pangkat() {
+        $id_kepangkatan = $this->input->post('id_kepangkatan', TRUE);
+        $aktif = $this->input->post('aktif', true);
+        $nip = $this->input->post('nip', true);
+        $golongan = $this->input->post('golongan', true);
+        $jenis_kenaikan = $this->input->post('jenis_kenaikan', true);
+        $tmt = $this->input->post('tmt', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tanggal_sk = $this->input->post('tanggal_sk', true);
+        $tahun = $this->input->post('masa_kerja', true);
+        $bulan = $this->input->post('bulan', true);
+        $gaji = $this->input->post('gaji', true);
+        $peraturan = $this->input->post('peraturan', true);
+        $keterangan = $this->input->post('keterangan', true);
+
+        $masa_kerja = (($tahun * 12) + $bulan);
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_pendidikan() {
+        $id_pendidikan = $this->input->post('id_pendidikan', TRUE);
+        $aktif = $this->input->post('aktif', true);
+        $nip = $this->input->post('nip', true);
+        $tingkat = $this->input->post('tingkat', true);
+        $nama_sekolah = $this->input->post('nama_sekolah', true);
+        $lokasi = $this->input->post('lokasi', true);
+        $fakultas = $this->input->post('fakultas', true);
+        $jurusan = $this->input->post('jurusan', true);
+        $no_ijazah = $this->input->post('no_ijazah', true);
+        $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
+        $ipk = $this->input->post('ipk', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_diklat() {
+        $id_diklat = $this->input->post('id_diklat', TRUE);
+        $aktif = $this->input->post('aktif', true);
+        $nip = $this->input->post('nip', true);
+        $jenis = $this->input->post('jenis', true);
+        $instansi = $this->input->post('instansi', true);
+        $no_ijazah = $this->input->post('no_ijazah', true);
+        $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
+        $lama = $this->input->post('lama', true);
+        $tanggal_mulai = $this->input->post('tanggal_mulai', true);
+        $tanggal_selesai = $this->input->post('tanggal_selesai', true);
+        $angkatan = $this->input->post('angkatan', true);
+        $rangking = $this->input->post('rangking', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_diklat_teknis() {
+        $id_diklat = $this->input->post('id_diklat', TRUE);
+        $nip = $this->input->post('nip', true);
+        $nama_diklat = $this->input->post('nama_diklat', true);
+        $instansi = $this->input->post('instansi', true);
+        $no_ijazah = $this->input->post('no_ijazah', true);
+        $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
+        $lama = $this->input->post('lama', true);
+        $tanggal_mulai = $this->input->post('tanggal_mulai', true);
+        $tanggal_selesai = $this->input->post('tanggal_selesai', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_diklat_teknis($id_diklat, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_toefl() {
+        $id_pendidikan = $this->input->post('id_pendidikan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $aktif = $this->input->post('aktif', true);
+        $jenis = $this->input->post('jenis', true);
+        $tahun = $this->input->post('tahun', true);
+        $instansi = $this->input->post('instansi', true);
+        $no_sertifikat = $this->input->post('no_sertifikat', true);
+        $tanggal_sertifikat = $this->input->post('tanggal_sertifikat', true);
+        $nilai = $this->input->post('nilai', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_toefl($id_pendidikan, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_penugasan() {
+        $id_penugasan = $this->input->post('id_penugasan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $jenis = $this->input->post('jenis', true);
+        $lokasi = $this->input->post('lokasi', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tgl_sk = $this->input->post('tanggal_sk', true);
+        $tujuan = $this->input->post('tujuan', true);
+        $biaya = $this->input->post('biaya', true);
+        $lama = $this->input->post('lama', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_penugasan($id_penugasan, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama, $tahun, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_seminar() {
+        $id_penugasan = $this->input->post('id_penugasan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $jenis = $this->input->post('jenis', true);
+        $peranan = $this->input->post('peranan', true);
+        $instansi = $this->input->post('instansi', true);
+        $lokasi = $this->input->post('lokasi', true);
+        $no_ijazah = $this->input->post('no_ijazah', true);
+        $tgl_ijazah = $this->input->post('tanggal_ijazah', true);
+        $lama = $this->input->post('lama', true);
+        $tanggal_mulai = $this->input->post('tanggal_mulai', true);
+        $tanggal_selesai = $this->input->post('tanggal_selesai', true);
+        $keterangan = $this->input->post('keterangan', true);
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_organisasi() {
+        $id_organisasi = $this->input->post('id_organisasi', TRUE);
+        $nip = $this->input->post('nip', true);
+        $kd_stat_organisasi = $this->input->post('kd_stat_organisasi', true);
+        $nama_organisasi = $this->input->post('nama_organisasi', true);
+        $jabatan = $this->input->post('jabatan', true);
+        $tahun = $this->input->post('tahun', true);
+        ;
+        $keterangan = $this->input->post('keterangan', true);
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_alamat() {
+        $id_alamat = $this->input->post('id_alamat', TRUE);
+        $nip = $this->input->post('nip', true);
+        $aktif = $this->input->post('aktif', true);
+        $alamat = $this->input->post('alamat', true);
+        $provinsi = $this->input->post('provinsi', true);
+        $kabupaten = $this->input->post('kabupaten', true);
+        $kelurahan = $this->input->post('kelurahan', true);
+        $kecamatan = $this->input->post('kecamatan', true);
+        $kode_pos = $this->input->post('kode_pos', true);
+        $telepon = $this->input->post('telepon', true);
+        $fax = $this->input->post('fax', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_pasangan() {
+        $id_pasangan = $this->input->post('id_pasangan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $status = $this->input->post('status', true);
+        $nama = $this->input->post('nama', true);
+        $tanggal_lahir = $this->input->post('tanggal_lahir', true);
+        $tempat_lahir = $this->input->post('tempat_lahir', true);
+        $tanggal_nikah = $this->input->post('tanggal_nikah', true);
+        $no_kariskarsu = $this->input->post('no_kariskarsu', true);
+        $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu', true);
+        $pekerjaan = $this->input->post('pekerjaan', true);
+        $keterangan = $this->input->post('keterangan', true);
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
+    public function proses_edit_log_ak() {
+        $id_ak = $this->input->post('id_ak', TRUE);
+        $nip = $this->input->post('nip', true);
+        $status = $this->input->post('status', true);
+        $nama = $this->input->post('nama', true);
+        $jenis_kelamin = $this->input->post('jenis_kelamin', true);
+        $tanggal_lahir = $this->input->post('tanggal_lahir', true);
+        $tempat_lahir = $this->input->post('tempat_lahir', true);
+        $pekerjaan = $this->input->post('pekerjaan', true);
+        $keterangan = $this->input->post('keterangan', true);
+
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+    }
+
     ///BELUM
-    public function proses_edit_log_gaji_berkala(){
-        $id_pegawai = $this->input->post('id_kepangkatan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $status = $this->input->post('status',true);
-        $tmt = $this->input->post('tmt',true);
-        $no_sk = $this->input->post('no_sk',true);
-        $tanggal_sk = $this->input->post('tanggal_sk',true);
-        $tahun = $this->input->post('masa_kerja',true);
-        $bulan = $this->input->post('bulan',true);
-        $gaji = $this->input->post('gaji',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $masa_kerja = (($tahun*12)+$bulan);
-        
-        $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status,  $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+    public function proses_edit_log_gaji_berkala() {
+        $id_pegawai = $this->input->post('id_kepangkatan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $status = $this->input->post('status', true);
+        $tmt = $this->input->post('tmt', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tanggal_sk = $this->input->post('tanggal_sk', true);
+        $tahun = $this->input->post('masa_kerja', true);
+        $bulan = $this->input->post('bulan', true);
+        $gaji = $this->input->post('gaji', true);
+        $keterangan = $this->input->post('keterangan', true);
+
+        $masa_kerja = (($tahun * 12) + $bulan);
+ if ($this->session->userdata('role') == 1) {
+        $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan);
+        redirect('pegawai/biodata/' . $nip);
+ }else{
+     
+ }
     }
-    
-    public function proses_edit_log_penghargaan(){
-        $id_penghargaan = $this->input->post('id_penghargaan',TRUE);
-        $nip = $this->input->post('nip',true);
-        $nama = $this->input->post('nama',true);
-        $instansi = $this->input->post('instansi',true);
-        $no_sk = $this->input->post('no_sk',true);
-        $tanggal_sk = $this->input->post('tanggal_sk',true);
-        $tahun = $this->input->post('tahun',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_penghargaan($id_penghargaan, $nama,$instansi, $no_sk, $tanggal_sk, $tahun, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function proses_edit_log_penghargaan() {
+        $id_penghargaan = $this->input->post('id_penghargaan', TRUE);
+        $nip = $this->input->post('nip', true);
+        $nama = $this->input->post('nama', true);
+        $instansi = $this->input->post('instansi', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tanggal_sk = $this->input->post('tanggal_sk', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+
+        $this->m_pegawai->update_log_penghargaan($id_penghargaan, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan);
+        redirect('pegawai/biodata/' . $nip);
     }
-    
-    public function proses_edit_log_medis(){
-        $id_medis = $this->input->post('id_medis',TRUE);
-        $nip = $this->input->post('nip',true);
-        $indikasi = $this->input->post('indikasi',true);
-        $tindakan = $this->input->post('tindakan',true);
-        $tahun = $this->input->post('tahun',true);
-        $keterangan = $this->input->post('keterangan',true);
-        
-        $this->m_pegawai->update_log_medis($id_medis, $indikasi,$tindakan,$tahun, $keterangan);
-        redirect('pegawai/biodata/'.$nip);
+
+    public function proses_edit_log_medis() {
+        $id_medis = $this->input->post('id_medis', TRUE);
+        $nip = $this->input->post('nip', true);
+        $indikasi = $this->input->post('indikasi', true);
+        $tindakan = $this->input->post('tindakan', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+ if ($this->session->userdata('role') == 1) {
+        $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan);
+        redirect('pegawai/biodata/' . $nip);
+ }else{
+     
+ }
     }
-    
+
     //============================================================================================//
-    
+
     public function pegawai_pensiun() {
-        $this->usiaPensiun();
-        $this->load->view('laman/v_footer');
+        if ($this->session->userdata('role') == 1) {
+            $this->usiaPensiun();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     public function logout() {
@@ -584,21 +671,35 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $tgl_lahir = $this->input->post('tgl_lahir', true);
         $jenis_kelamin = $this->input->post('jenis_kelamin', true);
-        $agama = $this->input->post('agama', true);
-        $status_perkawinan = $this->input->post('status_perkawinan', true);
+        $alamat = $this->input->post('alamat', true);
+        $kecamatan = $this->input->post('kecamatan', true);
+        $kelurahan = $this->input->post('kelurahan', true);
+        $kabupaten = $this->input->post('kabupaten', true);
+        $provinsi = $this->input->post('provinsi', true);
         $tmt_cpns = $this->input->post('tmt_cpns', true);
         $tmt_pns = $this->input->post('tmt_pns', true);
-        $keterangan = $this->input->post('keterangan', true);
+        $agama = $this->input->post('agama', true);
+        $status_perkawinan = $this->input->post('status_perkawinan', true);
         $status_pegawai = $this->input->post('status_pegawai', true);
         $foto = $this->input->post('foto', true);
-        $unit_kerja = $this->input->post('unit_kerja', true);
+        $keterangan = $this->input->post('keterangan', true);
+
         $jabatan = $this->input->post('jabatan', true);
+        $unit_kerja = $this->input->post('unit_kerja', true);
+        $golongan = $this->input->post('golongan', true);
+        $jenis_kenaikan = $this->input->post('jenis_kenaikan', true);
+        $gaji = $this->input->post('gaji', true);
+
         $pendidikan = $this->input->post('pendidikan', true);
-
-
-        $this->m_pegawai->insert_pegawai($nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $agama, $status_perkawinan, $tmt_cpns, $tmt_pns, $keterangan, $status_pegawai, $foto, $unit_kerja, $jabatan, $pendidikan);
-        $this->m_pegawai->insert_pegawai_tambah($nip, $unit_kerja, $jabatan, $pendidikan);
+        $nama_sekolah = $this->input->post('nama_sekolah', true);
+ if ($this->session->userdata('role') == 1) {
+        $this->m_pegawai->insert_pegawai(
+                $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, $jabatan, $unit_kerja, $golongan, $jenis_kenaikan, $gaji, $pendidikan, $nama_sekolah
+        );
         redirect('pegawai/biodata/' . $nip);
+ }else{
+     
+ }
     }
 
     public function proses_insert_data_tambahan() {
@@ -623,9 +724,12 @@ class pegawai extends CI_Controller {
         $cacat_tubuh = $this->input->post('cacat_tubuh', true);
         $bahasa_asing = $this->input->post('bahasa_asing', true);
         $hobi = $this->input->post('hobi', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_jabatan() {
@@ -638,9 +742,12 @@ class pegawai extends CI_Controller {
         $tmt = $this->input->post('tmt', true);
         $nip = $this->input->post('nip', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_pangkat() {
@@ -659,9 +766,12 @@ class pegawai extends CI_Controller {
         $keterangan = $this->input->post('keterangan', true);
 
         $masa_kerja = (($tahun * 12) + $bulan);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_pendidikan() {
@@ -676,9 +786,12 @@ class pegawai extends CI_Controller {
         $no_ijazah = $this->input->post('no_ijazah', true);
         $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
         $ipk = $this->input->post('ipk', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_diklat_struktural() {
@@ -694,9 +807,12 @@ class pegawai extends CI_Controller {
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $angkatan = $this->input->post('angkatan', true);
         $rangking = $this->input->post('rangking', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_diklat_fungsional() {
@@ -712,9 +828,12 @@ class pegawai extends CI_Controller {
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $angkatan = $this->input->post('angkatan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_diklat_teknis() {
@@ -727,9 +846,12 @@ class pegawai extends CI_Controller {
         $lama = $this->input->post('lama', true);
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_diklat_teknis($id_pegawai, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_toefl() {
@@ -742,9 +864,12 @@ class pegawai extends CI_Controller {
         $no_sertifikat = $this->input->post('no_sertifikat', true);
         $tanggal_sertifikat = $this->input->post('tanggal_sertifikat', true);
         $nilai = $this->input->post('nilai', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_toefl($id_pegawai, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_penugasan() {
@@ -759,9 +884,12 @@ class pegawai extends CI_Controller {
         $lama = $this->input->post('lama', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_penugasan($id_pegawai, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama, $tahun, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_seminar() {
@@ -777,9 +905,12 @@ class pegawai extends CI_Controller {
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $keterangan = $this->input->post('keterangan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_seminar($id_pegawai, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_organisasi() {
@@ -791,9 +922,12 @@ class pegawai extends CI_Controller {
         $tahun = $this->input->post('tahun', true);
         ;
         $keterangan = $this->input->post('keterangan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_organisasi($id_pegawai, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_alamat() {
@@ -811,9 +945,12 @@ class pegawai extends CI_Controller {
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_pasangan() {
@@ -829,9 +966,12 @@ class pegawai extends CI_Controller {
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_anak() {
@@ -845,9 +985,12 @@ class pegawai extends CI_Controller {
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_saudara() {
@@ -861,9 +1004,12 @@ class pegawai extends CI_Controller {
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_orangtua() {
@@ -876,9 +1022,12 @@ class pegawai extends CI_Controller {
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
 
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_gaji_berkala() {
@@ -894,9 +1043,12 @@ class pegawai extends CI_Controller {
         $keterangan = $this->input->post('keterangan', true);
 
         $masa_kerja = (($tahun * 12) + $bulan);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_penghargaan() {
@@ -908,9 +1060,12 @@ class pegawai extends CI_Controller {
         $tanggal_sk = $this->input->post('tanggal_sk', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function proses_insert_log_medis() {
@@ -920,69 +1075,120 @@ class pegawai extends CI_Controller {
         $tindakan = $this->input->post('tindakan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-
+if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->insert_log_medis($id_pegawai, $indikasi, $tindakan, $tahun, $keterangan);
         redirect('pegawai/biodata/' . $nip);
+}else{
+    
+}
     }
 
     public function delete_log_jabatan($id_jabatan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_jabatan($id_jabatan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_pangkat($id_kepangkatan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_pangkat($id_kepangkatan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_pendidikan($id_pendidikan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_pendidikan($id_pendidikan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_diklat($id_diklat, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_diklat($id_diklat);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_penugasan($id_penugasan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_penugasan($id_penugasan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_organisasi($id_organisasi, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_organisasi($id_organisasi);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_alamat($id_alamat, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_alamat($id_alamat);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_pasangan($id_pasangan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_pasangan($id_pasangan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_ak($id_ak, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_ak($id_ak);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_penghargaan($id_log_penghargaan, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_penghargaan($id_log_penghargaan);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_log_medis($id_medis, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_medis($id_medis);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
     public function delete_pegawai($id_pegawai, $nip) {
+        if ($this->session->userdata('role') == 1) {
         $this->m_pegawai->delete_log_medis($id_pegawai);
         redirect('pegawai/biodata/' . $nip, 'refresh');
+        }else{
+            
+        }
     }
 
 //    program
@@ -1031,44 +1237,60 @@ class pegawai extends CI_Controller {
 //notifikasi
 
     public function usiaPensiun() {
-        $query = $this->m_pegawai->get_pensiun();
-        $title = "PENSIUN";
-        $this->load->view("tabel/v_table_peringatan", array('query' => $query, 'title' => $title));
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->get_pensiun();
+            $title = "PENSIUN";
+            $this->load->view("tabel/v_table_peringatan", array('query' => $query, 'title' => $title));
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     public function kenaikanGajiBerkala() {
-        $query = $this->m_pegawai->get_kgb();
-        $title = "KENAIKAN GAJI BERKALA";
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->get_kgb();
+            $title = "KENAIKAN GAJI BERKALA";
 
-        $this->load->view("tabel/v_table_kgb", array('query' => $query, 'title' => $title));
+            $this->load->view("tabel/v_table_kgb", array('query' => $query, 'title' => $title));
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     //belum
     public function kenaikanPangkat() {
-        $query = $this->m_pegawai->get_kp();
-        $title = "KENAIKAN PANGKAT";
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->get_kp();
+            $title = "KENAIKAN PANGKAT";
 
 
-        $this->load->view("tabel/v_table_naikpangkat", array('query' => $query, 'title' => $title));
+            $this->load->view("tabel/v_table_naikpangkat", array('query' => $query, 'title' => $title));
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     public function persetujuan() {
+        if ($this->session->userdata('role') == 1) {
 
-        $doc = new DOMDocument();
-        $doc->load('xml/coba.xml'); //xml file loading here
+            $doc = new DOMDocument();
+            $doc->load('xml/coba.xml'); //xml file loading here
 
-        $employees = $doc->getElementsByTagName("employee");
-        foreach ($employees as $employee) {
-            $names = $employee->getElementsByTagName("name");
-            $name = $names->item(0)->nodeValue;
+            $employees = $doc->getElementsByTagName("employee");
+            foreach ($employees as $employee) {
+                $names = $employee->getElementsByTagName("name");
+                $name = $names->item(0)->nodeValue;
 
-            $ages = $employee->getElementsByTagName("age");
-            $age = $ages->item(0)->nodeValue;
+                $ages = $employee->getElementsByTagName("age");
+                $age = $ages->item(0)->nodeValue;
 
-            $salaries = $employee->getElementsByTagName("salary");
-            $salary = $salaries->item(0)->nodeValue;
+                $salaries = $employee->getElementsByTagName("salary");
+                $salary = $salaries->item(0)->nodeValue;
 
-            echo "<b>$name - $age - $salary\n</b><br>";
+                echo "<b>$name - $age - $salary\n</b><br>";
+            }
+        } else {
+            redirect('./pegawai');
         }
     }
 
@@ -1231,7 +1453,7 @@ class pegawai extends CI_Controller {
                     <td colspan=2></td>";
                 }
             } else {
-                 echo "
+                echo "
                  <td colspan=3>$q->JABATAN</td>
                  <td>$nama /<br>$q->NIP</td>
                  <td></td>";
@@ -1264,11 +1486,6 @@ class pegawai extends CI_Controller {
         $this->load->view("laman/v_developer");
     }
 
-    public function header_admin($nip) {
-        $query = $this->m_pegawai->get_akun($nip);
-        $this->load->view('laman/v_header', array('query' => $query));
-    }
-
     public function ubah_akun() {
         $nip = $this->input->post('nip', true);
         $password_lama = $this->input->post('password_lama', true);
@@ -1289,6 +1506,16 @@ class pegawai extends CI_Controller {
         } else {
             echo "salah password lama";
         }
+    }
+
+    public function header_admin($nip) {
+        $query = $this->m_pegawai->get_akun($nip);
+        $this->load->view('laman/v_header', array('query' => $query));
+    }
+
+    public function header_pegawai($nip) {
+        $query = $this->m_pegawai->get_akun($nip);
+        $this->load->view('laman/v_header', array('query' => $query));
     }
 
 }

@@ -28,6 +28,11 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/modernizr.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/responsive-tables.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/custom.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.slimscroll.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.resize.min.js"></script>
 
     </head>
 
@@ -87,20 +92,18 @@
                             <div class="userloggedinfo">
                                 <?php
                                 foreach ($query as $q) {
-                                    
-                                
-                                ?>
-                                <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/<?php echo $q->FOTO;?>" alt="<?php echo $q->NIP;?>" />
-                                <div class="userinfo">
-                                    <h5><?php echo $q->NAMA_PEGAWAI;?></h5>
-                                    <h5><small><?php echo $q->NIP;?></small></h5>
-                                    <ul>
-                                        <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP;?>">Ubah Data Pribadi</a></li>
-                                        <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP;?>">Pengaturan Akun</a></li>
-                                        <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
-                                    </ul>
-                                </div>
-                                 <?php    }   ?>
+                                    ?>
+                                    <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
+                                    <div class="userinfo">
+                                        <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
+                                        <h5><small><?php echo $q->NIP; ?></small></h5>
+                                        <ul>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP; ?>">Pengaturan Akun</a></li>
+                                            <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
+                                        </ul>
+                                    </div>
+<?php } ?>
                             </div>
                         </li>
                     </ul><!--headmenu-->
