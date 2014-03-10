@@ -399,7 +399,7 @@ class grafik extends CI_Controller {
 
     public function header_pegawai($nip) {
         $query = $this->m_pegawai->get_akun($nip);
-        $this->load->view('laman/v_header', array('query' => $query));
+        $this->load->view('laman/v_header_pegawai', array('query' => $query));
     }
 
 }

@@ -94,7 +94,7 @@
                                 <?php
                                 foreach ($query as $q) {
                                     ?>
-                                    <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
+                                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
                                     <div class="userinfo">
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
                                         <h5><small><?php echo $q->NIP; ?></small></h5>

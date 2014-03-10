@@ -47,22 +47,28 @@
     
     <div class="header">
         <div class="logo" style="margin-top:-10px;">
-            <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/shamcey/images/logi.png" alt="" width="85%" /></a>
+           <a href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>assets/shamcey/images/logo_ppsdmk.png" alt="" width="85%" /></a>
         </div>
         <div class="headerinner">
             <ul class="headmenu">
                 <li class="right">
-                    <div class="userloggedinfo">
-                        <img src="<?php echo base_url();?>assets/shamcey/images/photos/foto_profil.png" alt="" />
-                        <div class="userinfo">
-                            <h5>Supervisor <br/><small> supervisor@sempack.com</small></h5>
-                            <ul>
-                                <li><a href="<?php echo base_url();?>login/logout">Pengaturan Akun</a></li>
-                                <li><a href="<?php echo base_url();?>login/logout">Keluar</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
+                            <div class="userloggedinfo">
+                                <?php
+                                foreach ($query as $q) {
+                                    ?>
+                                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
+                                    <div class="userinfo">
+                                        <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
+                                        <h5><small><?php echo $q->NIP; ?></small></h5>
+                                        <ul>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP; ?>">Pengaturan Akun</a></li>
+                                            <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
+                                        </ul>
+                                    </div>
+<?php } ?>
+                            </div>
+                        </li>
             </ul><!--headmenu-->
         </div>
     </div>

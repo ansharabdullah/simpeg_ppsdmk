@@ -26,8 +26,7 @@
 </div><!--pageheader-->
 <div class="maincontent">
     <div class="maincontentinner">
-        <form class="stdform" method="post" action="<?php echo site_url('Pegawai/input_pegawai') ?>">
-            <?php echo form_open_multipart('Pegawai/input_pegawai');?>
+        <form class="stdform" method="post" action="<?php echo site_url('Pegawai/input_pegawai')?>" enctype="multipart/form-data">
             <div id="wizard" class="wizard">
                 <br />
                 <ul class="hormenu">

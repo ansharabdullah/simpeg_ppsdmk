@@ -125,8 +125,7 @@
             <br />
             
             <div class="row-fluid" style="text-transform:uppercase;">    
-                <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/foto_profil.png"  class="pull-right"/></center>
-                
+                <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>"  class="pull-right" style="height:  250px; width: 200px; overflow: hidden;"/></center>
                 <div class="span4"> 
                     <table class="table table-bordered table-invoice">
                         <th>DATA UTAMA</th>

@@ -497,14 +497,14 @@ class m_pegawai extends CI_Model {
             $status_pegawai, $keterangan, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp,
             $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah,
             $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh,
-            $bahasa_asing, $hobi, $id_pegawai ){
+            $bahasa_asing, $hobi, $id_pegawai, $foto ){
             $query = $this->db->query("  
             UPDATE pegawai set NIP='$nip', NIP_LAMA='$nip_lama', NAMA_PEGAWAI='$nama_pegawai', GELAR_DEPAN='$gelar_depan', GELAR_BELAKANG='$gelar_belakang', 
             JENIS_KELAMIN='$jenis_kelamin', TEMPAT_LAHIR='$tempat_lahir', TGL_LAHIR='$tgl_lahir', AGAMA='$agama', STATUS_PERKAWINAN='$status_perkawinan', TMT_CPNS='$tmt_cpns', TMT_PNS='$tmt_pns', KETERANGAN='$keterangan', 
             STATUS_PEGAWAI='$status_pegawai', NO_KARTU_PEGAWAI='$no_kartu_pegawai', TGL_KARTU_PEGAWAI='$tanggal_kartu_pegawai', NO_KTP='$no_ktp', 
             NO_NPWP='$npwp', NO_ASKES='$no_askes', TGL_ASKES='$tanggal_askes', KODE_WILAYAH_ASKES='$kode_wilayah_askes', NO_HANDPHONE='$no_handphone', 
             EMAIL='$email', GOL_DARAH='$golongan_darah', RAMBUT='$rambut', BENTUK_MUKA='$bentuk_muka', WARNA_KULIT='$warna_kulit', 
-            TINGGI_BADAN='$tinggi_badan', BERAT_BADAN='$berat_badan', CIRI_KHAS='$ciri_khas', CACAT_TUBUH='$cacat_tubuh', BAHASA_ASING='$bahasa_asing', HOBI='$hobi'      
+            TINGGI_BADAN='$tinggi_badan', BERAT_BADAN='$berat_badan', CIRI_KHAS='$ciri_khas', CACAT_TUBUH='$cacat_tubuh', BAHASA_ASING='$bahasa_asing', HOBI='$hobi'  , FOTO='$foto'    
             WHERE ID_PEGAWAI=$id_pegawai
             " );
         

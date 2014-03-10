@@ -60,7 +60,7 @@
         <div class="widgetbox box">
             <h4 class="widgettitle">DATA UTAMA</h4>
             <div class="widgetcontent nopadding">
-                <form class="stdform stdform2" action=<?php echo base_url();?>pegawai/proses_edit_biodata method="post">
+                <form class="stdform stdform2" action="<?php echo base_url();?>pegawai/proses_edit_biodata" enctype="multipart/form-data" method="post">
                     
                     <p>
                         <label>NIP</label>
@@ -150,7 +150,7 @@
                     </p>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><input type="file" name="foto" value="<?php echo $FOTO ?>"></span> 
+                        <span class="field"><input type="file" name="userfile" value="<?php echo $FOTO ?>"></span> 
                     </p>
                     <p>
                         <label>NO Kartu Pegawai</label>
