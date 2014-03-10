@@ -35,6 +35,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery.jgrowl.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery.alerts.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/elements.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
 
 </head>
 

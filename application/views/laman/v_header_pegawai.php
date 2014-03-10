@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" href="<?php echo base_url();?>/assets/shamcey/images/logi1.png">
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default_.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/responsive-tables.css">
 
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-1.9.1.min.js"></script>
@@ -35,6 +36,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery.jgrowl.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery.alerts.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/elements.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
 
 </head>
 

@@ -10,6 +10,7 @@
         
         <!--shampey-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default.css" type="text/css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default_.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/responsive-tables.css">
         
         <!-- highcharts -->
@@ -33,7 +34,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.slimscroll.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.resize.min.js"></script>
-
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
     </head>
     
     <body>
