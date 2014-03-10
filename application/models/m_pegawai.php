@@ -34,18 +34,8 @@ class m_pegawai extends CI_Model {
         return $query->result();
     }
 
-    public function get_jenis_kenaikan() {
-        $query = $this->db->query("select id_jenis_kenaikan,  jenis_kenaikan from jenis_kenaikan");
-        return $query->result();
-    }
-
     public function get_golongan() {
         $query = $this->db->query("select id_jenis_golongan,golongan,nama_pangkat from jenis_golongan");
-        return $query->result();
-    }
-
-    public function get_kategori_gaji() {
-        $query = $this->db->query("select id_kategori_gaji,besar_gaji,masa_kerja from kategori_gaji");
         return $query->result();
     }
 
@@ -74,37 +64,12 @@ class m_pegawai extends CI_Model {
         return $periode;
     }
 
-    public function insert_penilaian($id_pegawai, $id_periode, $kejujuran, $tanggung_jawab, $loyalitas, $kepemimpinan, $perencanaan, $organisasi, $komunikasi, $adaptasi, $berbagi_informasi, $ahp) {
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$kejujuran', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '1'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$tanggung_jawab', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '2'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$loyalitas', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '3'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$kepemimpinan', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '4'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$perencanaan', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '5'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$organisasi', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '6'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$komunikasi', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '7'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$adaptasi', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '8'");
-        $query = $this->db->query("update penilaian p, periode pe set p.nilai='$berbagi_informasi', p.tanggal_nilai=CURRENT_DATE where p.id_pegawai='$id_pegawai' and p.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode' and p.id_subkriteria = '9'");
-
-        //$ahp = 100;
-        $query = $this->db->query("update log_nilai l, periode pe set l.nilai_total='$ahp' where l.id_pegawai='$id_pegawai' and l.id_periode = pe.id_periode and pe.tanggal_periode = '$id_periode'");
-    }
-
-    public function cekPenilaian($id_pegawai, $id_periode) {
-        $query = $this->db->query("select * from pegawai peg, penilaian p, periode pe where peg.NAMA_PEGAWAI = '$id_pegawai' and p.ID_PERIODE = pe.ID_PERIODE and pe.TANGGAL_PERIODE = '$id_periode' and peg.id_pegawai=p.id_pegawai");
-        $data = $query->result();
-        $tanggal = "kosong";
-        foreach ($data as $row) {
-            $tanggal = !empty($row->TANGGAL_NILAI) ? $row->TANGGAL_NILAI : "kosong";
-        }
-        return $tanggal;
-    }
-
     //INSERT PEGAWAI
     public function insert_pegawai(
                 $nip,$nip_lama,$gelar_depan,$nama_pegawai,$gelar_belakang ,$tempat_lahir ,$tgl_lahir, 
                 $jenis_kelamin ,$alamat ,$kecamatan ,$kelurahan ,$kabupaten ,$provinsi ,$tmt_cpns ,
                 $tmt_pns ,$agama ,$status_perkawinan ,$status_pegawai ,$foto ,$keterangan ,$jabatan, 
-                $unit_kerja, $golongan ,$jenis_kenaikan,$gaji, $pendidikan ,$nama_sekolah
+                $unit_kerja, $golongan , $pendidikan ,$nama_sekolah
             ){
         $query = $this->db->query("INSERT INTO pegawai (NIP, NIP_LAMA, NAMA_PEGAWAI, GELAR_DEPAN, GELAR_BELAKANG, JENIS_KELAMIN, 
             TEMPAT_LAHIR, TGL_LAHIR, AGAMA, STATUS_PERKAWINAN, TMT_CPNS, TMT_PNS, KETERANGAN, STATUS_PEGAWAI, FOTO) 
@@ -114,7 +79,7 @@ class m_pegawai extends CI_Model {
         $last_id = $this->db->insert_id();
         $query2 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI, ID_JENIS_JABATAN, ID_UNIT, STATUS_JABATAN) 
                 VALUES ($last_id, $jabatan, $unit_kerja, 1)");
-        $query3 = $this->db->query("INSERT INTO log_kepangkatan (ID_PEGAWAI, ID_JENIS_GOLONGAN, STATUS_KEPANGKATAN,ID_JENIS_KENAIKAN, ID_KATEGORI_GAJI) VALUES ($last_id,$golongan,1, $jenis_kenaikan, $gaji)");
+        $query3 = $this->db->query("INSERT INTO log_kepangkatan (ID_PEGAWAI, ID_JENIS_GOLONGAN, STATUS_KEPANGKATAN) VALUES ($last_id,$golongan,1)");
         $query4 = $this->db->query("INSERT INTO log_pendidikan (ID_PEGAWAI, TINGKAT_PENDIDIKAN, NAMA_SEKOLAH,STATUS_PENDIDIKAN_TERAKHIR,KETERANGAN_PENDIDIKAN)
                 VALUES($last_id, '$pendidikan', '$nama_sekolah', 1,1)");
         $query5 = $this->db->query("INSERT INTO log_alamat (ID_PEGAWAI, STATUS_ALAMAT, ALAMAT, PROVINSI, KABUPATEN, KELURAHAN, KECAMATAN)
@@ -135,13 +100,13 @@ class m_pegawai extends CI_Model {
     public function insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt) {
         $query = $this->db->query("
                 INSERT INTO log_jabatan (ID_PEGAWAI, STATUS_JABATAN, ID_JENIS_JABATAN, ID_UNIT,NO_SK_JABATAN, TGL_SK_JABATAN, TMT_JABATAN) 
-                VALUES ($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, '$tanggal_sk', '$tmt')");
+                VALUES ($id_pegawai, $aktif, $jabatan, $unit_kerja, '$no_sk', '$tanggal_sk', '$tmt')");
     }
 
     public function insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan) {
         $query = $this->db->query("
-                INSERT INTO log_kepangkatan (ID_PEGAWAI,STATUS_KEPANGKATAN,ID_JENIS_GOLONGAN, ID_JENIS_KENAIKAN,  TMT_GOLONGAN, NO_SK_GOLONGAN,TGL_SK_GOLONGAN,MASA_KERJA_GOLONGAN, ID_KATEGORI_GAJI, PERATURAN, KETERANGAN_KEPANGKATAN) 
-                VALUES ($id_pegawai, $aktif, $golongan, $jenis_kenaikan, '$tmt', $no_sk, '$tanggal_sk', $masa_kerja, $gaji, '$peraturan', '$keterangan')");
+                INSERT INTO log_kepangkatan (ID_PEGAWAI,STATUS_KEPANGKATAN,ID_JENIS_GOLONGAN, JENIS_KENAIKAN,  TMT_GOLONGAN, NO_SK_GOLONGAN,TGL_SK_GOLONGAN,MASA_KERJA_GOLONGAN, GAJI_GOLONGAN, PERATURAN, KETERANGAN_KEPANGKATAN) 
+                VALUES ($id_pegawai, $aktif, $golongan, '$jenis_kenaikan', '$tmt', '$no_sk', '$tanggal_sk', $masa_kerja, '$gaji', '$peraturan', '$keterangan')");
     }
 
     public function insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk) {
@@ -307,10 +272,10 @@ class m_pegawai extends CI_Model {
     }
 
     public function get_log_kepangkatan($nip) {
-        $query = $this->db->query("SELECT LK.ID_KEPANGKATAN,LK.STATUS_KEPANGKATAN, JG.NAMA_PANGKAT, JG.GOLONGAN, JK.JENIS_KENAIKAN, LK.TMT_GOLONGAN, LK.NO_SK_GOLONGAN, LK.TGL_SK_GOLONGAN, LK.MASA_KERJA_GOLONGAN, KG.BESAR_GAJI, LK.PERATURAN, LK.KETERANGAN_KEPANGKATAN
-        FROM LOG_KEPANGKATAN LK, PEGAWAI P, JENIS_GOLONGAN JG, JENIS_KENAIKAN JK, KATEGORI_GAJI KG
-        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_KENAIKAN=JK.ID_JENIS_KENAIKAN AND 
-        LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.ID_KATEGORI_GAJI=KG.ID_KATEGORI_GAJI AND P.NIP='$nip' order by lk.status_kepangkatan desc");
+        $query = $this->db->query("SELECT LK.ID_KEPANGKATAN,LK.STATUS_KEPANGKATAN, JG.NAMA_PANGKAT, JG.GOLONGAN,  LK.JENIS_KENAIKAN,LK.TMT_GOLONGAN, LK.NO_SK_GOLONGAN, LK.TGL_SK_GOLONGAN, LK.MASA_KERJA_GOLONGAN, LK.GAJI_GOLONGAN, LK.PERATURAN, LK.KETERANGAN_KEPANGKATAN
+        FROM LOG_KEPANGKATAN LK, PEGAWAI P, JENIS_GOLONGAN JG
+        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI  AND 
+        LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND P.NIP='$nip' order by lk.status_kepangkatan desc");
         return $query->result();
     }
 
@@ -430,10 +395,9 @@ class m_pegawai extends CI_Model {
     }
 
     public function edit_log_pangkat($id_kepangkatan) {
-        $query = $this->db->query("SELECT LK.ID_KEPANGKATAN,P.NIP,LK.STATUS_KEPANGKATAN, JG.NAMA_PANGKAT,LK.ID_JENIS_GOLONGAN,LK.ID_JENIS_KENAIKAN,LK.ID_KATEGORI_GAJI, JG.GOLONGAN, JK.JENIS_KENAIKAN, LK.TMT_GOLONGAN, LK.NO_SK_GOLONGAN, LK.TGL_SK_GOLONGAN, LK.MASA_KERJA_GOLONGAN, KG.BESAR_GAJI, LK.PERATURAN, LK.KETERANGAN_KEPANGKATAN
-        FROM LOG_KEPANGKATAN LK, PEGAWAI P, JENIS_GOLONGAN JG, JENIS_KENAIKAN JK, KATEGORI_GAJI KG
-        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_KENAIKAN=JK.ID_JENIS_KENAIKAN AND 
-        LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.ID_KATEGORI_GAJI=KG.ID_KATEGORI_GAJI AND LK.ID_KEPANGKATAN='$id_kepangkatan'");
+        $query = $this->db->query("SELECT LK.ID_KEPANGKATAN,P.NIP,LK.STATUS_KEPANGKATAN, JG.NAMA_PANGKAT,LK.ID_JENIS_GOLONGAN,LK.JENIS_KENAIKAN,LK.GAJI_GOLONGAN, JG.GOLONGAN, LK.TMT_GOLONGAN, LK.NO_SK_GOLONGAN, LK.TGL_SK_GOLONGAN, LK.MASA_KERJA_GOLONGAN, LK.PERATURAN, LK.KETERANGAN_KEPANGKATAN
+        FROM LOG_KEPANGKATAN LK, PEGAWAI P, JENIS_GOLONGAN JG
+        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.ID_KEPANGKATAN='$id_kepangkatan'");
         return $query->result();
     }
 
@@ -529,8 +493,8 @@ class m_pegawai extends CI_Model {
     
      public function update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan){
         $query = $this->db->query("
-                UPDATE log_kepangkatan SET STATUS_KEPANGKATAN=$aktif, ID_JENIS_GOLONGAN=$golongan,
-                ID_JENIS_KENAIKAN=$jenis_kenaikan,  TMT_GOLONGAN='$tmt', NO_SK_GOLONGAN=$no_sk,TGL_SK_GOLONGAN='$tanggal_sk',MASA_KERJA_GOLONGAN=$masa_kerja, ID_KATEGORI_GAJI=$gaji, PERATURAN='$peraturan', KETERANGAN_KEPANGKATAN='$keterangan' 
+                UPDATE log_kepangkatan SET STATUS_KEPANGKATAN=$aktif, ID_JENIS_GOLONGAN='$golongan',
+                JENIS_KENAIKAN='$jenis_kenaikan',  TMT_GOLONGAN='$tmt', NO_SK_GOLONGAN=$no_sk,TGL_SK_GOLONGAN='$tanggal_sk',MASA_KERJA_GOLONGAN=$masa_kerja, GAJI_GOLONGAN='$gaji', PERATURAN='$peraturan', KETERANGAN_KEPANGKATAN='$keterangan' 
                 WHERE ID_KEPANGKATAN=$id_kepangkatan");
     }
     

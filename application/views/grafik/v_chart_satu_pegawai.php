@@ -374,18 +374,18 @@
                 
                 <?php
                 $ID_KEPANGKATA="";
-            $STATUS_KEPANGKATAN = "";
-            $PANGKAT = "";
-            $GOLONGAN_KEPANGKATAN = "";
-            $JENIS_KENAIKAN = "";
-            $TMT_GOLONGAN_KEPANGKATAN = "";
-            $NO_SK_KEPANGKATAN = "";
-            $TGL_SK_KEPANGKATAN = "";
-            $GAJI ="";
-            $PERATURAN ="";
-            $KETERANGAN_KEPANGKATAN ="";
-            $NO_KP=1;
-            $MASA_KERJA_GOLONGAN="";
+                $STATUS_KEPANGKATAN = "";
+                $PANGKAT = "";
+                $GOLONGAN_KEPANGKATAN = "";
+                $JENIS_KENAIKAN = "";
+                $TMT_GOLONGAN_KEPANGKATAN = "";
+                $NO_SK_KEPANGKATAN = "";
+                $TGL_SK_KEPANGKATAN = "";
+                $GAJI ="";
+                $PERATURAN ="";
+                $KETERANGAN_KEPANGKATAN ="";
+                $NO_KP=1;
+                $MASA_KERJA_GOLONGAN="";
                 
             foreach ($query3 as $row) {
                 $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
@@ -395,7 +395,7 @@
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
                 $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
+                $GAJI = $row->GAJI_GOLONGAN;
                 $PERATURAN =$row->PERATURAN;
                 $MASA_KERJA_GOLONGAN=$row->MASA_KERJA_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
@@ -419,7 +419,7 @@
                 <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
                 <td><?php echo $NO_SK_KEPANGKATAN;?></td>
                 <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
-                <td><?php echo $MASA_KERJA_GOLONGAN;?> BULAN</td>
+                <td><?php echo $MASA_KERJA_GOLONGAN;?></td>
                 <td><?php echo $GAJI;?></td>
                 <td><?php echo $PERATURAN;?></td>
                 <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
@@ -1442,7 +1442,7 @@
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
                 $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
+                $GAJI = $row->GAJI_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
                     
                 $datetime1 = new DateTime($TMT_GOLONGAN);

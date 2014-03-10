@@ -26,7 +26,8 @@
 </div><!--pageheader-->
 <div class="maincontent">
     <div class="maincontentinner">
-        <form class="stdform" method="post" action="<?php echo site_url('Pegawai/input_pegawai') ?>">
+        <?php echo $error;?>
+	<?php echo form_open_multipart('pegawai/input_biodata');?>
             <div id="wizard" class="wizard">
                 <br />
                 <ul class="hormenu">
@@ -150,9 +151,10 @@
                                 <option value="NON PNS">NON PNS</option>
                             </select></span>
                     </p>
+                    <?php echo  form_open_multipart('pegawai/uploadImage')?>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><input type="file" name="foto"></span> 
+                        <span class="field"><input type="file" name="userfile"></span> 
                     </p>
                     <p>
                         <label>Keterangan</label>
@@ -202,31 +204,6 @@
                         ?>
                                 <option value="<?php echo $id_golongan;?>"><?php echo $golongan;?>/<?php echo $nama_pangkat; ?></option>
                         <?php } ?>
-                            </select></span>
-                    </p>
-                    <p>
-                        <label>Jenis Kenaikan</label>
-                        <span class="field"><select name="jenis_kenaikan" id="selection2" class="uniformselect" >
-                       <?php
-                            foreach ($query4 as $row){
-                                $id_jenis_kenaikan = $row->id_jenis_kenaikan;
-                                $jenis_kenaikan = $row->jenis_kenaikan;
-                        ?>
-                                <option value="<?php echo $id_jenis_kenaikan;?>"><?php echo $jenis_kenaikan;?></option>
-                        <?php } ?>>
-                            </select></span>
-                    </p>
-                    <p>       
-                        <label>Gaji</label>
-                        <span class="field"><select name="gaji" id="selection2" class="uniformselect" >
-                    <?php
-                           foreach ($query5 as $row){
-                                $id_kategori_gaji = $row->id_kategori_gaji;
-                                $besar_gaji= $row->besar_gaji;
-                                $gaji = number_format($besar_gaji,2,',','.');
-                        ?>
-                                <option value="<?php echo $id_kategori_gaji;?>"><?php echo "Rp ".$gaji;?></option>
-                        <?php } ?>>
                             </select></span>
                     </p>
                         

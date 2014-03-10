@@ -45,10 +45,8 @@ class pegawai extends CI_Controller {
         $query = $this->m_pegawai->get_jabatan();
         $query2 = $this->m_pegawai->get_unit();
         $query3 = $this->m_pegawai->get_golongan();
-        $query4 = $this->m_pegawai->get_jenis_kenaikan();
-        $query5 = $this->m_pegawai->get_kategori_gaji();
 
-        $this->load->view("form/v_form_biodata", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5));
+        $this->load->view("form/v_form_biodata", array('query' => $query, 'query2' => $query2, 'query3' => $query3));
         $this->load->view("laman/v_footer");
     }
 
@@ -69,11 +67,8 @@ class pegawai extends CI_Controller {
 
     public function input_log_pangkat($nip) {
         $query = $this->m_pegawai->get_pegawai($nip);
-        $query2 = $this->m_pegawai->get_jenis_kenaikan();
-        $query3 = $this->m_pegawai->get_golongan();
-        $query4 = $this->m_pegawai->get_kategori_gaji();
-
-        $this->load->view("form/v_form_pangkat", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4));
+        $query2 = $this->m_pegawai->get_golongan();
+        $this->load->view("form/v_form_pangkat", array('query' => $query, 'query2' => $query2));
         $this->load->view("laman/v_footer");
     }
 
@@ -208,11 +203,9 @@ class pegawai extends CI_Controller {
     
     public function edit_log_pangkat($id_kepangkatan){
         $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
-        $query2 = $this->m_pegawai->get_jenis_kenaikan();
-        $query3 = $this->m_pegawai->get_golongan();
-        $query4 = $this->m_pegawai->get_kategori_gaji();
-        
-        $this->load->view("form/v_form_edit_pangkat",array('query'=>$query, 'query2'=>$query2, 'query3'=>$query3, 'query4'=>$query4 ));
+        $query2 = $this->m_pegawai->get_golongan();
+
+        $this->load->view("form/v_form_edit_pangkat",array('query'=>$query, 'query2'=>$query2));
     }
     
      public function edit_log_pendidikan($id_pendidikan) {
@@ -576,9 +569,40 @@ class pegawai extends CI_Controller {
         $this->session->sess_destroy();
         redirect(base_url());
     }
-
+    
 //PROSES INSERT    
     public function input_pegawai() {
+        $config['upload_path'] = './././assets/images/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '1024';
+		
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload()){
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('upload_form', $error);
+        }else{
+                $data = array('upload_data' => $this->upload->data());
+                $temp_file = $this->upload->data();
+
+                $data2['judul'] = $this->input->post('judul', true);
+                $data2['id_kategori'] = $this->input->post('id_kategori', true);
+                $data2['detail'] = $this->input->post('detail', true);
+                $data2['harga'] = $this->input->post('harga', true);
+                $data2['status'] = 1;
+
+                $data2['id_penjual'] = $this->session->userdata('id_penjual');
+                $data2['photo1'] =  "images/".$temp_file['file_name'];
+
+                $this->model_iklan->insert_iklan($data2);
+
+                //$this->load->view('menu');
+
+                $this->iklan_all();
+        }
+        
+        
         $nip = $this->input->post('nip', true);
         $nip_lama = $this->input->post('nip_lama', true);
         $gelar_depan = $this->input->post('gelar_depan', true);
@@ -603,17 +627,16 @@ class pegawai extends CI_Controller {
         $jabatan = $this->input->post('jabatan', true);
         $unit_kerja = $this->input->post('unit_kerja', true);
         $golongan = $this->input->post('golongan', true);
-        $jenis_kenaikan = $this->input->post('jenis_kenaikan', true);
-        $gaji = $this->input->post('gaji', true);
         
         $pendidikan = $this->input->post('pendidikan', true);
         $nama_sekolah=$this->input->post('nama_sekolah',true);
-
+        
+        $this->upload->do_upload($foto);
         $this->m_pegawai->insert_pegawai(
                 $nip,$nip_lama,$gelar_depan,$nama_pegawai,$gelar_belakang ,$tempat_lahir ,$tgl_lahir, 
                 $jenis_kelamin ,$alamat ,$kecamatan ,$kelurahan ,$kabupaten ,$provinsi ,$tmt_cpns ,
                 $tmt_pns ,$agama ,$status_perkawinan ,$status_pegawai ,$foto ,$keterangan ,$jabatan, 
-                $unit_kerja, $golongan ,$jenis_kenaikan,$gaji, $pendidikan ,$nama_sekolah
+                $unit_kerja, $golongan , $pendidikan ,$nama_sekolah
                 );
         redirect('pegawai/biodata/'. $nip);
     }
