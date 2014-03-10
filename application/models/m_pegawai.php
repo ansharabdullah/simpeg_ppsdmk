@@ -388,6 +388,15 @@ class m_pegawai extends CI_Model {
     
 
     //SELECT FOR EDIT
+    public function edit_biodata($id_pegawai){
+        $query = $this->db->query("select p.id_pegawai, p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns,p.tmt_pns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.keterangan, p.status_pegawai, p.no_kartu_pegawai,p.tgl_kartu_pegawai, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp, 
+        p.no_ktp, p.no_askes, p.tgl_askes, p.kode_wilayah_askes, p.gol_darah, p.rambut, p.bentuk_muka, p.warna_kulit, p.tinggi_badan, p.berat_badan, p.ciri_khas, p.cacat_tubuh, p.bahasa_asing, p.hobi, p.foto
+        from pegawai p, jenis_golongan jg, jabatan j, log_alamat la, log_kepangkatan lk, log_jabatan lj 
+        where p.id_pegawai=lj.id_pegawai and p.id_pegawai=lk.id_pegawai and p.id_pegawai=la.id_pegawai and lj.id_jenis_jabatan=j.id_jenis_jabatan and lk.id_jenis_golongan=jg.id_jenis_golongan and p.id_pegawai='$id_pegawai'");
+    
+        return $query->result();
+    }
+    
     public function edit_log_jabatan($id_jabatan) {
         $query = $this->db->query("SELECT LJ.ID_JABATAN,J.ID_JENIS_JABATAN, P.NIP, LJ.STATUS_JABATAN,J.JABATAN, UK.NAMA_UNIT,UK.ID_UNIT, LJ.NO_SK_JABATAN, LJ.TGL_SK_JABATAN, LJ.TMT_JABATAN FROM JABATAN J, UNIT_KERJA UK, LOG_JABATAN LJ, PEGAWAI P
         WHERE J.ID_JENIS_JABATAN=LJ.ID_JENIS_JABATAN AND LJ.ID_PEGAWAI=P.ID_PEGAWAI AND LJ.ID_UNIT=UK.ID_UNIT AND LJ.ID_JABATAN='$id_jabatan'");
@@ -482,6 +491,24 @@ class m_pegawai extends CI_Model {
 
 
     //UPDATE
+    public function update_biodata(
+            $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir,
+            $tgl_lahir, $jenis_kelamin, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan,
+            $status_pegawai, $keterangan, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp,
+            $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah,
+            $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh,
+            $bahasa_asing, $hobi, $id_pegawai ){
+            $query = $this->db->query("  
+            UPDATE pegawai set NIP='$nip', NIP_LAMA='$nip_lama', NAMA_PEGAWAI='$nama_pegawai', GELAR_DEPAN='$gelar_depan', GELAR_BELAKANG='$gelar_belakang', 
+            JENIS_KELAMIN='$jenis_kelamin', TEMPAT_LAHIR='$tempat_lahir', TGL_LAHIR='$tgl_lahir', AGAMA='$agama', STATUS_PERKAWINAN='$status_perkawinan', TMT_CPNS='$tmt_cpns', TMT_PNS='$tmt_pns', KETERANGAN='$keterangan', 
+            STATUS_PEGAWAI='$status_pegawai', NO_KARTU_PEGAWAI='$no_kartu_pegawai', TGL_KARTU_PEGAWAI='$tanggal_kartu_pegawai', NO_KTP='$no_ktp', 
+            NO_NPWP='$npwp', NO_ASKES='$no_askes', TGL_ASKES='$tanggal_askes', KODE_WILAYAH_ASKES='$kode_wilayah_askes', NO_HANDPHONE='$no_handphone', 
+            EMAIL='$email', GOL_DARAH='$golongan_darah', RAMBUT='$rambut', BENTUK_MUKA='$bentuk_muka', WARNA_KULIT='$warna_kulit', 
+            TINGGI_BADAN='$tinggi_badan', BERAT_BADAN='$berat_badan', CIRI_KHAS='$ciri_khas', CACAT_TUBUH='$cacat_tubuh', BAHASA_ASING='$bahasa_asing', HOBI='$hobi'      
+            WHERE ID_PEGAWAI=$id_pegawai
+            " );
+        
+    }
     
     public function update_log_jabatan($id_jabatan,$aktif,$jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt){
         $query = $this->db->query("

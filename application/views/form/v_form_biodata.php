@@ -26,8 +26,8 @@
 </div><!--pageheader-->
 <div class="maincontent">
     <div class="maincontentinner">
-        <?php echo $error;?>
-	<?php echo form_open_multipart('pegawai/input_biodata');?>
+        <form class="stdform" method="post" action="<?php echo site_url('Pegawai/input_pegawai') ?>">
+            <?php echo form_open_multipart('Pegawai/input_pegawai');?>
             <div id="wizard" class="wizard">
                 <br />
                 <ul class="hormenu">

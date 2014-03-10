@@ -206,9 +206,13 @@ class pegawai extends CI_Controller {
     }
 
     //view edit
-    public function edit_biodata() {
-        $this->load->view("form/v_form_biodata");
-        $this->load->view("form/v_data_tambahan");
+    public function edit_biodata($id_pegawai) {
+        $query = $this->m_pegawai->edit_biodata($id_pegawai);
+        $query2 = $this->m_pegawai->get_jabatan();
+        $query3 = $this->m_pegawai->get_unit();
+        $query4 = $this->m_pegawai->get_golongan();
+        
+        $this->load->view("form/v_form_edit_biodata", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4));
         $this->load->view("laman/v_footer");
     }
 
@@ -342,7 +346,58 @@ class pegawai extends CI_Controller {
     }
 
     //proses edit
-
+    public function proses_edit_biodata(){
+        $nip = $this->input->post('nip', true);
+        $nip_lama = $this->input->post('nip_lama', true);
+        $gelar_depan = $this->input->post('gelar_depan', true);
+        $nama_pegawai = $this->input->post('nama_pegawai', true);
+        $gelar_belakang = $this->input->post('gelar_belakang', true);
+        $tempat_lahir = $this->input->post('tempat_lahir', true);
+        $tgl_lahir = $this->input->post('tgl_lahir', true);
+        $jenis_kelamin = $this->input->post('jenis_kelamin', true);
+        $tmt_cpns = $this->input->post('tmt_cpns', true);
+        $tmt_pns = $this->input->post('tmt_pns', true);
+        $agama = $this->input->post('agama', true);
+        $status_perkawinan = $this->input->post('status_perkawinan', true);
+        $status_pegawai = $this->input->post('status_pegawai', true);
+        $keterangan = $this->input->post('keterangan', true);
+        $no_kartu_pegawai = $this->input->post('no_kartu_pegawai', true);
+        $tanggal_kartu_pegawai = $this->input->post('tanggal_kartu_pegawai', true);
+        $no_ktp = $this->input->post('no_ktp', true);
+        $npwp = $this->input->post('npwp', true);
+        $no_askes = $this->input->post('no_askes', true);
+        $tanggal_askes = $this->input->post('tanggal_askes', true);
+        $kode_wilayah_askes = $this->input->post('kode_wilayah_askes', true);
+        $no_handphone = $this->input->post('no_handphone', true);
+        $email = $this->input->post('email', true);
+        $golongan_darah = $this->input->post('golongan_darah', true);
+        $rambut = $this->input->post('rambut', true);
+        $bentuk_muka = $this->input->post('bentuk_muka', true);
+        $warna_kulit = $this->input->post('warna_kulit', true);
+        $tinggi_badan = $this->input->post('tinggi_badan', true);
+        $berat_badan = $this->input->post('berat_badan', true);
+        $ciri_khas = $this->input->post('ciri_khas', true);
+        $cacat_tubuh = $this->input->post('cacat_tubuh', true);
+        $bahasa_asing = $this->input->post('bahasa_asing', true);
+        $hobi = $this->input->post('hobi', true);
+        $id_pegawai = $this->input->post('id_pegawai', true);
+        
+         if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->update_biodata(
+                    $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir,
+                    $tgl_lahir, $jenis_kelamin, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan,
+                    $status_pegawai, $keterangan, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp,
+                    $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah,
+                    $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh,
+                    $bahasa_asing, $hobi, $id_pegawai
+            );
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            
+        }
+        
+    }
+    
     public function proses_edit_log_jabatan() {
         $id_jabatan = $this->input->post('id_jabatan', true);
         $aktif = $this->input->post('aktif', true);
@@ -656,7 +711,7 @@ class pegawai extends CI_Controller {
     
 //PROSES INSERT    
     public function input_pegawai() {
-        $config['upload_path'] = './././assets/images/';
+        $config['upload_path'] = '../images/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size']	= '1024';
 		
@@ -665,64 +720,49 @@ class pegawai extends CI_Controller {
         if ( ! $this->upload->do_upload()){
                 $error = array('error' => $this->upload->display_errors());
 
-                $this->load->view('upload_form', $error);
+                echo $this->upload->display_errors();
         }else{
                 $data = array('upload_data' => $this->upload->data());
                 $temp_file = $this->upload->data();
+                
+                $nip = $this->input->post('nip', true);
+                $nip_lama = $this->input->post('nip_lama', true);
+                $gelar_depan = $this->input->post('gelar_depan', true);
+                $nama_pegawai = $this->input->post('nama_pegawai', true);
+                $gelar_belakang = $this->input->post('gelar_belakang', true);
+                $tempat_lahir = $this->input->post('tempat_lahir', true);
+                $tgl_lahir = $this->input->post('tgl_lahir', true);
+                $jenis_kelamin = $this->input->post('jenis_kelamin', true);
+                $alamat = $this->input->post('alamat', true);
+                $kecamatan = $this->input->post('kecamatan', true);
+                $kelurahan = $this->input->post('kelurahan', true);
+                $kabupaten = $this->input->post('kabupaten', true);
+                $provinsi = $this->input->post('provinsi', true);
+                $tmt_cpns = $this->input->post('tmt_cpns', true);
+                $tmt_pns = $this->input->post('tmt_pns', true);
+                $agama = $this->input->post('agama', true);
+                $status_perkawinan = $this->input->post('status_perkawinan', true);
+                $status_pegawai = $this->input->post('status_pegawai', true);
+                
+                $keterangan = $this->input->post('keterangan', true);
+                $jabatan = $this->input->post('jabatan', true);
+                $unit_kerja = $this->input->post('unit_kerja', true);
+                $golongan = $this->input->post('golongan', true);
 
-                $data2['judul'] = $this->input->post('judul', true);
-                $data2['id_kategori'] = $this->input->post('id_kategori', true);
-                $data2['detail'] = $this->input->post('detail', true);
-                $data2['harga'] = $this->input->post('harga', true);
-                $data2['status'] = 1;
-
-                $data2['id_penjual'] = $this->session->userdata('id_penjual');
-                $data2['photo1'] =  "images/".$temp_file['file_name'];
-
-                $this->model_iklan->insert_iklan($data2);
-
-                //$this->load->view('menu');
-
-                $this->iklan_all();
+                $pendidikan = $this->input->post('pendidikan', true);
+                $nama_sekolah = $this->input->post('nama_sekolah', true);
+                $foto =  "images/".$temp_file['file_name'];
+                
+                if ($this->session->userdata('role') == 1) {
+                     $this->m_pegawai->insert_pegawai(
+                    $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, $jabatan, $unit_kerja, $golongan,$pendidikan, $nama_sekolah
+                 );
+                redirect('pegawai/biodata/' . $nip);
+                } else {
+                
+                 }
         }
-        
-        
-        $nip = $this->input->post('nip', true);
-        $nip_lama = $this->input->post('nip_lama', true);
-        $gelar_depan = $this->input->post('gelar_depan', true);
-        $nama_pegawai = $this->input->post('nama_pegawai', true);
-        $gelar_belakang = $this->input->post('gelar_belakang', true);
-        $tempat_lahir = $this->input->post('tempat_lahir', true);
-        $tgl_lahir = $this->input->post('tgl_lahir', true);
-        $jenis_kelamin = $this->input->post('jenis_kelamin', true);
-        $alamat = $this->input->post('alamat', true);
-        $kecamatan = $this->input->post('kecamatan', true);
-        $kelurahan = $this->input->post('kelurahan', true);
-        $kabupaten = $this->input->post('kabupaten', true);
-        $provinsi = $this->input->post('provinsi', true);
-        $tmt_cpns = $this->input->post('tmt_cpns', true);
-        $tmt_pns = $this->input->post('tmt_pns', true);
-        $agama = $this->input->post('agama', true);
-        $status_perkawinan = $this->input->post('status_perkawinan', true);
-        $status_pegawai = $this->input->post('status_pegawai', true);
-        $foto = $this->input->post('foto', true);
-        $keterangan = $this->input->post('keterangan', true);
-        $jabatan = $this->input->post('jabatan', true);
-        $unit_kerja = $this->input->post('unit_kerja', true);
-        $golongan = $this->input->post('golongan', true);
-
-        $pendidikan = $this->input->post('pendidikan', true);
-        $nama_sekolah = $this->input->post('nama_sekolah', true);
-
-
-        if ($this->session->userdata('role') == 1) {
-            $this->m_pegawai->insert_pegawai(
-                    $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, $jabatan, $unit_kerja, $golongan, $jenis_kenaikan, $gaji, $pendidikan, $nama_sekolah
-            );
-            redirect('pegawai/biodata/' . $nip);
-        } else {
-            
-        }
+       
     }
 
     public function proses_insert_data_tambahan() {

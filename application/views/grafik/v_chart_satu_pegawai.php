@@ -113,7 +113,7 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="iconfa-pencil"></i> &nbsp;Edit Biodata</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/edit_biodata/<?php echo $id_pegawai;?>"><i class="iconfa-pencil"></i> &nbsp;Edit Biodata</a></li>
                     <li><a href="<?php echo base_url(); ?>pegawai/input_data_tambahan/<?php echo $NIP;?>"><i class="iconfa-pencil"></i> &nbsp;Tambah Data Tambahan</a></li>
                 </ul>
             </div>
@@ -137,7 +137,7 @@
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
-                            <td><?php echo $GELAR_DEPAN;?><?php echo $NAMA_PEGAWAI ?>,<?php echo $GELAR_BELAKANG; ?></td>
+                            <td><?php echo $GELAR_DEPAN;?>&nbsp;<?php echo $NAMA_PEGAWAI ?>,<?php echo $GELAR_BELAKANG; ?></td>
                         </tr>
                         <tr>
                             <td>Tempat, Tanggal Lahir</td>
