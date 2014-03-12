@@ -24,7 +24,6 @@
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="reset" class="btn">Cancel</button>
-
     </form>         
 </div><!--regcontent-->
 

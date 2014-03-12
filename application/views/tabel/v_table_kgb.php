@@ -63,7 +63,7 @@
                 if (substr($tmt_bulan, 0, 1) == 0) {
                     $tmt_bulan = substr($tmt_bulan, 1, 1);
                 }
-
+                
                 // kgb yang akan datang
                 $tmt_tgl = $tmt_tahun . "-" . $tmt_bulan . "-01";
                 if ($tmt_tahun % 2 == 0 && date('Y') % 2 == 0 && $tmt_bulan <= date('m')) {
@@ -79,7 +79,6 @@
                 } else if ($tmt_tahun % 2 != 0 && date('Y') % 2 != 0 && $tmt_bulan > date('m')) {
                     $kgb = date('Y') . "-" . $tmt_bulan . "-01";
                 }
-
                 $yad = new DateTime($kgb);
                 $now = new DateTime(date('Y-m-d'));
                 $diff = $now->diff($yad);
