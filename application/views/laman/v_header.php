@@ -8,7 +8,7 @@
         <!--icon-->
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>/assets/shamcey/images/logi1.png">
         
-        <!--shampey-->
+        <!--shamcey-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/responsive-tables.css">
         
@@ -33,7 +33,9 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.slimscroll.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/flot/jquery.flot.resize.min.js"></script>
-
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.confirm.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.confirm.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>
     </head>
     
     <body>
@@ -93,12 +95,12 @@
                                 <?php
                                 foreach ($query as $q) {
                                     ?>
-                                    <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
+                                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
                                     <div class="userinfo">
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
                                         <h5><small><?php echo $q->NIP; ?></small></h5>
                                         <ul>
-                                            <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
                                             <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP; ?>">Pengaturan Akun</a></li>
                                             <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
                                         </ul>
