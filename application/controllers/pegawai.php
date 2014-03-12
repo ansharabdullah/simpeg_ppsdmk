@@ -36,7 +36,14 @@ class pegawai extends CI_Controller {
     }
 
     public function pengaturan_akun($nip) {
-        $this->load->view('laman/v_akun', array('NIP' => $nip));
+        $query = $this->m_pegawai->get_password($nip);
+        $i = 0;
+        foreach ($query as $q) {
+            $password = $q->password;
+            $i++;
+        }
+        if($i==0)show_404 ();
+        $this->load->view('laman/v_akun', array('NIP' => $nip,'msg'=>'1'));
         $this->load->view('laman/v_footer');
     }
 
@@ -1637,8 +1644,10 @@ class pegawai extends CI_Controller {
                 $salaries = $employee->getElementsByTagName("salary");
                 $salary = $salaries->item(0)->nodeValue;
 
-                echo "<b>$name - $age - $salary\n</b><br>";
+                //echo "<b>$name - $age - $salary\n</b><br>";
             }
+             $this->load->view("laman/v_persetujuan");
+             $this->load->view("laman/v_footer");
         } else {
             redirect('./pegawai');
         }
@@ -1843,19 +1852,27 @@ class pegawai extends CI_Controller {
         $password_konfirmasi = $this->input->post('password_konfirmasi', true);
 
         $query = $this->m_pegawai->get_password($nip);
+        $i = 0;
         foreach ($query as $q) {
             $password = $q->password;
+            $i++;
         }
-
-        if ($password == $password_lama) {
+        if($i == 0){
+            show_404();
+        }
+        $msg='';
+        if ($password == md5($password_lama)) {
             if ($password_baru == $password_konfirmasi) {
-                $this->m_pegawai->ubah_akun($nip, $password_baru);
+                $password_en = md5($password_baru);
+                $this->m_pegawai->ubah_akun($nip, $password_en);
             } else {
-                echo "password tidak sama";
+                $msg = "Password baru anda tidak sama";
             }
         } else {
-            echo "salah password lama";
+             $msg = "Password lama anda salah";
         }
+        $this->load->view('laman/v_akun', array('NIP' => $nip, 'msg'=>$msg));
+        $this->load->view('laman/v_footer');
     }
 
     public function header_admin($nip) {

@@ -24,7 +24,17 @@ class grafik extends CI_Controller {
 //    function panggil halaman
     public function index() {
         if ($this->session->userdata('role') == 1) {
-            $this->load->view('laman/v_home');
+            $query = $this->m_grafik->grafikDivisi();
+            foreach ($query as $q) {
+                $x[] = $q->NAMA_UNIT;
+                $y[] = $q->JUMLAH;
+            }
+
+            $subtitle = "SEMUA BAGIAN";
+            $alamat = "grafik/bagian";
+            $status = 1;
+            $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
+            $this->load->view("laman/v_home", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
         } else {
             $this->load->view('laman/v_home_pegawai');
         }
@@ -186,7 +196,7 @@ class grafik extends CI_Controller {
                 $id = 4;
                 $nama_bagian = "WIDYAISWARA";
             } else {
-                header("HTTP/1.1 404 Not Found");
+                show_404();
             }
             $title = $nama_bagian;
             $query = $this->m_grafik->grafikPegawaiDivisi($id);
@@ -236,11 +246,16 @@ class grafik extends CI_Controller {
             $golongan = str_replace("_", " ", $golongan);
 
             $query = $this->m_grafik->grafikPergolongan($golongan);
+            $i = 0;
             foreach ($query as $q) {
                 $x[] = $q->GOLONGAN;
                 $y[] = $q->JUMLAH;
                 $y1[] = $q->LAKI;
                 $y2[] = $q->PEREMPUAN;
+                $i++;
+            }
+            if($i == 0){
+                show_404();
             }
             $golongan = strtoupper($golongan);
             $golongan = str_replace("_", " ", $golongan);
@@ -281,11 +296,16 @@ class grafik extends CI_Controller {
             $title = str_replace("_", " ", $title);
             $query = $this->m_grafik->grafikPerPendidikan($tingkat_pendidikan);
 
+            $i = 0;
             foreach ($query as $q) {
                 $x[] = $q->TINGKAT_PENDIDIKAN;
                 $y[] = $q->JUMLAH;
                 $y1[] = $q->LAKI;
                 $y2[] = $q->PEREMPUAN;
+                $i ++;
+            }
+            if($i == 0){
+                show_404();
             }
             $where = "AND LP.TINGKAT_PENDIDIKAN='$tingkat_pendidikan'";
             $query1 = $this->m_grafik->tabelPegawai($where);
@@ -341,6 +361,9 @@ class grafik extends CI_Controller {
                 }
                 $i++;
             }
+            if($i == 0){
+                show_404();
+            }
             $where = "AND round(datediff(now(),tgl_lahir)/365,0) between '$awal' and '$akhir'";
             $query1 = $this->m_grafik->tabelPegawai($where);
             $subtitle = $title;
@@ -376,11 +399,15 @@ class grafik extends CI_Controller {
             $title = strtoupper($title);
             $title = str_replace("_", " ", $title);
             $query = $this->m_grafik->grafikPerStatusPegawai($id);
+            
             foreach ($query as $q) {
                 $x[] = $q->STATUS_PEGAWAI;
                 $y[] = $q->JUMLAH;
                 $y1[] = $q->LAKI;
                 $y2[] = $q->PEREMPUAN;
+            }
+            if($y[0] == 0){
+                show_404();
             }
             $where = "AND P.STATUS_PEGAWAI='$id'";
             $query1 = $this->m_grafik->tabelPegawai($where);

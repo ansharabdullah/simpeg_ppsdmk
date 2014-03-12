@@ -11,10 +11,8 @@ class m_login extends CI_Model{
         // grab user input
         $username = $this->security->xss_clean($this->input->post('username'));
         $password = $this->security->xss_clean($this->input->post('password'));
-        // Prep the query
-        $this->db->where('username', $username);
-        $this->db->where('password', $password);
         
+        $password = md5($password);
         // Run the query
         $query = $this->db->query("select p.nip, a.password, a.role from pegawai p, akun a where p.id_pegawai=a.id_pegawai and p.nip='$username' and a.password='$password'");
         // Let's check if there are any results

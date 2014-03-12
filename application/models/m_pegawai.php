@@ -683,7 +683,7 @@ class m_pegawai extends CI_Model {
     }
 
     public function ubah_akun($nip, $password) {
-        $query = $this->db->query("update akun, pegawai set akun.password=$password
+        $query = $this->db->query("update akun, pegawai set akun.password='$password'
         where akun.id_pegawai=pegawai.id_pegawai and pegawai.NIP='$nip'");
     }
 
