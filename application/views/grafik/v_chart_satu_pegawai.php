@@ -607,7 +607,8 @@
                            $LAMA=$LAMA_DIKLAT/1440;
                            echo $LAMA." hari";
                        }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
-                           echo $LAMA_DIKLAT." jam";
+                           $LAMA=$LAMA_DIKLAT/60;
+                           echo $LAMA." jam";
                        }else if($LAMA_DIKLAT<60){
                            echo $LAMA_DIKLAT." menit";
                        }
@@ -706,7 +707,8 @@
                            $LAMA=$LAMA_DIKLAT/1440;
                            echo $LAMA." hari";
                        }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
-                           echo $LAMA_DIKLAT." jam";
+                           $LAMA=$LAMA_DIKLAT/60;
+                           echo $LAMA." jam";
                        }else if($LAMA_DIKLAT<60){
                            echo $LAMA_DIKLAT." menit";
                        }
@@ -791,7 +793,8 @@
                                    $LAMA=$LAMA_DIKLAT/1440;
                                    echo $LAMA." hari";
                                }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
-                                   echo $LAMA_DIKLAT." jam";
+                                   $LAMA=$LAMA_DIKLAT/60;
+                                   echo $LAMA." jam";
                                }else if($LAMA_DIKLAT<60){
                                    echo $LAMA_DIKLAT." menit";
                                }
@@ -958,7 +961,8 @@
                                $LAMA=$LAMA_PENUGASAN/1440;
                                echo $LAMA." hari";
                            }else if($LAMA_PENUGASAN>=60 && $LAMA_PENUGASAN<1440){
-                               echo $LAMA_PENUGASAN." jam";
+                               $LAMA=$LAMA_PENUGASAN/60;
+                               echo $LAMA." jam";
                            }else if($LAMA_PENUGASAN<60){
                                echo $LAMA_PENUGASAN." menit";
                            }
@@ -1057,7 +1061,8 @@
                                $LAMA=$LAMA_PENUGASAN/1440;
                                echo $LAMA." hari";
                            }else if($LAMA_PENUGASAN>=60 && $LAMA_PENUGASAN<1440){
-                               echo $LAMA_PENUGASAN." jam";
+                               $LAMA=$LAMA_PENUGASAN/60;
+                               echo $LAMA." jam";
                            }else if($LAMA_PENUGASAN<60){
                                echo $LAMA_PENUGASAN." menit";
                            }

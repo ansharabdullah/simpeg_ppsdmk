@@ -4,14 +4,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SIMPEG PPSDMK</title>
-        
+            
         <!--icon-->
         <link rel="icon" type="image/png" href="<?php echo base_url();?>/assets/shamcey/images/logi1.png">
-        
+            
         <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default_.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/responsive-tables.css">
-        
+            
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-migrate-1.1.1.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-ui-1.9.2.min.js"></script>
@@ -39,9 +39,9 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/fullcalendar.min.js"></script>
     </head>
-    
-        <body>
-            
+        
+    <body>
+        
         <div>
             <div class="mainwrapper">
                 
@@ -55,20 +55,15 @@
                     <div class="headerinner">
                         <ul class="headmenu">
                             
-                            <li>
-                                <a href="<?php echo base_url(); ?>grafik/index">
-                                    <span class="head-icon"></span>
-                                    <span class="headmenu-label">Home</span>
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a href="<?php echo base_url(); ?>pegawai/info_pegawai/<?php echo $q->NIP; ?>">
                                     <span class="head-icon head-users"></span>
                                     <span class="headmenu-label">Biodata</span>
                                 </a>
                             </li>
-                                
-                                
+                            
+                            
                             <li>
                                 <a herf="">
                                     <span class="head-icon head-archive"></span>
@@ -77,7 +72,7 @@
                             </li>
                             <li class="right">
                                     <div class="userloggedinfo">
-                                    
+                                        
                                     <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
                                     <div class="userinfo">
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
@@ -94,7 +89,7 @@
                         </ul><!--headmenu-->
                     </div>
                 </div>
-                
+                    
                 <div class="maincontent">
                     <div class="maincontentinner">
                         
