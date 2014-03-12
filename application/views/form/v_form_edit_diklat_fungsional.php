@@ -21,7 +21,7 @@
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_diklat') ?>" method="post">
             <p>
                 <label>Status Diklat</label>
-                 <span class="field">
+                <span class="field">
                     <?php if ($STATUS_DIKLAT==1){?>
                     <input type="checkbox" name="aktif" checked="checked" value="1"/>Aktif &nbsp;
                     <input type="checkbox" name="aktif" value="0"/>Tidak Aktif<br />
@@ -72,44 +72,114 @@
                 $LAMA=0;
                 if($LAMA_DIKLAT>=518400){
                    $LAMA=$LAMA_DIKLAT/518400;
-                   echo $LAMA." tahun";
+                   ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="6">Tahun</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+                <?php
                }else if($LAMA_DIKLAT>=43200&&$LAMA_DIKLAT<518400){
                    $LAMA=$LAMA_DIKLAT/43200;
-                   echo $LAMA." bulan";
-               }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
+                  ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="5">Bulan</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+              <?php }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
                    $LAMA=$LAMA_DIKLAT/10080;
-                   echo $LAMA." minggu";
+                   ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="4">Minggu</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+                <?php
                }else if($LAMA_DIKLAT>=1440&&$LAMA_DIKLAT<10080){
-                   $LAMA=$LAMA_DIKLAT/1440;
-                   echo $LAMA." hari";
+                   $LAMA=$LAMA_DIKLAT/1440;?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="3">Hari</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+               <?php    
                }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
-                   echo $LAMA_DIKLAT." jam";
+                   $LAMA=$LAMA_DIKLAT/60;?>
+                   <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="2">Jam</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+               <?php    
                }else if($LAMA_DIKLAT<60){
-                   echo $LAMA_DIKLAT." menit";
-               }
+                   ?>
+                   <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA_DIKLAT;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="1">Menit</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+                <?php
+               }else{
                 ?>
                 <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA_DIKLAT;?>"/></span>
                 <span class="field"><select name="waktu" id="selection2" class="uniformselect">
-                        <option value="">---</option>
+                        <option value="">------</option>
                         <option value="1">Menit</option>
                         <option value="60">Jam</option>
                         <option value="1440">Hari</option>
                         <option value="43200">Bulan</option>
                         <option value="518400">Tahun</option>
-                                        
+                        
                     </select></span>
-            </p>
-                
-             <div class="par">
+            </p><?php }?>
+            
+            <div class="par">
                 <label>Tanggal Mulai</label>
                 <span class="field"><input id="datepicker" type="date" name="tanggal_mulai" class="input-medium" value="<?php echo $TANGGAL_MULAI_DIKLAT;?>"/></span>
             </div> 
-                        
+            
             <div class="par">
                 <label>Tanggal Selesai</label>
                 <span class="field"><input id="datepicker" type="date" name="tanggal_selesai" class="input-medium" value="<?php echo $TANGGAL_SELESAI_DIKLAT;?>"/></span>
             </div>
-                        
+            
             <p>
                 <label>Angkatan</label>
                 <span class="field"><input type="text" name="angkatan" class="input-small" placeholder="" value="<?php echo $ANGKATAN_DIKLAT;?>"/></span>
@@ -119,7 +189,7 @@
                 <button class="btn btn-primary">Save</button>
                 <button type="reset" class="btn">Cancel</button>
             </p>
-          
+            
             <input type="hidden" name="id_diklat" value="<?php echo $ID_DIKLAT ?>"/>
             <input type="hidden" name="nip" value="<?php echo $nip ?>"/>
 <?php }  ?>           

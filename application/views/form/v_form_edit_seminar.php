@@ -60,19 +60,109 @@
             </div> 
                 
                 
-             <p>
+            <p>
                 <label>Lama</label>
+                <?PHP 
+                $LAMA=0;
+                if($LAMA_PENUGASAN>=518400){
+                   $LAMA=$LAMA_PENUGASAN/518400;
+                   ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="6">Tahun</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+                <?php
+               }else if($LAMA_PENUGASAN>=43200&&$LAMA_PENUGASAN<518400){
+                   $LAMA=$LAMA_PENUGASAN/43200;
+                  ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="5">Bulan</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+              <?php }else if($LAMA_PENUGASAN>=10080&&$LAMA_PENUGASAN<43200){
+                   $LAMA=$LAMA_PENUGASAN/10080;
+                   ?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="4">Minggu</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+                <?php
+               }else if($LAMA_PENUGASAN>=1440&&$LAMA_PENUGASAN<10080){
+                   $LAMA=$LAMA_PENUGASAN/1440;?>
+                <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="3">Hari</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                        
+                    </select></span>
+               <?php    
+               }else if($LAMA_PENUGASAN>=60 && $LAMA_PENUGASAN<1440){
+                   $LAMA=$LAMA_PENUGASAN/60;?>
+                   <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="2">Jam</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+               <?php    
+               }else if($LAMA_PENUGASAN<60){
+                   ?>
+                   <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA_PENUGASAN;?>"/></span>
+                <span class="field"><select name="waktu" id="selection2" class="uniformselect">
+                        <option value="1">Menit</option>
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="5">Bulan</option>
+                        <option value="6">Tahun</option>
+                            
+                    </select></span>
+                <?php
+               }else{
+                ?>
                 <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA_PENUGASAN;?>"/></span>
                 <span class="field"><select name="waktu" id="selection2" class="uniformselect">
-                        <option value="">---</option>
+                        <option value="">------</option>
                         <option value="1">Menit</option>
                         <option value="60">Jam</option>
                         <option value="1440">Hari</option>
                         <option value="43200">Bulan</option>
                         <option value="518400">Tahun</option>
-                                        
+                        
                     </select></span>
-            </p>
+            </p><?php }?>
             
                 
             <div class="par">
