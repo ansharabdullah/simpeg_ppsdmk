@@ -62,6 +62,7 @@
             $no = 1;
             foreach ($query as $row) {
                 $link = $row->NIP;
+                $id = $row->ID_PEGAWAI;
                 ?>
                 <tr class="gradeX">
                     <td class="center"><?php echo $no; ?></td>
@@ -71,7 +72,7 @@
                     <td class="center"><?php echo $row->TINGKAT_PENDIDIKAN; ?></td>
                     <td><?php echo $row->NAMA_UNIT; ?></td>
                     <td><?php echo strtoupper($row->JABATAN); ?></td>
-                    <td class="center"><a href="<?php echo base_url(); ?>pegawai/input_biodata">Edit</a></td>
+                    <td class="center"><a href="<?php echo base_url(); ?>pegawai/edit_biodata/<?php echo $id; ?>">Edit</a></td>
                     <td class="center"><a href="<?php echo site_url('pegawai/delete_pegawai' . '/' . $row->ID_PEGAWAI . '/' . $link) ?>" class="">Hapus</a></td>
                 </tr>
                 <?php $no++;

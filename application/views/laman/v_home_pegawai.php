@@ -1,5 +1,5 @@
 <div class="pageheader">
-    <div class="pageicon"><span class="iconfa-laptop"></span></div>
+    <div class="pageicon"><span class="iconfa-home"></span></div>
     <div class="pagetitle">
         <h5></h5>
         <h1>HOMEPAGE</h1>
@@ -22,8 +22,8 @@
                             
                 <div class="alert alert-block">
                     <button data-dismiss="alert" class="close" type="button">&times;</button>
-                    <h4>Warning!</h4>
-                    <p style="margin: 8px 0">Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna.</p>
+                     <h4>Selamat Datang di Halaman Pegawai!</h4>
+                    <p style="margin: 8px 0">PUSAT PENGEMBANGAN SUMBERDAYA MANUSIA KEMETROLOGIAN<br>Jl. Jalan Daeng Mohammad Ardiwinata (Cihanjuang) KM 3,4 Parongpong, Bandung</p>
                 </div><!--alert-->
                             
                 <br />

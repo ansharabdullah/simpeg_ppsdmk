@@ -74,7 +74,7 @@
             </div>
                         
             <p class="stdformbutton"> 
-                <button type="reset" class="btn">Cancel</button>
+                <a href="<?php echo site_url('pegawai/biodata/'.$nip) ?>" class="btn">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
                             
             </p>      

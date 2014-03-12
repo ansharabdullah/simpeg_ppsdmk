@@ -78,7 +78,7 @@
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
                                         <h5><small><?php echo $q->NIP; ?></small></h5>
                                         <ul>
-                                            <li><a href="<?php echo base_url(); ?>pegawai/ubah_data/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
+                                            <li><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $q->NIP; ?>">Ubah Data Pribadi</a></li>
                                             <li><a href="<?php echo base_url(); ?>pegawai/pengaturan_akun/<?php echo $q->NIP; ?>">Pengaturan Akun</a></li>
                                             <li><a href="<?php echo base_url(); ?>login/logout">Keluar</a></li>
                                         </ul>
