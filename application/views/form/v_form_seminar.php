@@ -48,12 +48,13 @@
                 <label>Lama</label>
                 <span class="field"><input type="text" name="lama" class="input-small" placeholder="" /></span>
                 <span class="field"><select name="waktu" id="selection2" class="uniformselect" >
-                        <option value="menit">Menit</option>
-                        <option value="jam">Jam</option>
-                        <option value="hari">Hari</option>
-                        <option value="bulan">Bulan</option>
-                        <option value="tahun">Tahun</option>
-                            
+                        <option value="1">Menit</option>
+                        <option value="2">Jam</option>
+                        <option value="3">Hari</option>
+                        <option value="4">Minggu</option>
+                        <option value="4">Bulan</option>
+                        <option value="5">Tahun</option>
+                                        
                     </select></span>
             </p>
                 

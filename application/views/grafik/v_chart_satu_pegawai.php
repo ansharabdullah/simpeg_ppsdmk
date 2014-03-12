@@ -113,7 +113,7 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="iconfa-pencil"></i> &nbsp;Edit Biodata</a></li>
+                    <li><a href="<?php echo base_url(); ?>pegawai/edit_biodata/<?php echo $id_pegawai;?>"><i class="iconfa-pencil"></i> &nbsp;Edit Biodata</a></li>
                     <li><a href="<?php echo base_url(); ?>pegawai/input_data_tambahan/<?php echo $NIP;?>"><i class="iconfa-pencil"></i> &nbsp;Tambah Data Tambahan</a></li>
                 </ul>
             </div>
@@ -125,8 +125,7 @@
             <br />
             
             <div class="row-fluid" style="text-transform:uppercase;">    
-                <img src="<?php echo base_url(); ?>assets/shamcey/images/photos/foto_profil.png"  class="pull-right"/></center>
-                
+                <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>"  class="pull-right" style="height:  250px; width: 200px; overflow: hidden;"/></center>
                 <div class="span4"> 
                     <table class="table table-bordered table-invoice">
                         <th>DATA UTAMA</th>
@@ -137,7 +136,7 @@
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
-                            <td><?php echo $GELAR_DEPAN;?><?php echo $NAMA_PEGAWAI ?>,<?php echo $GELAR_BELAKANG; ?></td>
+                            <td><?php echo $GELAR_DEPAN;?>&nbsp;<?php echo $NAMA_PEGAWAI ?>,<?php echo $GELAR_BELAKANG; ?></td>
                         </tr>
                         <tr>
                             <td>Tempat, Tanggal Lahir</td>
@@ -374,18 +373,18 @@
                 
                 <?php
                 $ID_KEPANGKATA="";
-            $STATUS_KEPANGKATAN = "";
-            $PANGKAT = "";
-            $GOLONGAN_KEPANGKATAN = "";
-            $JENIS_KENAIKAN = "";
-            $TMT_GOLONGAN_KEPANGKATAN = "";
-            $NO_SK_KEPANGKATAN = "";
-            $TGL_SK_KEPANGKATAN = "";
-            $GAJI ="";
-            $PERATURAN ="";
-            $KETERANGAN_KEPANGKATAN ="";
-            $NO_KP=1;
-            $MASA_KERJA_GOLONGAN="";
+                $STATUS_KEPANGKATAN = "";
+                $PANGKAT = "";
+                $GOLONGAN_KEPANGKATAN = "";
+                $JENIS_KENAIKAN = "";
+                $TMT_GOLONGAN_KEPANGKATAN = "";
+                $NO_SK_KEPANGKATAN = "";
+                $TGL_SK_KEPANGKATAN = "";
+                $GAJI ="";
+                $PERATURAN ="";
+                $KETERANGAN_KEPANGKATAN ="";
+                $NO_KP=1;
+                $MASA_KERJA_GOLONGAN="";
                 
             foreach ($query3 as $row) {
                 $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
@@ -395,7 +394,7 @@
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
                 $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
+                $GAJI = $row->GAJI_GOLONGAN;
                 $PERATURAN =$row->PERATURAN;
                 $MASA_KERJA_GOLONGAN=$row->MASA_KERJA_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
@@ -419,7 +418,7 @@
                 <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
                 <td><?php echo $NO_SK_KEPANGKATAN;?></td>
                 <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
-                <td><?php echo $MASA_KERJA_GOLONGAN;?> BULAN</td>
+                <td><?php echo $MASA_KERJA_GOLONGAN;?></td>
                 <td><?php echo $GAJI;?></td>
                 <td><?php echo $PERATURAN;?></td>
                 <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
@@ -565,7 +564,7 @@
             $ANGKATAN_DIKLAT= "";
             $RANGKING_DIKLAT= "";
             $NO_DS=1;
-                
+            $LAMA=0;
             foreach ($query5 as $row) {
                 $STATUS_DIKLAT = $row->STATUS_DIKLAT;
                 $NAMA_DIKLAT = $row->NAMA_DIKLAT;
@@ -577,7 +576,8 @@
                 $TANGGAL_SELESAI_DIKLAT= $row->TGL_SELESAI_DIKLAT;
                 $ANGKATAN_DIKLAT= $row->ANGKATAN_DIKLAT;
                 $RANGKING_DIKLAT= $row->RANGKING_DIKLAT;
-                    
+                
+               
             ?>
                 <tbody>
                     <tr>
@@ -592,7 +592,28 @@
                 <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
                 <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
                 <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
-                <td><?PHP echo $LAMA_DIKLAT;?></td>
+                <td><?PHP 
+                
+                        if($LAMA_DIKLAT>=518400){
+                           $LAMA=$LAMA_DIKLAT/518400;
+                           echo $LAMA." tahun";
+                       }else if($LAMA_DIKLAT>=43200&&$LAMA_DIKLAT<518400){
+                           $LAMA=$LAMA_DIKLAT/43200;
+                           echo $LAMA." bulan";
+                       }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
+                           $LAMA=$LAMA_DIKLAT/10080;
+                           echo $LAMA." minggu";
+                       }else if($LAMA_DIKLAT>=1440&&$LAMA_DIKLAT<10080){
+                           $LAMA=$LAMA_DIKLAT/1440;
+                           echo $LAMA." hari";
+                       }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
+                           echo $LAMA_DIKLAT." jam";
+                       }else if($LAMA_DIKLAT<60){
+                           echo $LAMA_DIKLAT." menit";
+                       }
+                
+                
+                ?></td>
                 <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
                 <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
                 <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
@@ -671,7 +692,26 @@
                 <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
                 <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
                 <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
-                <td><?PHP echo $LAMA_DIKLAT;?></td>
+                <td><?PHP 
+                if($LAMA_DIKLAT>=518400){
+                           $LAMA=$LAMA_DIKLAT/518400;
+                           echo $LAMA." tahun";
+                       }else if($LAMA_DIKLAT>=43200&&$LAMA_DIKLAT<518400){
+                           $LAMA=$LAMA_DIKLAT/43200;
+                           echo $LAMA." bulan";
+                       }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
+                           $LAMA=$LAMA_DIKLAT/10080;
+                           echo $LAMA." minggu";
+                       }else if($LAMA_DIKLAT>=1440&&$LAMA_DIKLAT<10080){
+                           $LAMA=$LAMA_DIKLAT/1440;
+                           echo $LAMA." hari";
+                       }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
+                           echo $LAMA_DIKLAT." jam";
+                       }else if($LAMA_DIKLAT<60){
+                           echo $LAMA_DIKLAT." menit";
+                       }
+                
+                ?></td>
                 <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
                 <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
                 <td><?PHP echo  $ANGKATAN_DIKLAT;?></td>
@@ -737,7 +777,25 @@
                         <td><?PHP echo $INSTANSI_DIKLAT; ?></td>
                         <td><?PHP echo $NO_IJAZAH_DIKLAT;?></td>
                         <td><?PHP echo $TGL_IJAZAH_DIKLAT;?></td>
-                        <td><?PHP echo $LAMA_DIKLAT;?></td>
+                        <td><?PHP 
+                                if($LAMA_DIKLAT>=518400){
+                                   $LAMA=$LAMA_DIKLAT/518400;
+                                   echo $LAMA." tahun";
+                               }else if($LAMA_DIKLAT>=43200&&$LAMA_DIKLAT<518400){
+                                   $LAMA=$LAMA_DIKLAT/43200;
+                                   echo $LAMA." bulan";
+                               }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
+                                   $LAMA=$LAMA_DIKLAT/10080;
+                                   echo $LAMA." minggu";
+                               }else if($LAMA_DIKLAT>=1440&&$LAMA_DIKLAT<10080){
+                                   $LAMA=$LAMA_DIKLAT/1440;
+                                   echo $LAMA." hari";
+                               }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
+                                   echo $LAMA_DIKLAT." jam";
+                               }else if($LAMA_DIKLAT<60){
+                                   echo $LAMA_DIKLAT." menit";
+                               }
+                        ?></td>
                         <td><?PHP echo $TANGGAL_MULAI_DIKLAT;?></td>
                         <td><?PHP echo $TANGGAL_SELESAI_DIKLAT;?></td>
                         <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_diklat_teknis/'.$row->ID_DIKLAT)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
@@ -886,7 +944,25 @@
                         <td><?PHP echo $TGL_SK_PENUGASAN;?></td>
                         <td><?PHP echo $TUJUAN_PENUGASAN;?></td>
                         <td><?PHP echo $BIAYA_PENUGASAN;?></td>
-                        <td><?PHP echo $LAMA_PENUGASAN;?></td>
+                        <td><?PHP 
+                            if($LAMA_PENUGASAN>=518400){
+                               $LAMA=$LAMA_PENUGASAN/518400;
+                               echo $LAMA." tahun";
+                           }else if($LAMA_PENUGASAN>=43200&&$LAMA_PENUGASAN<518400){
+                               $LAMA=$LAMA_PENUGASAN/43200;
+                               echo $LAMA." bulan";
+                           }else if($LAMA_PENUGASAN>=10080&&$LAMA_PENUGASAN<43200){
+                               $LAMA=$LAMA_PENUGASAN/10080;
+                               echo $LAMA." minggu";
+                           }else if($LAMA_PENUGASAN>=1440&&$LAMA_PENUGASAN<10080){
+                               $LAMA=$LAMA_PENUGASAN/1440;
+                               echo $LAMA." hari";
+                           }else if($LAMA_PENUGASAN>=60 && $LAMA_PENUGASAN<1440){
+                               echo $LAMA_PENUGASAN." jam";
+                           }else if($LAMA_PENUGASAN<60){
+                               echo $LAMA_PENUGASAN." menit";
+                           }
+                        ?></td>
                         <td><?PHP echo $TAHUN_PENUGASAN;?></td>
                         <td><?PHP echo $KETERANGAN_PENUGASAN;?></td>
                         <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_penugasan/'.$row->ID_PENUGASAN)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
@@ -966,7 +1042,26 @@
                         <td><?PHP echo $LOKASI_PENUGASAN;?></td>
                         <td><?PHP echo $NO_IJAZAH_PENUGASAN;?></td>
                         <td><?PHP echo $TGL_IJAZAH_PENUGASAN;?></td>
-                        <td><?PHP echo $LAMA_PENUGASAN;?></td>
+                        <td><?PHP 
+                            
+                        if($LAMA_PENUGASAN>=518400){
+                               $LAMA=$LAMA_PENUGASAN/518400;
+                               echo $LAMA." tahun";
+                           }else if($LAMA_PENUGASAN>=43200&&$LAMA_PENUGASAN<518400){
+                               $LAMA=$LAMA_PENUGASAN/43200;
+                               echo $LAMA." bulan";
+                           }else if($LAMA_PENUGASAN>=10080&&$LAMA_PENUGASAN<43200){
+                               $LAMA=$LAMA_PENUGASAN/10080;
+                               echo $LAMA." minggu";
+                           }else if($LAMA_PENUGASAN>=1440&&$LAMA_PENUGASAN<10080){
+                               $LAMA=$LAMA_PENUGASAN/1440;
+                               echo $LAMA." hari";
+                           }else if($LAMA_PENUGASAN>=60 && $LAMA_PENUGASAN<1440){
+                               echo $LAMA_PENUGASAN." jam";
+                           }else if($LAMA_PENUGASAN<60){
+                               echo $LAMA_PENUGASAN." menit";
+                           }
+                        ?></td>
                         <td><?PHP echo $TGL_MULAI_PENUGASAN;?></td>
                         <td><?PHP echo $TGL_SELESAI_PENUGASAN;?></td>
                         <td><?PHP echo $KETERANGAN_PENUGASAN;?></td>
@@ -1442,7 +1537,7 @@
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
                 $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
+                $GAJI = $row->GAJI_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
                     
                 $datetime1 = new DateTime($TMT_GOLONGAN);

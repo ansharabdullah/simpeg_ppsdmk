@@ -4,15 +4,13 @@
     $nip = $row->NIP; 
     $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
     $ID_JENIS_GOL = $row->ID_JENIS_GOLONGAN;
-    $ID_JENIS_KENAIKAN_1= $row->ID_JENIS_KENAIKAN;
-    $ID_KAT_GAJI=$row->ID_KATEGORI_GAJI;
     $PANGKAT = $row->NAMA_PANGKAT;
     $GOLONGAN_KEPANGKATAN = $row->GOLONGAN;
     $JENIS_KENAIKAN_1 = $row->JENIS_KENAIKAN;
     $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
     $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
     $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-    $BESAR_GAJI = $row->BESAR_GAJI;
+    $BESAR_GAJI = $row->GAJI_GOLONGAN;
     $PERATURAN =$row->PERATURAN;
     $MASA_KERJA_GOLONGAN=$row->MASA_KERJA_GOLONGAN;
     $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
@@ -49,18 +47,20 @@
                         <?php } ?>
                     </select></span>
             </p>
-                
+            
             <p>
                 <label>Jenis Kenaikan</label>
                 <span class="field"><select name="jenis_kenaikan" id="selection2" class="uniformselect" >
-                        <option value="<?php echo $ID_JENIS_KENAIKAN_1;?>"><?php echo $JENIS_KENAIKAN_1;?></option>
-                       <?php
-                            foreach ($query2 as $row){
-                                $id_jenis_kenaikan = $row->id_jenis_kenaikan;
-                                $jenis_kenaikan = $row->jenis_kenaikan;
-                        ?>
-                        <option value="<?php echo $id_jenis_kenaikan;?>"><?php echo $jenis_kenaikan;?></option>
-                        <?php } ?>>
+                        <option value="<?php echo $JENIS_KENAIKAN_1;?>"><?php echo $JENIS_KENAIKAN_1;?></option>
+                        <option value="CPNS">CPNS</option>
+                        <option value="PNS">PNS</option>
+                        <option value="REGULER">REGULER</option>
+                        <option value="PENYESUAIAN IJAZAH">Penyesuaian Ijazah</option>
+                        <option value="PILIHAN">Pilihan</option>
+                        <option value="PENGABDIAN">Pengabdian</option>
+                        <option value="ANUMERTA">Anumerta</option>
+                        <option value="BERKALA">Berkala</option>
+                        <option value="PENYESUAIAN MASA KERJA">Penyesuaian Masa Kerja</option>
                     </select></span>
             </p>
                 
@@ -72,7 +72,7 @@
                 
             <p>
                 <label>No SK</label>
-                <span class="field"><input type="text" name="no_sk" class="input-large" placeholder="" required=""/><?php echo $NO_SK_KEPANGKATAN?></span>
+                <span class="field"><input type="text" name="no_sk" class="input-large" placeholder="" required="" value="<?php echo $NO_SK_KEPANGKATAN?>"/></span>
             </p>
                 
             <div class="par">
@@ -86,17 +86,7 @@
                 
             <p>       
                 <label>Gaji</label>
-                <span class="field"><select name="gaji" id="selection2" class="uniformselect" >
-                     <option value="<?php echo $ID_KAT_GAJI;?>"><?php echo "Rp ".$BESAR_GAJI;?></option>
-                    <?php
-                           foreach ($query4 as $row){
-                                $id_kategori_gaji = $row->id_kategori_gaji;
-                                $besar_gaji= $row->besar_gaji;
-                                $gaji = number_format($besar_gaji,2,',','.');
-                        ?>
-                        <option value="<?php echo $id_kategori_gaji;?>"><?php echo "Rp ".$gaji;?></option>
-                        <?php } ?>>
-                    </select></span>
+                      <span class="field"><input type="text" name="gaji" class="input-small" placeholder="" required="" value="<?php echo $BESAR_GAJI?>"/>
             </p>
             
             <p>

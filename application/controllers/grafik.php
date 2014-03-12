@@ -24,9 +24,19 @@ class grafik extends CI_Controller {
 //    function panggil halaman
     public function index() {
         if ($this->session->userdata('role') == 1) {
-            $this->load->view('laman/v_home');
+            $query = $this->m_grafik->grafikDivisi();
+            foreach ($query as $q) {
+                $x[] = $q->NAMA_UNIT;
+                $y[] = $q->JUMLAH;
+            }
+
+            $subtitle = "SEMUA BAGIAN";
+            $alamat = "grafik/bagian";
+            $status = 1;
+            $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
+            $this->load->view("laman/v_home", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
         } else {
-            $this->load->view('laman/v_developer');
+            $this->load->view('laman/v_home_pegawai');
         }
         $this->load->view('laman/v_footer');
     }
@@ -415,8 +425,8 @@ class grafik extends CI_Controller {
     }
 
     public function header_pegawai($nip) {
-        $query = $this->m_pegawai->get_akun($nip);
-        $this->load->view('laman/v_header', array('query' => $query));
+        $query0 = $this->m_pegawai->get_akun($nip);
+        $this->load->view('laman/v_header_pegawai', array('query' => $query0));
     }
 
 }
