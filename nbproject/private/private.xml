@@ -3,28 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/config/config.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_akun.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_header.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/grafik.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/config/autoload.php</file>
-=======
-=======
->>>>>>> 2941e87b149e5fb21955be2c36787390db67b1bd
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_edit_saudara.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_edit_orangtua.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_edit_anak.php</file>
-<<<<<<< HEAD
->>>>>>> 2941e87b149e5fb21955be2c36787390db67b1bd
-=======
->>>>>>> 2941e87b149e5fb21955be2c36787390db67b1bd
         </group>
     </open-files>
 </project-private>

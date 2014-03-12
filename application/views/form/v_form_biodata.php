@@ -153,7 +153,7 @@
                     <?php echo  form_open_multipart('pegawai/uploadImage')?>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><input type="file" name="userfile"></span> 
+                        <span class="field"><input type="file" name="userfile" required=""></span> 
                     </p>
                     <p>
                         <label>Keterangan</label>

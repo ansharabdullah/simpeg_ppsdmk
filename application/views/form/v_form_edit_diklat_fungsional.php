@@ -68,6 +68,26 @@
                 
             <p>
                 <label>Lama</label>
+                <?PHP 
+                $LAMA=0;
+                if($LAMA_DIKLAT>=518400){
+                   $LAMA=$LAMA_DIKLAT/518400;
+                   echo $LAMA." tahun";
+               }else if($LAMA_DIKLAT>=43200&&$LAMA_DIKLAT<518400){
+                   $LAMA=$LAMA_DIKLAT/43200;
+                   echo $LAMA." bulan";
+               }else if($LAMA_DIKLAT>=10080&&$LAMA_DIKLAT<43200){
+                   $LAMA=$LAMA_DIKLAT/10080;
+                   echo $LAMA." minggu";
+               }else if($LAMA_DIKLAT>=1440&&$LAMA_DIKLAT<10080){
+                   $LAMA=$LAMA_DIKLAT/1440;
+                   echo $LAMA." hari";
+               }else if($LAMA_DIKLAT>=60 && $LAMA_DIKLAT<1440){
+                   echo $LAMA_DIKLAT." jam";
+               }else if($LAMA_DIKLAT<60){
+                   echo $LAMA_DIKLAT." menit";
+               }
+                ?>
                 <span class="field"><input type="text" name="lama" class="input-small" placeholder="" value="<?php echo $LAMA_DIKLAT;?>"/></span>
                 <span class="field"><select name="waktu" id="selection2" class="uniformselect">
                         <option value="">---</option>

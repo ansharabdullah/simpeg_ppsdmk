@@ -26,7 +26,7 @@ class grafik extends CI_Controller {
         if ($this->session->userdata('role') == 1) {
             $this->load->view('laman/v_home');
         } else {
-            $this->load->view('laman/v_developer');
+            $this->load->view('laman/v_home_pegawai');
         }
         $this->load->view('laman/v_footer');
     }
@@ -398,8 +398,8 @@ class grafik extends CI_Controller {
     }
 
     public function header_pegawai($nip) {
-        $query = $this->m_pegawai->get_akun($nip);
-        $this->load->view('laman/v_header_pegawai', array('query' => $query));
+        $query0 = $this->m_pegawai->get_akun($nip);
+        $this->load->view('laman/v_header_pegawai', array('query' => $query0));
     }
 
 }

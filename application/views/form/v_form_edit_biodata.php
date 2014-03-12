@@ -150,7 +150,7 @@
                     </p>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><input type="file" name="userfile" value="<?php echo $FOTO ?>"></span> 
+                        <span class="field"><input type="file" name="userfile" value="<?php echo $FOTO ?>" required=""> </span> 
                     </p>
                     <p>
                         <label>NO Kartu Pegawai</label>
