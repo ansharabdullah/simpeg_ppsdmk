@@ -227,7 +227,6 @@
                         <label>Nama Sekolah</label>
                         <span class="field"><input type="text" name="nama_sekolah" class="input-large" placeholder="" /></span>
                     </p>
-                    <p><input type="checkbox"  /> I agree with the terms and agreement...</p>
                 </div><!--#wiz1step3-->
             </div><!--#wizard-->
         </form>

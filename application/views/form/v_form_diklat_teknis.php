@@ -44,16 +44,16 @@
                 <label>Tanggal Selesai</label>
                 <span class="field"><input id="datepicker" type="date" name="tanggal_selesai" class="input-small" /></span>
             </div>
-                        
-            <p class="stdformbutton">
-                <button class="btn btn-primary">Save</button>
-                <button type="reset" class="btn">Cancel</button>
-            </p>
-<?php          
+ <?php          
     foreach ($query as $row) {
     $id_pegawai = $row->id_pegawai;
     $nip = $row->nip; 
-?>            
+?>                         
+            <p class="stdformbutton">
+                <a href="<?php echo site_url('pegawai/biodata/'.$nip) ?>" class="btn">Cancel</a>
+                <button class="btn btn-primary">Save</button>
+            </p>
+          
             <input type="hidden" name="id_pegawai" value="<?php echo $id_pegawai ?>"/>
             <input type="hidden" name="nip" value="<?php echo $nip ?>"/>
 <?php }  ?> 

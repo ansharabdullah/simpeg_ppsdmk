@@ -182,8 +182,8 @@
             </p>
                 
             <p class="stdformbutton">
+                <a href="<?php echo site_url('pegawai/biodata/'.$nip) ?>" class="btn">Cancel</a>
                 <button class="btn btn-primary">Save</button>
-                <button type="reset" class="btn">Cancel</button>
             </p>
            
             <input type="hidden" name="id_penugasan" value="<?php echo $ID_PENUGASAN ?>"/>
