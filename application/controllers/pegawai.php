@@ -361,9 +361,10 @@ class pegawai extends CI_Controller {
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload()){
-                $error = array('error' => $this->upload->display_errors());
-
-                echo $this->upload->display_errors();
+                $error = $this->upload->display_errors();
+                $nip = $this->input->post('nip', true);
+                $uri = base_url().'pegawai/biodata/'.$nip;
+                echo "<script>javascript:alert('".$error."'); window.location = '".$uri."'</script>";
         }else{
                 $data = array('upload_data' => $this->upload->data());
                 $temp_file = $this->upload->data();
@@ -872,8 +873,9 @@ class pegawai extends CI_Controller {
 
         if ( ! $this->upload->do_upload()){
                 $error = array('error' => $this->upload->display_errors());
-
-                echo $this->upload->display_errors();
+                $nip = $this->input->post('nip', true);
+                $uri = base_url().'pegawai/biodata/'.$nip;
+                echo "<script>javascript:alert('".$error."'); window.location = '".$uri."'</script>";
         }else{
                 $data = array('upload_data' => $this->upload->data());
                 $temp_file = $this->upload->data();
@@ -907,9 +909,10 @@ class pegawai extends CI_Controller {
                 $foto =  $temp_file['file_name'];
                 if ($this->session->userdata('role') == 1) {
                     $acc=1;
+                    $status_aktif=1;
                      $this->m_pegawai->insert_pegawai(
                     $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, 
-                     $jabatan, $unit_kerja, $golongan,$pendidikan, $nama_sekolah,$acc
+                     $jabatan, $unit_kerja, $golongan,$pendidikan, $nama_sekolah,$acc, $status_aktif
                  );
                 redirect('pegawai/biodata/' . $nip);
                 }
@@ -1539,10 +1542,10 @@ class pegawai extends CI_Controller {
         }
     }
 
-    public function delete_pegawai($id_pegawai, $nip) {
+    public function delete_pegawai($id_pegawai) {
         if ($this->session->userdata('role') == 1) {
-            $this->m_pegawai->delete_log_medis($id_pegawai);
-            redirect('pegawai/biodata/' . $nip, 'refresh');
+            $this->m_pegawai->delete_pegawai($id_pegawai);
+            echo "<script>javascript:alert('Anda Yakin?'); window.location = '". $_SERVER['HTTP_REFERER']."'</script>";
         } else {
             
         }

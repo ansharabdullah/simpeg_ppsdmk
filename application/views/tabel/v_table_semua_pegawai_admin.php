@@ -73,7 +73,7 @@
                     <td><?php echo $row->NAMA_UNIT; ?></td>
                     <td><?php echo strtoupper($row->JABATAN); ?></td>
                     <td class="center"><a href="<?php echo base_url(); ?>pegawai/edit_biodata/<?php echo $id; ?>">Edit</a></td>
-                    <td class="center"><a href="<?php echo site_url('pegawai/delete_pegawai' . '/' . $row->ID_PEGAWAI . '/' . $link) ?>" class="">Hapus</a></td>
+                    <td class="center"><a href="<?php echo base_url(); ?>pegawai/delete_pegawai/<?php echo $id; ?>">Hapus</a></td>
                 </tr>
                 <?php $no++;
             } ?>		

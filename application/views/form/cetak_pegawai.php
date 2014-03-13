@@ -25,18 +25,53 @@
                         text-align: right;
                     }
                     @page Section1{
-                        size:21cm 29.7cm;
+                        size:29.7cm 21cm ;
                         margin: 2cm 2cm 2cm 2cm;
                         mso-page-orientation: landscape;
                         mso-footer:f1;
                     }
+                    table{
+                        border-collapse:collapse;
+                        width:100%;
+                    }
+                    table, th, td{
+                        border: 1px solid black;
+                    }
+                    .img{
+                        width:160px;
+                        height:145px;
+                    }
+                    #pegawai{
+                        width:100%;
+                        border-collapse:collapse;
+                    }
+                    #pegawai td, #pegawai th {
+                        font-size:1em;
+                        border:1px solid #000000;
+                        padding:3px 7px 2px 7px;
+                    }
+                    #pegawai th {
+                        font-size:1.1em;
+                        text-align:left;
+                        padding-top:5px;
+                        padding-bottom:4px;
+                        background-color:#3656F5;
+                        color:#ffffff;
+                        text-align:center;
+                    }
+                    #pegawai tr.alt td {
+                        color:#000000;
+                        background-color:#EAF2D3;
+                    }
+                    
                     div.Section1 { page:Section1;}
                 </style>
             </head>
             <body>
+                <div id='pegawai'>
                 <div class='Section1'>
                     <center><h2>BIODATA & RIWAYAT PEGAWAI <br></h2></center><br />
-                    <table border='1'>
+                    <table>
                         <tr>
                             <td colspan = '3'><b><center>DATA UTAMA</center></b></td>
                         </tr>";
@@ -44,12 +79,13 @@
         header("Content-Disposition: attachment;Filename=DATA PEGAWAI $q->nip.doc");
         
             //$gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
-            $nama = $q->gelar_depan . "" . $q->nama_pegawai . "" . $q->gelar_belakang;
+            $nama = $q->gelar_depan . ". " . $q->nama_pegawai . "," . $q->gelar_belakang;
             $alamat = $q->alamat." KELURAHAN ".$q->kelurahan." KECAMATAN ".$q->kecamatan." KABUPATEN ".$q->kabupaten." PROVINSI ".$q->provinsi;
+            $foto = base_url()."assets/images/".$q->foto;
             echo "<tr>
                             <td>NIP/NIP Lama</td>
                             <td>$q->nip/$q->nip_lama</td>
-                            <td rowspan='10'><img src=assets/shamcey/images/photos/foto_profil.png></td>
+                            <td rowspan='13'><img src='".$foto."' class='img'/></td>
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
@@ -473,7 +509,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Diklat</th>
-                        <th>Instansi</th>=
+                        <th>Instansi</th>
                         <th>No Ijazah</th>
                         <th>Tanggal Ijazah</th>
                         <th>Lama</th>
@@ -691,13 +727,12 @@
                         <td>$JABATAN_ORGANISASI</td>
                         <td>$TAHUN_ORGANISASI</td>
                         <td>$KETERANGAN_ORGANISASI</td>
-                    </tr>"; $NO_ORG++;
+         </tr>"; $NO_ORG++;}
                     echo "
                 </tbody>
             </table>        
             <br clear=all style='mso-special-character:line-break;' />";        
-         }
-         
+
          echo "<center><h3>RIWAYAT ALAMAT</h3></center>
              <table border='1'>
                 <thead>
@@ -1011,11 +1046,11 @@
                         <td>$TGL_SK_PENGHARGAAN</td>
                         <td> $TAHUN_PENGHARGAAN</td>
                         <td>$KETERANGAN_PENGHARGAAN</td>
-                    </tr>";$NO_PENGHARGAAN++; echo "
+             </tr>";$NO_PENGHARGAAN++;} echo "
                 </tbody>
             </table><br clear=all style='mso-special-character:line-break;' />";
                     
-             }
+             
              
              echo "<center><h3>RIWAYAT MEDIS</h3></center> 
                <table border='1'>     
@@ -1052,6 +1087,7 @@
            
         echo"
                     </div>
+                   </div>
                 </body>
             </html>";
 

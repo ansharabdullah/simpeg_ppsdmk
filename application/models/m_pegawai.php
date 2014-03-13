@@ -70,13 +70,13 @@ class m_pegawai extends CI_Model {
                 $nip,$nip_lama,$gelar_depan,$nama_pegawai,$gelar_belakang ,$tempat_lahir ,$tgl_lahir, 
                 $jenis_kelamin ,$alamat ,$kecamatan ,$kelurahan ,$kabupaten ,$provinsi ,$tmt_cpns ,
                 $tmt_pns ,$agama ,$status_perkawinan ,$status_pegawai ,$foto ,$keterangan ,$jabatan, 
-                $unit_kerja, $golongan , $pendidikan ,$nama_sekolah, $acc
+                $unit_kerja, $golongan , $pendidikan ,$nama_sekolah, $acc,$status_aktif
             ){
         $query = $this->db->query("INSERT INTO pegawai (NIP, NIP_LAMA, NAMA_PEGAWAI, GELAR_DEPAN, GELAR_BELAKANG, JENIS_KELAMIN, 
-            TEMPAT_LAHIR, TGL_LAHIR, AGAMA, STATUS_PERKAWINAN, TMT_CPNS, TMT_PNS, KETERANGAN, STATUS_PEGAWAI, FOTO, ACC_PEGAWAI) 
+            TEMPAT_LAHIR, TGL_LAHIR, AGAMA, STATUS_PERKAWINAN, TMT_CPNS, TMT_PNS, KETERANGAN, STATUS_PEGAWAI, FOTO, ACC_PEGAWAI, STATUS_AKTIF) 
             VALUES ('$nip', '$nip_lama','$nama_pegawai', '$gelar_depan',  '$gelar_belakang', '$jenis_kelamin',
                 '$tempat_lahir', '$tgl_lahir',  '$agama', '$status_perkawinan', '$tmt_cpns', '$tmt_pns', '$keterangan',
-                '$status_pegawai', '$foto', $acc)");
+                '$status_pegawai', '$foto', $acc, $status_aktif)");
         $last_id = $this->db->insert_id();
         $query2 = $this->db->query("INSERT INTO log_jabatan (ID_PEGAWAI, ID_JENIS_JABATAN, ID_UNIT, STATUS_JABATAN, ACC_JABATAN) 
                 VALUES ($last_id, $jabatan, $unit_kerja, 1, $acc)");
@@ -210,6 +210,10 @@ class m_pegawai extends CI_Model {
     }
 
     //DELETE
+    public function delete_pegawai($id_pegawai){
+        $query = $this->db->query("UPDATE PEGAWAI SET STATUS_AKTIF=0 WHERE ID_PEGAWAI='$id_pegawai'");
+    }
+    
     public function delete_log_jabatan($id_jabatan) {
         $this->db->where('id_jabatan', $id_jabatan);
         $this->db->delete('log_jabatan');
