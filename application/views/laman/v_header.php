@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default_.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/responsive-tables.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/prettify/prettify.css" type="text/css" />
         
         <!-- highcharts -->
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/highcharts-3.0.7/jquery.min.js"></script>
@@ -46,7 +47,7 @@
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/elements.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/fullcalendar.min.js"></script>
-   
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.smartWizard.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.confirm.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.confirm.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootbox.min.js"></script>

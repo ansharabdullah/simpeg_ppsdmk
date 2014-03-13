@@ -150,7 +150,7 @@
                     </p>
                     <p>
                         <label>Foto</label>
-                        <span class="field"><input type="file" name="userfile" value="<?php echo $FOTO ?>" required=""> </span> 
+                        <span class="field"><input type="file" name="userfile" value="<?php echo $FOTO ?>" required=""></span> 
                     </p>
                     <p>
                         <label>NO Kartu Pegawai</label>
@@ -248,7 +248,7 @@
                     
                     <p class="stdformbutton">
                         
-                        <a href="<?php echo site_url('pegawai/biodata/'.$nip) ?>" class="btn">Cancel</a>
+                        <a href="<?php echo site_url('pegawai/biodata/'.$NIP) ?>" class="btn">Cancel</a>
                         <button class="btn btn-primary">Save</button>
                     </p>         
                     <input type="hidden" name="id_pegawai" value="<?php echo $id_pegawai ?>"/>

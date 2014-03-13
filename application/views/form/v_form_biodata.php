@@ -80,7 +80,7 @@
                         
                     <div class="par">
                         <label>Tanggal Lahir</label>
-                        <span class="field"><input id="datepicker" type="date" name="tgl_lahir" class="input-medium" /></span>
+                        <span class="field"><input type="date" name="tgl_lahir" class="input-medium" /></span>
                     </div> 
                         
                     <p>
