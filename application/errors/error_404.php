@@ -55,13 +55,13 @@
 
     <body>
         <div class="errortitle">
-            <h4 class="animate0 fadeInUp">The page you are looking for has not been found.</h4>
+            <h4 class="animate0 fadeInUp">Halaman yang anda tuju tidak ditemukan.</h4>
             <span class="animate1 bounceIn">4</span>
             <span class="animate2 bounceIn">0</span>
             <span class="animate3 bounceIn">4</span>
             <div class="errorbtns animate4 fadeInUp">
-                <a onclick="history.back()" class="btn btn-primary btn-large">Go to Previous Page</a>
-                <a href="<?php echo base_url(); ?>" class="btn btn-large">Go to Home</a>
+                <a onclick="history.back()" class="btn btn-primary btn-large">Kembali ke halaman sebelumnya</a>
+                <a href="<?php echo base_url(); ?>" class="btn btn-large">Menuju Home</a>
             </div>
         </div>
     </<body>
