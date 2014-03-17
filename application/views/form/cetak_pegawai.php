@@ -55,8 +55,8 @@
                         text-align:left;
                         padding-top:5px;
                         padding-bottom:4px;
-                        background-color:#3656F5;
-                        color:#ffffff;
+                        background-color:#BFBFBF;
+                        color:#000000;
                         text-align:center;
                     }
                     #pegawai tr.alt td {
@@ -924,7 +924,7 @@
            
            echo "<center><h3>RIWAYAT ORANG TUA</h3></center> 
                <table border='1'>
-               thead>
+               <thead>
                     <tr>
                         <th>No.</th>
                         <th>Status</th>

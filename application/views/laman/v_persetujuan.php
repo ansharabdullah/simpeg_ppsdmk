@@ -5,21 +5,27 @@
         <h1>PERSETUJUAN</h1>
     </div>
 </div><!--pageheader-->
-<h4 class="widgettitle"><span class="icon-check icon-white"></span>List Perubahan Data Pegawai</h4>
+<h4 class="widgettitle"><span class="icon-check icon-white"></span>Daftar Perubahan Riwayat Pegawai</h4>
 <div class="widgetcontent nopadding">
     <ul class="commentlist">
-        <li>
-            <img src="images/photos/thumb2.png" alt="" class="pull-left" />
-            <div class="comment-info">
-                <h4><a href="">NAMA PEGAWAI</a></h4>
-                <h5>in <a href="">Tanggal</a></h5>
-                <p>Detail perubahan data</p>
-                <p>
-                    <a href="" class="btn btn-success btn-small"><span class="icon-thumbs-up icon-white"></span> Approve</a>
-                    <a href="" class="btn btn-small"><span class="icon-thumbs-down"></span> Reject</a>
-                </p>
-            </div>
-        </li>
+        <?php
+        for ($i = 0; $i < $jml; $i++) {
+            ?>
+            <li>
+                <img src="<?php echo base_url(); ?>assets/images/<?php echo $data ['photo'][$i]; ?>" alt="" class="pull-left" />
+                <div class="comment-info">
+                    <h4><a href="<?php echo base_url() ?>pegawai/biodata/<?php echo $data['nip'][$i] ?>"><?php echo $data ['nama'][$i]; ?></a></h4>
+                    <h5> <b>Tanggal :</b>  <?php echo $data ['tgl'][$i]; ?></h5>
+                    <p> <b>Keterangan : </b><?php echo $data ['ket'][$i]; ?></p>
+                    <p> <b>Detail : </b><br /><?php echo $data ['detail'][$i]; ?></p>
+                    <p>
+                        <a href="<?php echo base_url(); ?>pegawai/acc/<?php echo $data['id_log'][$i] . "/" . $data['ket_id'][$i]; ?>" class="btn btn-success btn-small" onclick="return confirm('Apakah Anda Yakin?')"><span class="icon-thumbs-up icon-white"></span> Setuju</a>
+                        <a href="<?php echo base_url(); ?>pegawai/reject/<?php echo $data['id_log'][$i] . "/" . $data['ket_id'][$i]; ?>" class="btn btn-small" onclick="return confirm('Apakah Anda Yakin?')"><span class="icon-thumbs-down"></span> Tolak</a>
+                    </p>
+                </div>
+            </li>
+        <?php }
+        ?>
         <li></li>
     </ul>
 </div>

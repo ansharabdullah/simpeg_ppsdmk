@@ -15,7 +15,8 @@ class pegawai extends CI_Controller {
         }
     }
 
-    public function index() {     
+    public function index() {
+        
     }
 
     private function check_isvalidated() {
@@ -42,8 +43,9 @@ class pegawai extends CI_Controller {
             $password = $q->password;
             $i++;
         }
-        if($i==0)show_404 ();
-        $this->load->view('laman/v_akun', array('NIP' => $nip,'msg'=>'1'));
+        if ($i == 0)
+            show_404();
+        $this->load->view('laman/v_akun', array('NIP' => $nip, 'msg' => '1'));
         $this->load->view('laman/v_footer');
     }
 
@@ -217,7 +219,7 @@ class pegawai extends CI_Controller {
         $query2 = $this->m_pegawai->get_jabatan();
         $query3 = $this->m_pegawai->get_unit();
         $query4 = $this->m_pegawai->get_golongan();
-        
+
         $this->load->view("form/v_form_edit_biodata", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4));
         $this->load->view("laman/v_footer");
     }
@@ -234,7 +236,7 @@ class pegawai extends CI_Controller {
         $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
         $query2 = $this->m_pegawai->get_golongan();
 
-        $this->load->view("form/v_form_edit_pangkat",array('query'=>$query, 'query2'=>$query2));
+        $this->load->view("form/v_form_edit_pangkat", array('query' => $query, 'query2' => $query2));
     }
 
     public function edit_log_pendidikan($id_pendidikan) {
@@ -352,12 +354,26 @@ class pegawai extends CI_Controller {
     }
 
     //proses edit
-    public function proses_edit_biodata(){
-        
-         $config['upload_path'] = '././assets/images/';
+    public function proses_edit_biodata() {
+
+        $config['upload_path'] = '././assets/images/';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size']	= '1024';
-		
+        $config['max_size'] = '1024';
+        $file_name = $_FILES['file_var_name']['name'];
+        $file_name_pieces = split('_', $file_name);
+        $nip = $this->input->post('nip', true);
+        $new_file_name = $nip;
+        $count = 1;
+
+        foreach($file_name_pieces as $piece){
+            if ($count !== 1) {
+                $piece = ucfirst($piece);
+            }
+
+            $new_file_name .= $piece;
+            $count++;
+        }
+        $config['file_name'] = $new_file_name;
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload()){
@@ -368,7 +384,7 @@ class pegawai extends CI_Controller {
         }else{
                 $data = array('upload_data' => $this->upload->data());
                 $temp_file = $this->upload->data();
-                
+
                 $nip = $this->input->post('nip', true);
                 $nip_lama = $this->input->post('nip_lama', true);
                 $gelar_depan = $this->input->post('gelar_depan', true);
@@ -405,6 +421,7 @@ class pegawai extends CI_Controller {
                 $id_pegawai = $this->input->post('id_pegawai', true);
                 
                 $foto =  $temp_file['file_name'];
+   
                 $acc;
                 if ($this->session->userdata('role') == 1) {
                     $acc=1;
@@ -432,6 +449,7 @@ class pegawai extends CI_Controller {
         }
     }
     
+
     public function proses_edit_log_jabatan() {
         $id_jabatan = $this->input->post('id_jabatan', true);
         $aktif = $this->input->post('aktif', true);
@@ -442,15 +460,14 @@ class pegawai extends CI_Controller {
         $tmt = $this->input->post('tmt', true);
 
         $nip = $this->input->post('nip', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
             $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
             //redirect('pegawai/biodata/' . $nip);
-           
         }
     }
 
@@ -468,11 +485,11 @@ class pegawai extends CI_Controller {
         $gaji = $this->input->post('gaji', true);
         $peraturan = $this->input->post('peraturan', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $acc=0;
+
+        $acc = 0;
         $masa_kerja = (($tahun * 12) + $bulan);
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -493,10 +510,10 @@ class pegawai extends CI_Controller {
         $no_ijazah = $this->input->post('no_ijazah', true);
         $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
         $ipk = $this->input->post('ipk', true);
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -519,27 +536,27 @@ class pegawai extends CI_Controller {
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $angkatan = $this->input->post('angkatan', true);
         $rangking = $this->input->post('rangking', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -558,27 +575,27 @@ class pegawai extends CI_Controller {
         $waktu = $this->input->post('waktu', true);
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_diklat_teknis($id_diklat, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -597,10 +614,10 @@ class pegawai extends CI_Controller {
         $no_sertifikat = $this->input->post('no_sertifikat', true);
         $tanggal_sertifikat = $this->input->post('tanggal_sertifikat', true);
         $nilai = $this->input->post('nilai', true);
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_toefl($id_pendidikan, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -622,27 +639,27 @@ class pegawai extends CI_Controller {
         $waktu = $this->input->post('waktu', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_penugasan($id_penugasan, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama_waktu, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -665,32 +682,32 @@ class pegawai extends CI_Controller {
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        
-        $acc=0;
-        
+
+        $acc = 0;
+
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan,$acc);
+            $this->m_pegawai->update_log_seminar($id_penugasan, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan, $acc);
             //redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -703,15 +720,15 @@ class pegawai extends CI_Controller {
         $jabatan = $this->input->post('jabatan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $acc=0;
+
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan,$acc);
-           // redirect('pegawai/biodata/' . $nip);
+            $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
+            // redirect('pegawai/biodata/' . $nip);
         }
     }
 
@@ -729,9 +746,9 @@ class pegawai extends CI_Controller {
         $fax = $this->input->post('fax', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -752,9 +769,9 @@ class pegawai extends CI_Controller {
         $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $accs);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -773,13 +790,13 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             //redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -798,13 +815,13 @@ class pegawai extends CI_Controller {
         $keterangan = $this->input->post('keterangan', true);
 
         $masa_kerja = (($tahun * 12) + $bulan);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan,$acc);
+            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
             //redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -818,13 +835,13 @@ class pegawai extends CI_Controller {
         $tanggal_sk = $this->input->post('tanggal_sk', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->update_log_penghargaan($id_penghargaan, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
-        }else{
-             $this->m_pegawai->update_log_penghargaan($id_penghargaan, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc);
+        } else {
+            $this->m_pegawai->update_log_penghargaan($id_penghargaan, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -836,13 +853,13 @@ class pegawai extends CI_Controller {
         $tindakan = $this->input->post('tindakan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan,$acc);
+            $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -867,10 +884,26 @@ class pegawai extends CI_Controller {
     public function input_pegawai() {
         $config['upload_path'] = '././assets/images/';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size']	= '1024';
-		
-        $this->load->library('upload', $config);
+        $config['max_size'] = '1024';
+        $config['upload_path'] = '././assets/images/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '1024';
+        $file_name = $_FILES['file_var_name']['name'];
+        $file_name_pieces = split('_', $file_name);
+        $nip = $this->input->post('nip', true);
+        $new_file_name = $nip;
+        $count = 1;
 
+        foreach($file_name_pieces as $piece){
+            if ($count !== 1) {
+                $piece = ucfirst($piece);
+            }
+
+            $new_file_name .= $piece;
+            $count++;
+        }
+        $config['file_name'] = $new_file_name;
+        $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload()){
                 $error = array('error' => $this->upload->display_errors());
                 $nip = $this->input->post('nip', true);
@@ -914,10 +947,10 @@ class pegawai extends CI_Controller {
                     $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, 
                      $jabatan, $unit_kerja, $golongan,$pendidikan, $nama_sekolah,$acc, $status_aktif
                  );
+
                 redirect('pegawai/biodata/' . $nip);
-                }
+            }
         }
-       
     }
 
     public function proses_insert_data_tambahan() {
@@ -942,16 +975,12 @@ class pegawai extends CI_Controller {
         $cacat_tubuh = $this->input->post('cacat_tubuh', true);
         $bahasa_asing = $this->input->post('bahasa_asing', true);
         $hobi = $this->input->post('hobi', true);
-        $acc=1;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
-            $this->m_pegawai->insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, 
-                    $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, 
-                    $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi,$acc);
+            $this->m_pegawai->insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, 
-                    $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, 
-                    $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi,$acc);
+            $this->m_pegawai->insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -965,13 +994,13 @@ class pegawai extends CI_Controller {
         $tanggal_sk = $this->input->post('tanggal_sk', true);
         $tmt = $this->input->post('tmt', true);
         $nip = $this->input->post('nip', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt,$acc);
+            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
             //redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -990,15 +1019,15 @@ class pegawai extends CI_Controller {
         $gaji = $this->input->post('gaji', true);
         $peraturan = $this->input->post('peraturan', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $acc=0;
+
+        $acc = 0;
         $masa_kerja = (($tahun * 12) + $bulan);
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan,$acc);
+            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1015,13 +1044,13 @@ class pegawai extends CI_Controller {
         $no_ijazah = $this->input->post('no_ijazah', true);
         $tanggal_ijazah = $this->input->post('tanggal_ijazah', true);
         $ipk = $this->input->post('ipk', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk,$acc);
+            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1040,30 +1069,30 @@ class pegawai extends CI_Controller {
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $angkatan = $this->input->post('angkatan', true);
         $rangking = $this->input->post('rangking', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking,$acc);
+            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1082,29 +1111,29 @@ class pegawai extends CI_Controller {
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $angkatan = $this->input->post('angkatan', true);
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan,$acc);
+            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1120,30 +1149,30 @@ class pegawai extends CI_Controller {
         $waktu = $this->input->post('waktu', true);
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_diklat_teknis($id_pegawai, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_diklat_teknis($id_pegawai, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_diklat_teknis($id_pegawai, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai,$acc);
+            $this->m_pegawai->insert_log_diklat_teknis($id_pegawai, $instansi, $nama_diklat, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1158,13 +1187,13 @@ class pegawai extends CI_Controller {
         $no_sertifikat = $this->input->post('no_sertifikat', true);
         $tanggal_sertifikat = $this->input->post('tanggal_sertifikat', true);
         $nilai = $this->input->post('nilai', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_toefl($id_pegawai, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_toefl($id_pegawai, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-             $this->m_pegawai->insert_log_toefl($id_pegawai, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai,$acc);
+            $this->m_pegawai->insert_log_toefl($id_pegawai, $aktif, $jenis, $tahun, $instansi, $no_sertifikat, $tanggal_sertifikat, $nilai, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1182,30 +1211,30 @@ class pegawai extends CI_Controller {
         $waktu = $this->input->post('waktu', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_penugasan($id_pegawai, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama_waktu, $tahun, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_penugasan($id_pegawai, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama_waktu, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_penugasan($id_pegawai, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama_waktu, $tahun, $keterangan,$acc);
+            $this->m_pegawai->insert_log_penugasan($id_pegawai, $jenis, $lokasi, $no_sk, $tgl_sk, $tujuan, $biaya, $lama_waktu, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1224,30 +1253,30 @@ class pegawai extends CI_Controller {
         $tanggal_mulai = $this->input->post('tanggal_mulai', true);
         $tanggal_selesai = $this->input->post('tanggal_selesai', true);
         $keterangan = $this->input->post('keterangan', true);
-        
-        $lama_waktu =0;
-        if($waktu==1){
-            $lama_waktu = $lama*1;
-        }else if($waktu==2){
-            $lama_waktu= $lama*60;
-        }else if($waktu==3){
-            $lama_waktu = $lama*1440;
-        }else if($waktu==4){
-            $lama_waktu = $lama*10080;
-        }else if($waktu==5){
-            $lama_waktu = $lama*43200;
-        }else if($waktu==6){
-            $lama_waktu = $lama*518400;
-        }else{
-            $lama_waktu=0;
+
+        $lama_waktu = 0;
+        if ($waktu == 1) {
+            $lama_waktu = $lama * 1;
+        } else if ($waktu == 2) {
+            $lama_waktu = $lama * 60;
+        } else if ($waktu == 3) {
+            $lama_waktu = $lama * 1440;
+        } else if ($waktu == 4) {
+            $lama_waktu = $lama * 10080;
+        } else if ($waktu == 5) {
+            $lama_waktu = $lama * 43200;
+        } else if ($waktu == 6) {
+            $lama_waktu = $lama * 518400;
+        } else {
+            $lama_waktu = 0;
         }
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_seminar($id_pegawai, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_seminar($id_pegawai, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_seminar($id_pegawai, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan,$acc);
+            $this->m_pegawai->insert_log_seminar($id_pegawai, $jenis, $peranan, $instansi, $lokasi, $no_ijazah, $tgl_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1260,9 +1289,9 @@ class pegawai extends CI_Controller {
         $jabatan = $this->input->post('jabatan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->insert_log_organisasi($id_pegawai, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -1285,13 +1314,13 @@ class pegawai extends CI_Controller {
         $fax = $this->input->post('fax', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan,$acc);
+            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1308,13 +1337,13 @@ class pegawai extends CI_Controller {
         $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan,$acc);
+            $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1329,13 +1358,13 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-             $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
+            $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1350,13 +1379,13 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1370,13 +1399,13 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan,$acc);
+            $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1394,13 +1423,13 @@ class pegawai extends CI_Controller {
         $keterangan = $this->input->post('keterangan', true);
 
         $masa_kerja = (($tahun * 12) + $bulan);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan,$acc);
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1414,13 +1443,13 @@ class pegawai extends CI_Controller {
         $tanggal_sk = $this->input->post('tanggal_sk', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
-            $this->m_pegawai->insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan,$acc);
+            $acc = 1;
+            $this->m_pegawai->insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan,$acc);
+            $this->m_pegawai->insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1432,9 +1461,9 @@ class pegawai extends CI_Controller {
         $tindakan = $this->input->post('tindakan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc=0;
+        $acc = 0;
         if ($this->session->userdata('role') == 1) {
-            $acc=1;
+            $acc = 1;
             $this->m_pegawai->insert_log_medis($id_pegawai, $indikasi, $tindakan, $tahun, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
@@ -1632,25 +1661,207 @@ class pegawai extends CI_Controller {
 
     public function persetujuan() {
         if ($this->session->userdata('role') == 1) {
+//
+//            $doc = new DOMDocument();
+//            $doc->load('xml/coba.xml'); //xml file loading here
+//
+//            $employees = $doc->getElementsByTagName("employee");
+//            foreach ($employees as $employee) {
+//                $names = $employee->getElementsByTagName("name");
+//                $name = $names->item(0)->nodeValue;
+//
+//                $ages = $employee->getElementsByTagName("age");
+//                $age = $ages->item(0)->nodeValue;
+//
+//                $salaries = $employee->getElementsByTagName("salary");
+//                $salary = $salaries->item(0)->nodeValue;
+//
+//                //echo "<b>$name - $age - $salary\n</b><br>";
+//            }
 
-            $doc = new DOMDocument();
-            $doc->load('xml/coba.xml'); //xml file loading here
+            $query1 = $this->m_pegawai->get_alamat();
+            $query2 = $this->m_pegawai->get_diklat();
+            $query3 = $this->m_pegawai->get_acc_jabatan();
+            $query4 = $this->m_pegawai->get_kepangkatan();
+            $query5 = $this->m_pegawai->get_medis();
+            $query6 = $this->m_pegawai->get_organisasi();
+            $query7 = $this->m_pegawai->get_pendidikan();
+            $query8 = $this->m_pegawai->get_penghargaan();
+            $query9 = $this->m_pegawai->get_penugasan();
 
-            $employees = $doc->getElementsByTagName("employee");
-            foreach ($employees as $employee) {
-                $names = $employee->getElementsByTagName("name");
-                $name = $names->item(0)->nodeValue;
-
-                $ages = $employee->getElementsByTagName("age");
-                $age = $ages->item(0)->nodeValue;
-
-                $salaries = $employee->getElementsByTagName("salary");
-                $salary = $salaries->item(0)->nodeValue;
-
-                //echo "<b>$name - $age - $salary\n</b><br>";
+            $i = 0;
+            foreach ($query1->result() as $q) {
+                $data['id_log'][] = $q->ID_ALAMAT;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_ALAMAT;
+                $data['ket'][] = "PERUBAHAN RIWAYAT ALAMAT";
+                $data['ket_id'][] = 1;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "ALAMAT : " . $q->ALAMAT . "<br>KEL. : " . $q->KELURAHAN . "<br>KEC. : " . $q->KECAMATAN . "<br>KAB. : " . $q->KABUPATEN . "<br>PROV. : " . $q->PROVINSI . "<br>KODE POS. : " . $q->KODE_POS . "<br>TELP. : " . $q->TELEPON;
+                $i++;
             }
-             $this->load->view("laman/v_persetujuan");
-             $this->load->view("laman/v_footer");
+
+            foreach ($query2->result() as $q) {
+                $data['id_log'][] = $q->ID_DIKLAT;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_DIKLAT;
+                $data['ket'][] = "PERUBAHAN RIWAYAT DIKLAT";
+                $data['ket_id'][] = 2;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA DIKLAT : " . $q->JUDUL_DIKLAT . "<br>NO.IJAZAH : " . $q->NO_IJAZAH_DIKLAT . "<br>LAMA : " . $q->LAMA_DIKLAT . "<br>TANGGAL MULAI : " . $q->TGL_MULAI_DIKLAT . "<br>TGL AKHIR : " . $q->TGL_AKHIR_DIKLAT;
+                $i++;
+            }
+
+            foreach ($query3->result() as $q) {
+                $data['id_log'][] = $q->ID_JABATAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_JABATAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT JABATAN";
+                $data['ket_id'][] = 3;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "JABATAN : " . $q->JABATAN . "<br>UNIT : " . $q->NAMA_UNIT . "<br>SK : " . $q->NO_SK_JABATAN . "<br>TMT : " . $q->TMT_JABATAN;
+                $i++;
+            }
+
+            foreach ($query4->result() as $q) {
+                $data['id_log'][] = $q->ID_KEPANGKATAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_KEPANGKATAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT KEPANGKATAN";
+                $data['ket_id'][] = 4;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "PANGKAT : " . $q->NAMA_PANGKAT . "/" . $q->GOLONGAN . "<br>TMT : " . $q->TMT_GOLONGAN . "<br>NO. SK / TANGGAL : " . $q->NO_SK_GOLONGAN . " / " . $q->TGL_SK_GOLONGAN;
+                $i++;
+            }
+
+            foreach ($query5->result() as $q) {
+                $data['id_log'][] = $q->ID_MEDIS;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_MEDIS;
+                $data['ket'][] = "PERUBAHAN RIWAYAT MEDIS";
+                $data['ket_id'][] = 5;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "INDIKASI : " . $q->INDIKASI . "<br>TINDAKAN : " . $q->TINDAKAN . "<br>TAHUN PERIKSA : " . $q->TAHUN_PEMERIKSAAN;
+                $i++;
+            }
+
+            foreach ($query6->result() as $q) {
+                $data['id_log'][] = $q->ID_ORGANISASI;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_ORGANISASI;
+                $data['ket'][] = "PERUBAHAN RIWAYAT ORGANISASI";
+                $data['ket_id'][] = 6;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA ORGANISASI : " . $q->NAMA_ORGANISASI . "<br>JABATAN : " . $q->JABATAN_ORGANISASI . "<br>TAHUN :" . $q->TAHUN_ORGANISASI;
+                $i++;
+            }
+
+            foreach ($query7->result() as $q) {
+                $data['id_log'][] = $q->ID_PENDIDIKAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_PENDIDIKAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENDIDIKAN";
+                $data['ket_id'][] = 7;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA INSTITUSI : " . $q->NAMA_SEKOLAH . "<br>JENJANG : " . $q->TINGKAT_PENDIDIKAN . "<br> FAKULTAS/JURUSAN : " . $q->FAKULTAS . "/" . $q->JURUSAN . "<br>NO IJAZAH / TANGGAL : " . $q->NO_IJAZAH . "/" . $q->TGL_IJAZAH;
+
+                $i++;
+            }
+
+            foreach ($query8->result() as $q) {
+                $data['id_log'][] = $q->ID_LOG_PENGHARGAAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_PENGHARGAAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENGHARGAAN";
+                $data['ket_id'][] = 8;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA PENGHARGAAN : " . $q->NAMA_PENGHARGAAN . "<br>INSTANSI : " . $q->INSTANSI_PENGHARGAAN . "<br>NO.SK / TAHUN : " . $q->NO_SK_PENGHARGAAN . " / " . $q->TAHUN_PENGHARGAAN;
+                $i++;
+            }
+
+            foreach ($query9->result() as $q) {
+                $data['id_log'][] = $q->ID_PENUGASAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['tgl'][] = $q->TGL_LOG_PENUGASAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENUGASAN";
+                $data['ket_id'][] = 9;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA PENUGASAN : " . $q->NAMA_PENUGASAN . "<br>PERANAN : " . $q->PERANAN . "<br>INSTANSI : " . $q->INSTANSI_PENUGASAN . "<br>LOKASI : " . $q->LOKASI_PENUGASAN . "<br>TANGGAL : " . $q->TGL_MULAI_PENUGASAN . " - " . $q->TGL_SELESAI_PENUGASAN;
+                $i++;
+            }
+
+            //print_r($data);
+
+
+            $this->load->view("laman/v_persetujuan", array('data' => $data, 'jml' => $i));
+            $this->load->view("laman/v_footer");
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function acc($id, $ket) {
+        if ($this->session->userdata('role') == 1) {
+            if ($ket == 1) {
+                $query = $this->m_pegawai->acc_alamat($id);
+            } else if ($ket == 2) {
+                $query = $this->m_pegawai->acc_diklat($id);
+            } else if ($ket == 3) {
+                $query = $this->m_pegawai->acc_jabatan($id);
+            } else if ($ket == 4) {
+                $query = $this->m_pegawai->acc_kepangkatan($id);
+            } else if ($ket == 5) {
+                $query = $this->m_pegawai->acc_medis($id);
+            } else if ($ket == 6) {
+                $query = $this->m_pegawai->acc_organisasi($id);
+            } else if ($ket == 7) {
+                $query = $this->m_pegawai->acc_pendidikan($id);
+            } else if ($ket == 8) {
+                $query = $this->m_pegawai->acc_penghargaan($id);
+            } else if ($ket == 9) {
+                $query = $this->m_pegawai->acc_penugasan($id);
+            } else {
+                
+            }
+            redirect('pegawai/persetujuan');
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function reject($id, $ket) {
+        if ($this->session->userdata('role') == 1) {
+            if ($ket == 1) {
+                $query = $this->m_pegawai->reject_alamat($id);
+            } else if ($ket == 2) {
+                $query = $this->m_pegawai->reject_diklat($id);
+            } else if ($ket == 3) {
+                $query = $this->m_pegawai->reject_jabatan($id);
+            } else if ($ket == 4) {
+                $query = $this->m_pegawai->reject_kepangkatan($id);
+            } else if ($ket == 5) {
+                $query = $this->m_pegawai->reject_medis($id);
+            } else if ($ket == 6) {
+                $query = $this->m_pegawai->reject_organisasi($id);
+            } else if ($ket == 7) {
+                $query = $this->m_pegawai->reject_pendidikan($id);
+            } else if ($ket == 8) {
+                $query = $this->m_pegawai->reject_penghargaan($id);
+            } else if ($ket == 9) {
+                $query = $this->m_pegawai->reject_penugasan($id);
+            } else {
+                
+            }
+            redirect('pegawai/persetujuan');
         } else {
             redirect('./pegawai');
         }
@@ -1860,10 +2071,10 @@ class pegawai extends CI_Controller {
             $password = $q->password;
             $i++;
         }
-        if($i == 0){
+        if ($i == 0) {
             show_404();
         }
-        $msg='';
+        $msg = '';
         if ($password == md5($password_lama)) {
             if ($password_baru == $password_konfirmasi) {
                 $password_en = md5($password_baru);
@@ -1872,9 +2083,9 @@ class pegawai extends CI_Controller {
                 $msg = "Password baru anda tidak sama";
             }
         } else {
-             $msg = "Password lama anda salah";
+            $msg = "Password lama anda salah";
         }
-        $this->load->view('laman/v_akun', array('NIP' => $nip, 'msg'=>$msg));
+        $this->load->view('laman/v_akun', array('NIP' => $nip, 'msg' => $msg));
         $this->load->view('laman/v_footer');
     }
 

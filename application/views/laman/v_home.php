@@ -81,9 +81,7 @@
                     <h4>Selamat Datang di Halaman Manager!</h4>
                     <p style="margin: 8px 0">PUSAT PENGEMBANGAN SUMBERDAYA MANUSIA KEMETROLOGIAN<br>Jl. Jalan Daeng Mohammad Ardiwinata (Cihanjuang) KM 3,4 Parongpong, Bandung</p>
                 </div><!--alert-->
-                            
-                <br />
-                            
+                                                 
                 <h4 class="widgettitle">Kalender</h4>
                 <div class="widgetcontent nopadding">
                     <div id="datepicker"></div>
