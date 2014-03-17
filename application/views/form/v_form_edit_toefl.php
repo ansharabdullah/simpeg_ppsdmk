@@ -11,12 +11,12 @@
     $IPK =$row->IPK;
 ?> 
 
-<div class="widgetbox box">
-    <h4 class="widgettitle">RIWAYAT TOEFL</h4>
+<div class="widgetbox box" style="text-transform:uppercase;">
+    <h4 class="widgettitle">RIWAYAT BAHASA ASING</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_toefl') ?>" method="post">
               <p>
-                <label>Status TOEFL</label>
+                <label>Status</label>
                 <span class="field">
                     <?php if ($STATUS_PENDIDIKAN==1){?>
                     <input type="checkbox" name="aktif" checked="checked" value="1"/>Aktif &nbsp;
@@ -54,7 +54,7 @@
                         
             <div class="par">
                 <label>Tanggal Sertifikat</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_sertifikat" class="input-small" value="<?php echo $TGL_IJAZAH;?>"/></span>
+                <span class="field"><input  type="date" name="tanggal_sertifikat" class="input-small" value="<?php echo $TGL_IJAZAH;?>"/></span>
             </div> 
                         
             <p>

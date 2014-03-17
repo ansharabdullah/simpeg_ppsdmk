@@ -10,7 +10,7 @@
     $PEKERJAAN_AK= $row->PEKERJAAN_AK;
     $KETERANGAN_AK= $row->STATUS_AK;
 ?>  
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT ANAK</h4>
     <div class="widgetcontent nopadding">
             <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_ak') ?>" method="post">
@@ -41,7 +41,7 @@
             </p>
             <div class="par">
                 <label>Tanggal Lahir</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-xlarge"  value="<?php echo $TGL_LAHIR_AK?>"/></span>
+                <span class="field"><input type="date" name="tanggal_lahir" class="input-xlarge"  value="<?php echo $TGL_LAHIR_AK?>"/></span>
             </div>
             <p>
                 <label>Tempat Lahir</label>

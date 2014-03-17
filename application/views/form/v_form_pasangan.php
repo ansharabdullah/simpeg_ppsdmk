@@ -1,4 +1,4 @@
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT PASANGAN</h4>
     <div class="widgetcontent nopadding">
             <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_log_pasangan') ?>" method="post">
@@ -23,12 +23,12 @@
             </p>
             <div class="par">
                 <label>Tanggal Lahir</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-xlarge" /></span>
+                <span class="field"><input  type="date" name="tanggal_lahir" class="input-xlarge" /></span>
             </div>
             
             <div class="par">
                 <label>Tanggal Nikah</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_nikah" class="input-xlarge" /></span>
+                <span class="field"><input  type="date" name="tanggal_nikah" class="input-xlarge" /></span>
             </div>
             <p>
                 <label>NO Kariskarsu</label>
@@ -37,7 +37,7 @@
                         
             <div class="par">
                 <label>Tanggal Kariskarsu</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_kariskarsu" class="input-xlarge" /></span>
+                <span class="field"><input  type="date" name="tanggal_kariskarsu" class="input-xlarge" /></span>
             </div>
             <p>
                 <label>Pekerjaan</label>

@@ -10,7 +10,7 @@
     $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
     $MASA_KERJA_GOLONGAN = $row->MASA_KERJA_GOLONGAN;
 ?> 
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT KENAIKAN GAJI BERKALA</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_gaji_berkala') ?>" method="post">
@@ -29,7 +29,7 @@
             
             <div class="par">
                 <label>TMT</label>
-                <span class="field"><input id="datepicker" type="date" name="tmt" class="input-medium" value="<?php echo $TMT_GOLONGAN_KEPANGKATAN?>"/></span>
+                <span class="field"><input type="date" name="tmt" class="input-medium" value="<?php echo $TMT_GOLONGAN_KEPANGKATAN?>"/></span>
             </div>
                 
                 
@@ -40,7 +40,7 @@
                 
             <div class="par">
                 <label>Tanggal SK</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_sk" class="input-medium" value="<?php echo $TGL_SK_KEPANGKATAN?>"/></span>
+                <span class="field"><input type="date" name="tanggal_sk" class="input-medium" value="<?php echo $TGL_SK_KEPANGKATAN?>"/></span>
             </div>  
                 
            <p>

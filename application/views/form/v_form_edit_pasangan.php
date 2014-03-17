@@ -12,7 +12,7 @@
     $PEKERJAAN_PASANGAN= $row->PEKERJAAN_PASANGAN;
     $KETERANGAN_PASANGAN= $row->KETERANGAN_PASANGAN;
 ?> 
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT PASANGAN</h4>
     <div class="widgetcontent nopadding">
             <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_pasangan') ?>" method="post">
@@ -37,12 +37,12 @@
             </p>
             <div class="par">
                 <label>Tanggal Lahir</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-xlarge" value="<?php echo $TGL_LAHIR_PASANGAN?>"/></span>
+                <span class="field"><input type="date" name="tanggal_lahir" class="input-xlarge" value="<?php echo $TGL_LAHIR_PASANGAN?>"/></span>
             </div>
             
             <div class="par">
                 <label>Tanggal Nikah</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_nikah" class="input-xlarge" value="<?php echo $TGL_NIKAH?>"/></span>
+                <span class="field"><input type="date" name="tanggal_nikah" class="input-xlarge" value="<?php echo $TGL_NIKAH?>"/></span>
             </div>
             <p>
                 <label>NO Kariskarsu</label>
@@ -51,7 +51,7 @@
                         
             <div class="par">
                 <label>Tanggal Kariskarsu</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_kariskarsu" class="input-xlarge" value="<?php echo $TGL_KARISKARSU?>"/></span>
+                <span class="field"><input type="date" name="tanggal_kariskarsu" class="input-xlarge" value="<?php echo $TGL_KARISKARSU?>"/></span>
             </div>
             <p>
                 <label>Pekerjaan</label>

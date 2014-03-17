@@ -1,4 +1,4 @@
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT ORANG TUA</h4>
     <div class="widgetcontent nopadding">
             <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_log_orangtua') ?>" method="post">
@@ -21,7 +21,7 @@
                         
             <div class="par">
                 <label>Tanggal Lahir</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_lahir" class="input-xlarge" /></span>
+                <span class="field"><input  type="date" name="tanggal_lahir" class="input-xlarge" /></span>
             </div>
             <p>
                 <label>Tempat Lahir</label>

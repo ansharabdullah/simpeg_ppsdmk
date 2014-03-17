@@ -1,4 +1,4 @@
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT PANGKAT</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_log_pangkat') ?>" method="post">
@@ -41,7 +41,7 @@
             
             <div class="par">
                 <label>TMT</label>
-                <span class="field"><input id="datepicker" type="date" name="tmt" class="input-medium" /></span>
+                <span class="field"><input  type="date" name="tmt" class="input-medium" /></span>
             </div>
             
             
@@ -52,7 +52,7 @@
             
             <div class="par">
                 <label>Tanggal SK</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_sk" class="input-medium" /></span>
+                <span class="field"><input  type="date" name="tanggal_sk" class="input-medium" /></span>
             </div> 
             
             <p>

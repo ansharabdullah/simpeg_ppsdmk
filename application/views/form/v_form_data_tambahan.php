@@ -1,4 +1,4 @@
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">DATA TAMBAHAN</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_data_tambahan') ?>" method="post">
@@ -10,7 +10,7 @@
                         
             <div class="par">
                 <label>Tanggal Kartu Pegawai</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_kartu_pegawai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_kartu_pegawai" class="input-small" /></span>
             </div> 
                         
                         
@@ -31,7 +31,7 @@
                         
             <div class="par">
                 <label>Tanggal Askes</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_askes" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_askes" class="input-small" /></span>
             </div> 
                         
                         

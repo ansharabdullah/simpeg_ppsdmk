@@ -144,6 +144,7 @@
                             <td>Jenis Kelamin</td>
                             <td><?php echo $JENIS_KELAMIN; ?></td>
                         </tr>
+                        <?php if($STATUS_PEGAWAI=="PNS"){?>
                         <tr>
                             <td>TMT CPNS</td>
                             <td><?php echo $TMT_CPNS?></td>
@@ -160,7 +161,7 @@
                             <td>Jabatan</td>
                             <td><?php echo $JABATAN; ?></td>
                         </tr>
-                        
+                        <?php }?>         
                         <tr>
                             <td>Agama</td>
                             <td><?php echo $AGAMA; ?></td>
@@ -187,6 +188,7 @@
                     <table class="table table-bordered table-invoice">
                         <th>DATA TAMBAHAN</th>
                         <th></th>
+                        <?php if($STATUS_PEGAWAI=="PNS"){?>
                         <tr>
                             <td>TANGGAL KARTU PEGAWAI/NO_KARTU_PEGAWAI</td>
                             <td><?php echo $TGL_KARTU_PEGAWAI; ?>/<?php echo $NO_KARTU_PEGAWAI; ?></td>
@@ -203,6 +205,7 @@
                             <td>NO ASKES/TANGGAL ASKES/KODE WILAYAH ASKES</td>
                             <td><?php echo $NO_ASKES," / ",$TGL_ASKES," / ",$KODE_WILAYAH_ASKES; ?></td>
                         </tr>
+                        <?php }?>
                         <tr>
                             <td>NO HANDPHONE</td>
                             <td><?php echo $NO_HANDPHONE?></td>
@@ -267,7 +270,7 @@
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_jabatan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                     
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT JABATAN</h4>
@@ -334,7 +337,7 @@
 </div>
 
 <!--RIWAYAT KEPANGKATAN--->
-
+<?php if($STATUS_PEGAWAI=="PNS"){?>
 <div id="pangkat">
     <div class="widgetbox">
         <div class="headtitle">
@@ -343,7 +346,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_pangkat/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT KEPANGKATAN</h4>
@@ -429,6 +432,7 @@
         </div>
     </div>
 </div>
+<?php }?>
 
 <!--RIWAYAT PENDIDIKAN--->
 
@@ -440,7 +444,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_pendidikan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENDIDIKAN</h4> 
@@ -515,7 +519,7 @@
         </div>
     </div>
 </div>
-
+<?php if($STATUS_PEGAWAI=="PNS"){?>
 <!--RIWAYAT Diklat Struktural--->
 <div id="diklat_struktural">
     <div class="widgetbox">
@@ -525,7 +529,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_struktural/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT STRUKTURAL</h4> 
@@ -539,8 +543,8 @@
                         <th>Aktif</th>
                         <th>Jenis</th>
                         <th>Instansi</th>
-                        <th>No Ijazah</th>
-                        <th>Tanggal Ijazah</th>
+                        <th>No Sertifikat</th>
+                        <th>Tanggal Sertifikat</th>
                         <th>Lama</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
@@ -636,7 +640,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_fungsional/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT FUNGSIONAL</h4> 
@@ -651,8 +655,8 @@
                         <th>Jenis</th>
                         <th>Nama Diklat</th>
                         <th>Instansi</th>
-                        <th>No Ijazah</th>
-                        <th>Tanggal Ijazah</th>
+                        <th>No STTPL</th>
+                        <th>Tanggal STTPL</th>
                         <th>Lama</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
@@ -735,7 +739,7 @@
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_diklat_teknis/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                     
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT DIKLAT TEKNIS</h4> 
@@ -748,8 +752,8 @@
                         <th>No.</th>
                         <th>Nama Diklat</th>
                         <th>Instansi</th>
-                        <th>No Ijazah</th>
-                        <th>Tanggal Ijazah</th>
+                        <th>No Sertifikat</th>
+                        <th>Tanggal Sertifikat</th>
                         <th>Lama</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
@@ -808,7 +812,7 @@
         </div>
     </div>
 </div>
-
+<?php }?>
 <!--RIWAYAT TOEFL--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -818,10 +822,10 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_toefl/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
-            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT TOEFL</h4> 
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT BAHASA ASING</h4> 
         </div>
         
         <div class="widgetcontent" style="text-transform:uppercase;">
@@ -877,7 +881,7 @@
         </div>
     </div>
 </div>
-
+<?php if($STATUS_PEGAWAI=="PNS"){?>
 <!--RIWAYAT PENUGASAN--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -887,7 +891,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_penugasan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENUGASAN</h4> 
@@ -976,7 +980,7 @@
         </div>
     </div>
 </div>
-
+<?php }?>
 <!--RIWAYAT SEMINAR--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -986,7 +990,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_seminar/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SEMINAR</h4> 
@@ -1088,7 +1092,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_organisasi/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORGANISASI</h4> 
@@ -1128,6 +1132,18 @@
                 <tbody>
                     <tr>
                         <td><?PHP echo $NO_ORG;?></td>
+                        <td>
+                            <?php 
+                            if($JENIS_ORGANISASI==1){
+                                echo "Sebelum Jadi Pegawai";
+                            }else if($JENIS_ORGANISASI==2){
+                                echo "Perguruan Tinggi";
+                            }else if($JENIS_ORGANISASI==3){
+                                echo "Selama Jadi Pegawai";
+                            }  
+                            ?>
+                            
+                        </td>
                         <td><?PHP echo $JENIS_ORGANISASI;?></td>
                         <td><?PHP echo $NAMA_ORGANISASI;?></td>
                         <td><?PHP echo $JABATAN_ORGANISASI;?></td>
@@ -1152,7 +1168,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_alamat/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ALAMAT</h4> 
@@ -1236,7 +1252,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_pasangan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PASANGAN</h4> 
@@ -1316,7 +1332,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_anak/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ANAK</h4> 
@@ -1386,7 +1402,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_saudara/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SAUDARA</h4> 
@@ -1449,7 +1465,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_orangtua/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORANG TUA</h4> 
@@ -1499,7 +1515,7 @@
         </div>
     </div>
 </div>
-
+<?php if($STATUS_PEGAWAI=="PNS"){?>
 <!--Riwayat Gaji Berkala--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1509,7 +1525,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_gaji_berkala/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT GAJI BERKALA</h4> 
@@ -1535,15 +1551,15 @@
                 <?php
                 $NO_KGB=1;
                     
-            foreach ($query3 as $row) {
-                $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
-                $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
-                $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
-                $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->GAJI_GOLONGAN;
-                $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
+            foreach ($query20 as $row) {
+                $STATUS_GAJI = $row->STATUS_GAJI;
+                $TMT_GAJI = $row->TMT_GAJI;
+                $NO_SK_GAJI = $row->NO_SK_GAJI;
+                $TGL_SK_GAJI = $row->TGL_SK_GAJI;
+                $TOTAL_GAJI = $row->TOTAL_GAJI;
+                $KETERANGAN_GAJI =$row->KETERANGAN_GAJI;
                     
-                $datetime1 = new DateTime($TMT_GOLONGAN);
+                $datetime1 = new DateTime($TMT_GAJI);
                 $datetime2 = new DateTime();
                 $interval = $datetime1->diff($datetime2);
                     
@@ -1552,20 +1568,20 @@
                     <tr>
                         <td><?php echo $NO_KGB; ?></td>
                         <td>
-                        <?php if($STATUS_KEPANGKATAN==1){?>
+                        <?php if($STATUS_GAJI==1){?>
                             <input type="checkbox" checked="checked" disabled="disabled" /></td>
-                        <?php }else if($STATUS_KEPANGKATAN==0){?>
+                        <?php }else if($STATUS_GAJI==0){?>
                 <input type="checkbox"  disabled="disabled" /></td>
                         <?php }?>
-                <td><?php echo $TMT_GOLONGAN_KEPANGKATAN;?></td>
-                <td><?php echo $NO_SK_KEPANGKATAN;?></td>
-                <td><?php echo $TGL_SK_KEPANGKATAN;?></td>
+                <td><?php echo $TMT_GAJI;?></td>
+                <td><?php echo $NO_SK_GAJI;?></td>
+                <td><?php echo $TGL_SK_GAJI;?></td>
                 <td><?php echo $interval->format('%y TAHUN');?></td>
                 <td><?php echo $interval->format('%m BULAN')?></td>
-                <td><?php echo $GAJI;?></td>
-                <td><?php echo $KETERANGAN_KEPANGKATAN;?></td>
-                <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_gaji_berkala/'.$row->ID_KEPANGKATAN)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pangkat'.'/'.$row->ID_KEPANGKATAN.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
+                <td><?php echo $TOTAL_GAJIGAJI;?></td>
+                <td><?php echo $KETERANGAN_GAJI;?></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_gaji_berkala/'.$row->ID_GAJI)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pangkat'.'/'.$row->ID_GAJI.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
             <?php $NO_KGB++; }?>
@@ -1583,7 +1599,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_penghargaan/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PENGHARGAAN</h4> 
@@ -1639,7 +1655,75 @@
         </div>
     </div>
 </div>
-
+<?php }?>
+<!--Riwayat Cuti & Izin--->
+<div id="dashboard-right">
+    <div class="widgetbox">
+        <div class="headtitle">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_cuti/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                </ul>
+                <a class="minimize">&#8211;</a>
+            </div>
+            
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT CUTI & IZIN</h4> 
+        </div>
+        
+        <div class="widgetcontent" style="text-transform:uppercase;">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Aktif</th>
+                        <th>Jenis</th>
+                        <th>Alasan</th>
+                        <th>Nomor SK</th>
+                        <th>Tanggal SK</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <?php
+                $NO_CUTI=1;
+                    
+            foreach ($query19 as $row) {
+                $STATUS_CUTI = $row->STATUS_CUTI;
+                $JENIS_CUTI = $row->JENIS_CUTI;
+                $ALASAN_CUTI = $row->ALASAN_CUTI;
+                $NO_SK_CUTI = $row->NO_SK_CUTI;
+                $TGL_SK_CUTI = $row->TGL_SK_CUTI;
+                $TGL_MULAI_CUTI = $row->TGL_MULAI_CUTI;
+                $TGL_SELESAI_CUTI = $row->TGL_SELESAI_CUTI;
+      
+            ?>
+                <tbody>
+                    <tr>
+                        <td><?php echo $NO_KGB; ?></td>
+                        <td>
+                        <?php if($STATUS_CUTI==1){?>
+                            <input type="checkbox" checked="checked" disabled="disabled" /></td>
+                        <?php }else if($STATUS_CUTI==0){?>
+                <input type="checkbox"  disabled="disabled" /></td>
+                        <?php }?>
+                <td><?php echo $JENIS_CUTI;?></td>
+                <td><?php echo $ALASAN_CUTI;?></td>
+                <td><?php echo $NO_SK_CUTI;?></td>
+                <td><?php echo $TGL_SK_CUTI;?></td>
+                <td><?php echo $TGL_MULAI_CUTI;?></td>
+                <td><?php echo $TGL_SELESAI_CUTI;?></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_cuti/'.$row->ID_CUTI)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_cuti'.'/'.$row->ID_CUTI.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
+                </tr>
+                </tbody>
+            <?php $NO_CUTI++; }?>
+            </table>
+        </div>
+    </div>
+</div>
 <!--Riwayat Medis--->
 <div id="dashboard-right">
     <div class="widgetbox">
@@ -1649,7 +1733,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>pegawai/input_log_medis/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
                 </ul>
-                <a class="close">&times;</a> <a class="minimize">&#8211;</a>
+                 <a class="minimize">&#8211;</a>
             </div>
             
             <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT MEDIS</h4> 

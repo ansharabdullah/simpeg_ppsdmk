@@ -14,7 +14,7 @@
     $KETERANGAN_PENUGASAN =$row->KETERANGAN_PENUGASAN;
 ?>            
     
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT PENUGASAN</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_penugasan') ?>" method="post">
@@ -45,7 +45,7 @@
                         
             <div class="par">
                 <label>Tanggal SK</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_sk" class="input-medium" value="<?php echo $TGL_SK_PENUGASAN;?>"/></span>
+                <span class="field"><input type="date" name="tanggal_sk" class="input-medium" value="<?php echo $TGL_SK_PENUGASAN;?>"/></span>
             </div> 
                         
             <p>

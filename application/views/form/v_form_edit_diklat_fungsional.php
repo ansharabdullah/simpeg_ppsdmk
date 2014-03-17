@@ -15,7 +15,7 @@
     $ANGKATAN_DIKLAT= $row->ANGKATAN_DIKLAT;
 ?>  
 
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT DIKLAT FUNGSIONAL</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_diklat') ?>" method="post">
@@ -57,13 +57,13 @@
             </p>
                 
             <p>
-                <label>NO Ijazah</label>
+                <label>NO STTPL</label>
                 <span class="field"><input type="text" name="no_ijazah" class="input-large" placeholder="" required="" value="<?php echo $NO_IJAZAH_DIKLAT;?>"/></span>
             </p>
                 
             <div class="par">
-                <label>Tanggal Ijazah</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_ijazah" class="input-medium" value="<?php echo $TGL_IJAZAH_DIKLAT;?>"/></span>
+                <label>Tanggal STTPL</label>
+                <span class="field"><input type="date" name="tanggal_ijazah" class="input-medium" value="<?php echo $TGL_IJAZAH_DIKLAT;?>"/></span>
             </div>
                 
             <p>
@@ -172,12 +172,12 @@
             
             <div class="par">
                 <label>Tanggal Mulai</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_mulai" class="input-medium" value="<?php echo $TANGGAL_MULAI_DIKLAT;?>"/></span>
+                <span class="field"><input type="date" name="tanggal_mulai" class="input-medium" value="<?php echo $TANGGAL_MULAI_DIKLAT;?>"/></span>
             </div> 
             
             <div class="par">
                 <label>Tanggal Selesai</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_selesai" class="input-medium" value="<?php echo $TANGGAL_SELESAI_DIKLAT;?>"/></span>
+                <span class="field"><input type="date" name="tanggal_selesai" class="input-medium" value="<?php echo $TANGGAL_SELESAI_DIKLAT;?>"/></span>
             </div>
             
             <p>
