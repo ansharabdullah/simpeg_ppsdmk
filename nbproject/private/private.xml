@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_home.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_persetujuan.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/cetak_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_pegawai_admin.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
@@ -11,9 +13,10 @@
 <<<<<<< HEAD
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/v_form_biodata.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_header.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_grafik.php</file>
+<<<<<<< HEAD
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_header.php</file>
+=======
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/grafik.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_pegawai.php</file>
 =======
@@ -23,6 +26,7 @@
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_satu_pegawai.php</file>
 >>>>>>> 54c65a1746c95b0882e998f91c796f8ec4d83279
 >>>>>>> 8e495e9678c403d423df0c7c64d36c91b0159b40
+>>>>>>> c1e7d157473d128c56014e2048f4b16b0beff13a
         </group>
     </open-files>
 </project-private>

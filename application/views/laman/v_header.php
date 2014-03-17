@@ -75,6 +75,7 @@
                                 <li class="nav-header">Daftar Pegawai</li>
                                 <li><a href="<?php echo base_url(); ?>pegawai/seluruh_pegawai"><strong>Daftar Seluruh Pegawai (DSP)</strong></a></li>
                                 <li><a href="<?php echo base_url(); ?>pegawai/DUK"><strong>Daftar Urut Kepegawaian (DUK)</strong></a></li>
+                                <li><a href="<?php echo base_url(); ?>pegawai/honorer"><strong>Daftar Pegawai Honorer</strong></a></li>
                             </ul>
                         </li>
 
@@ -89,7 +90,8 @@
                                 <li><a href="<?php echo base_url(); ?>grafik/semua_golongan"><strong>Golongan</strong></a></li>
                                 <li><a href="<?php echo base_url(); ?>grafik/semua_pendidikan"><strong>Pendidikan</strong></a></li>
                                 <li><a href="<?php echo base_url(); ?>grafik/semua_jenjang_umur"><strong>Jenjang Umur</strong></a></li>
-                                <li><a href="<?php echo base_url(); ?>grafik/semua_status_pegawai"><strong>Status Kepegawaian</strong></a></li>
+                                <li><a href="<?php echo base_url(); ?>grafik/semua_cuti"><strong>Cuti</strong></a></li>
+<!--                                <li><a href="<?php echo base_url(); ?>grafik/semua_status_pegawai"><strong>Status Kepegawaian</strong></a></li>-->
                             </ul>
                         </li>
 

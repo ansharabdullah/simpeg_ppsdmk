@@ -33,7 +33,8 @@
 </div>          
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span><?php echo $title; ?></h4>
 <div class="widgetcontent" style="padding-bottom:50px;">
-    <a href="<?php echo base_url(); ?>pegawai/cetak_<?php echo $link ?>" class=" btn btn-success btn-rounded " onclick="return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak</a>
+    <a href="<?php echo base_url(); ?>cetak/cetak_<?php echo $link ?>_word" class=" btn btn-success btn-rounded " onclick="return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Word</a>
+    <a href="<?php echo base_url(); ?>cetak/cetak_<?php echo $link ?>_spreadsheet" class=" btn btn-success btn-rounded " onclick="return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Spreadsheet</a>
     <table class="table table-bordered table-infinite" id="dyntable2">
         <colgroup>
             <col class="con0" />
@@ -77,3 +78,5 @@
                 </tr>";
                 $no++;
             }?>
+    </table>
+</div>
