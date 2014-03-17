@@ -14,7 +14,7 @@
     $TAHUN= $row->TAHUN_AKTIF;
     $KETERANGAN_ALAMAT= $row->KETERANGAN_ALAMAT;
 ?>  
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT ALAMAT</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_alamat') ?>" method="post">

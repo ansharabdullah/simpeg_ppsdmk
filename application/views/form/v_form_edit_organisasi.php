@@ -9,7 +9,7 @@
     $TAHUN_ORGANISASI = $row->TAHUN_ORGANISASI;
     $KETERANGAN_ORGANISASI= $row->KETERANGAN_ORGANISASI;
 ?>       
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT ORGANISASI</h4>
     <div class="widgetcontent nopadding">
             <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_edit_log_organisasi') ?>" method="post">
@@ -17,7 +17,17 @@
             <p>
                 <label>KD_STAT_ORGANISASI</label>
                 <span class="field"><select name="kd_stat_organisasi" id="selection2" class="uniformselect" >
-                        <option value="<?php echo $ID_JENIS_ORGANISASI?>"><?php echo $JENIS_ORGANISASI?></option>
+                        <option value="<?php echo $JENIS_ORGANISASI?>">
+                        <?php 
+                            if($JENIS_ORGANISASI==1){
+                                echo "Sebelum Jadi Pegawai";
+                            }else if($JENIS_ORGANISASI==2){
+                                echo "Perguruan Tinggi";
+                            }else if($JENIS_ORGANISASI==3){
+                                echo "Selama Jadi Pegawai";
+                            }  
+                            ?>
+                        </option>
                         <option value="1">Sebelum Jadi Pegawai</option>
                         <option value="2">Perguruan Tinggi</option>
                         <option value="3">Selama Jadi Pegawai</option>

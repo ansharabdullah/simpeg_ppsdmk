@@ -1,4 +1,4 @@
-<div class="widgetbox box">
+<div class="widgetbox box" style="text-transform:uppercase;">
     <h4 class="widgettitle">RIWAYAT DIKLAT STRUKTURAL</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_log_diklat_struktural') ?>" method="post">
@@ -29,13 +29,13 @@
             </p>
                         
             <p>
-                <label>NO Ijazah</label>
+                <label>NO Sertifikat</label>
                 <span class="field"><input type="text" name="no_ijazah" class="input-large" placeholder="" required=""/></span>
             </p>
                         
             <div class="par">
-                <label>Tanggal Ijazah</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_ijazah" class="input-small" /></span>
+                <label>Tanggal Sertifikat</label>
+                <span class="field"><input type="date" name="tanggal_ijazah" class="input-small" /></span>
             </div>
                         
             <p>
@@ -54,12 +54,12 @@
                         
             <div class="par">
                 <label>Tanggal Mulai</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_mulai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_mulai" class="input-small" /></span>
             </div> 
                         
             <div class="par">
                 <label>Tanggal Selesai</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_selesai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_selesai" class="input-small" /></span>
             </div>
                         
             <p>

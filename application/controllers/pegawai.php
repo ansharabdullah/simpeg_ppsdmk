@@ -211,6 +211,13 @@ class pegawai extends CI_Controller {
         $query = $this->m_pegawai->get_pegawai($nip);
 
         $this->load->view("form/v_form_medis", array('query' => $query));
+        $this->load->view("laman/v_footer");
+    }
+    
+    public function input_log_cuti($nip){
+        $query = $this->m_pegawai->get_pegawai($nip);
+        $this->load->view("form/v_form_cuti", array('query' => $query));
+        $this->load->view("laman/v_footer");
     }
 
     //view edit
@@ -352,7 +359,12 @@ class pegawai extends CI_Controller {
 
         $this->load->view("form/v_form_edit_medis", array('query' => $query));
     }
+    
+    public function edit_log_cuti($id_cuti) {
+        $query = $this->m_pegawai->edit_log_cuti($id_cuti);
 
+        $this->load->view("form/v_form_edit_cuti", array('query' => $query));
+    }
     //proses edit
     public function proses_edit_biodata() {
 
@@ -863,7 +875,28 @@ class pegawai extends CI_Controller {
             redirect('pegawai/biodata/' . $nip);
         }
     }
-
+    
+    public function proses_edit_log_cuti() {
+        $id_cuti = $this->input->post('id_cuti', TRUE);
+        $nip = $this->input->post('nip', true);
+        $aktif = $this->input->post('aktif', true);
+        $jenis = $this->input->post('jenis', true);
+        $alasan = $this->input->post('alasan', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tgl_sk = $this->input->post('tgl_sk', true);
+        $tgl_mulai = $this->input->post('tgl_mulai', true);
+        $tgl_selesai = $this->input->post('tgl_selesai', true);
+        $acc = 0;
+        if ($this->session->userdata('role') == 1) {
+            $acc = 1;
+            $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai,$acc);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai,$acc);
+            redirect('pegawai/biodata/' . $nip);
+        }
+    }
+    
     //============================================================================================//
 
     public function pegawai_pensiun() {
@@ -1471,6 +1504,28 @@ class pegawai extends CI_Controller {
             redirect('pegawai/biodata/' . $nip);
         }
     }
+    
+    public function proses_insert_log_cuti(){
+        $id_pegawai = $this->input->post('id_pegawai', TRUE);
+        $nip = $this->input->post('nip', true);
+        $aktif = $this->input->post('aktif', true);
+        $jenis = $this->input->post('jenis', true);
+        $alasan = $this->input->post('alasan', true);
+        $no_sk = $this->input->post('no_sk', true);
+        $tgl_sk = $this->input->post('tgl_sk', true);
+        $tgl_mulai = $this->input->post('tgl_mulai', true);
+        $tgl_selesai = $this->input->post('tgl_selesai', true);
+        $acc=0;
+        if ($this->session->userdata('role') == 1) {
+            $acc = 1;
+            $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk,$tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            redirect('pegawai/biodata/' . $nip);
+        } else {
+            $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk,$tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            redirect('pegawai/biodata/' . $nip);
+        }
+        
+    }
 
     public function delete_log_jabatan($id_jabatan, $nip) {
         if ($this->session->userdata('role') == 1) {
@@ -1570,7 +1625,16 @@ class pegawai extends CI_Controller {
             
         }
     }
-
+    
+    public function delete_log_cuti($id_cuti, $nip) {
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->delete_log_cuti($id_cuti);
+            redirect('pegawai/biodata/' . $nip, 'refresh');
+        } else {
+            
+        }
+    }
+    
     public function delete_pegawai($id_pegawai) {
         if ($this->session->userdata('role') == 1) {
             $this->m_pegawai->delete_pegawai($id_pegawai);
@@ -1617,10 +1681,13 @@ class pegawai extends CI_Controller {
         $query16 = $this->m_pegawai->get_log_orang_tua($nip);
         $query17 = $this->m_pegawai->get_log_medis($nip);
         $query18 = $this->m_pegawai->get_log_penghargaan($nip);
+        $query19 = $this->m_pegawai->get_log_cuti($nip);
+        $query20 = $this->m_pegawai->get_log_gaji($nip);
 
         $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5, 'query6' => $query6,
             'query7' => $query7, 'query8' => $query8, 'query9' => $query9, 'query10' => $query10, 'query11' => $query11,
-            'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18));
+            'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18,
+                'query19' => $query19, 'query20' => $query20));
     }
 
 //notifikasi

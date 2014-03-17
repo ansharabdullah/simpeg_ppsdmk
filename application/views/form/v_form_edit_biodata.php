@@ -57,7 +57,7 @@
 <div class="tabs-left">
     <div class="tab-content">
         
-        <div class="widgetbox box">
+        <div class="widgetbox box" style="text-transform:uppercase;">
             <h4 class="widgettitle">DATA UTAMA</h4>
             <div class="widgetcontent nopadding">
                 <form class="stdform stdform2" action="<?php echo base_url();?>pegawai/proses_edit_biodata" enctype="multipart/form-data" method="post">
@@ -91,7 +91,7 @@
                     
                     <div class="par">
                         <label>Tanggal Lahir</label>
-                        <span class="field"><input id="datepicker" type="date" name="tgl_lahir" class="input-medium" value="<?php echo $TGL_LAHIR ?>"/></span>
+                        <span class="field"><input type="date" name="tgl_lahir" class="input-medium" value="<?php echo $TGL_LAHIR ?>"/></span>
                     </div> 
                     
                     <p>
@@ -128,12 +128,12 @@
                     
                     <div class="par">
                         <label>TMT CPNS</label>
-                        <span class="field"><input id="datepicker" type="date" type="text" name="tmt_cpns" class="input-medium" value="<?php echo $TMT_CPNS ?>"/></span>
+                        <span class="field"><input type="date" type="text" name="tmt_cpns" class="input-medium" value="<?php echo $TMT_CPNS ?>"/></span>
                     </div> 
                     
                     <div class="par">
                         <label>TMT PNS</label>
-                        <span class="field"><input id="datepicker" type="date" type="text" name="tmt_pns" class="input-medium" value="<?php echo $TMT_PNS ?>"/></span>
+                        <span class="field"><input type="date" type="text" name="tmt_pns" class="input-medium" value="<?php echo $TMT_PNS ?>"/></span>
                     </div> 
                     <p>
                         <label>Keterangan</label>
@@ -159,7 +159,7 @@
                     
                     <div class="par">
                         <label>Tanggal Kartu Pegawai</label>
-                        <span class="field"><input id="datepicker" type="date" name="tanggal_kartu_pegawai" class="input-small" value="<?php echo $TGL_KARTU_PEGAWAI?>"/></span>
+                        <span class="field"><input type="date" name="tanggal_kartu_pegawai" class="input-small" value="<?php echo $TGL_KARTU_PEGAWAI?>"/></span>
                     </div> 
                     
                     
@@ -180,7 +180,7 @@
                     
                     <div class="par">
                         <label>Tanggal Askes</label>
-                        <span class="field"><input id="datepicker" type="date" name="tanggal_askes" class="input-small" value="<?php echo $TGL_ASKES ?>"/></span>
+                        <span class="field"><input type="date" name="tanggal_askes" class="input-small" value="<?php echo $TGL_ASKES ?>"/></span>
                     </div> 
                     
                     

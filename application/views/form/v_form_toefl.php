@@ -1,9 +1,9 @@
-<div class="widgetbox box">
-    <h4 class="widgettitle">RIWAYAT TOEFL</h4>
+<div class="widgetbox box" style="text-transform:uppercase;">
+    <h4 class="widgettitle">RIWAYAT BAHASA ASING</h4>
     <div class="widgetcontent nopadding">
         <form class="stdform stdform2" action="<?php echo site_url('Pegawai/proses_insert_log_toefl') ?>" method="post">
             <p>
-                <label>Status TOEFL</label>
+                <label>Status</label>
                 <span class="field">
                     <input type="checkbox" name="aktif" value="1"/>Aktif &nbsp;
                     <input type="checkbox" name="aktif" value="0"/>Tidak Aktif<br />
@@ -36,7 +36,7 @@
                         
             <div class="par">
                 <label>Tanggal Sertifikat</label>
-                <span class="field"><input id="datepicker" type="date" name="tanggal_sertifikat" class="input-small" /></span>
+                <span class="field"><input  type="date" name="tanggal_sertifikat" class="input-small" /></span>
             </div> 
                         
             <p>
