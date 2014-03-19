@@ -190,10 +190,12 @@ class m_pegawai extends CI_Model {
                 VALUES ($id_pegawai,'$status','$nama','$tanggal_lahir','$tempat_lahir','$pekerjaan','$keterangan',3, $acc)");
     }
 
-    public function insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc) {
+    public function insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc) {
         $query = $this->db->query("
-                INSERT INTO log_kepangkatan (ID_PEGAWAI,STATUS_KEPANGKATAN, TMT_GOLONGAN, NO_SK_GOLONGAN,TGL_SK_GOLONGAN,MASA_KERJA_GOLONGAN, ID_KATEGORI_GAJI, KETERANGAN_KEPANGKATAN, ACC_KEPANGKATAN) 
-                VALUES ($id_pegawai, $status, '$tmt', $no_sk, '$tanggal_sk', $masa_kerja, $gaji, '$keterangan', $acc)");
+                INSERT INTO log_gaji(ID_PEGAWAI,STATUS_GAJI, TMT_GAJI, NO_SK_GAJI,TGL_SK_GAJI, TOTAL_GAJI, KETERANGAN_GAJI, ACC_GAJI) 
+                VALUES ($id_pegawai, $status, '$tmt', '$no_sk', '$tanggal_sk',  $gaji, '$keterangan', $acc)");
+        $last_id = $this->db->insert_id();
+        $query2= $this->db->query("UPDATE log_gaji set ID_KEPANGKATAN=(SELECT ID_KEPANGKATAN FROM LOG_KEPANGKATAN WHERE STATUS_KEPANGKATAN=1 AND ID_PEGAWAI='$id_pegawai') WHERE ID_GAJI=$last_id");
     }
 
     public function insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc) {
@@ -278,6 +280,10 @@ class m_pegawai extends CI_Model {
     public function delete_log_cuti($ID_CUTI) {
         $this->db->where('ID_CUTI', $ID_CUTI);
         $this->db->delete('log_cuti');
+    }
+     public function delete_log_gaji($ID_GAJI) {
+        $this->db->where('ID_GAJI', $ID_GAJI);
+        $this->db->delete('log_gaji');
     }
 
     //GET LOG 
@@ -523,6 +529,13 @@ class m_pegawai extends CI_Model {
                 WHERE P.ID_PEGAWAI=LC.ID_PEGAWAI AND LC.ID_CUTI='$id_cuti'");
         return $query->result();
     }
+    
+    public function edit_log_gaji_berkala($id_gaji){
+        $query = $this->db->query("SELECT P.NIP, LG.ID_GAJI, LG.TMT_GAJI, LG.NO_SK_GAJI, LG.TGL_SK_GAJI, LG.TOTAL_GAJI, LG.STATUS_GAJI, LG.KETERANGAN_GAJI
+                FROM PEGAWAI P, LOG_GAJI LG
+                WHERE P.ID_PEGAWAI=LG.ID_PEGAWAI AND LG.ID_GAJI=$id_gaji");
+         return $query->result();
+    }
 
     //UPDATE
     public function update_biodata(
@@ -626,10 +639,10 @@ class m_pegawai extends CI_Model {
                 WHERE ID_AK=$id_ak");
     }
 
-    public function update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc) {
+    public function update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk,$gaji, $keterangan, $acc) {
         $query = $this->db->query("
-                INSERT INTO log_kepangkatan (ID_PEGAWAI,STATUS_KEPANGKATAN, TMT_GOLONGAN, NO_SK_GOLONGAN,TGL_SK_GOLONGAN,MASA_KERJA_GOLONGAN, ID_KATEGORI_GAJI, KETERANGAN_KEPANGKATAN,ACC_KEPANGKATAN) 
-                VALUES ($id_pegawai, $status, '$tmt', $no_sk, '$tanggal_sk', $masa_kerja, $gaji, '$keterangan', $acc)");
+               UPDATE log_gaji SET STATUS_GAJI=$status, TMT_GAJI='$tmt', NO_SK_GAJI='$no_sk', TGL_SK_GAJI='$tanggal_sk', KETERANGAN_GAJI='$keterangan', ACC_GAJI=$acc
+                WHERE ID_GAJI=$id_gaji");
     }
 
     public function update_log_penghargaan($id_penghargaan, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc) {

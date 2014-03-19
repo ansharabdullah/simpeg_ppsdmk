@@ -345,8 +345,8 @@ class pegawai extends CI_Controller {
         $this->load->view("laman/v_footer");
     }
 
-    public function edit_log_gaji_berkala($id_kepangkatan) {
-        $query = $this->m_pegawai->edit_log_pangkat($id_kepangkatan);
+    public function edit_log_gaji_berkala($id_gaji) {
+        $query = $this->m_pegawai->edit_log_gaji_berkala($id_gaji);
 
         $this->load->view("form/v_form_edit_gaji_berkala", array('query' => $query));
         $this->load->view("laman/v_footer");
@@ -803,32 +803,29 @@ class pegawai extends CI_Controller {
             redirect('pegawai/biodata/' . $nip);
         } else {
             $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
-            //redirect('pegawai/biodata/' . $nip);
+            redirect('pegawai/biodata/' . $nip);
         }
     }
 
     ///BELUM
     public function proses_edit_log_gaji_berkala() {
-        $id_pegawai = $this->input->post('id_kepangkatan', TRUE);
+        $id_gaji = $this->input->post('id_gaji', TRUE);
         $nip = $this->input->post('nip', true);
-        $status = $this->input->post('status', true);
+        $status = $this->input->post('aktif', true);
         $tmt = $this->input->post('tmt', true);
         $no_sk = $this->input->post('no_sk', true);
         $tanggal_sk = $this->input->post('tanggal_sk', true);
-        $tahun = $this->input->post('masa_kerja', true);
-        $bulan = $this->input->post('bulan', true);
         $gaji = $this->input->post('gaji', true);
         $keterangan = $this->input->post('keterangan', true);
 
-        $masa_kerja = (($tahun * 12) + $bulan);
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
-            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
+            $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk,  $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->update_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
-            //redirect('pegawai/biodata/' . $nip);
+            $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk,$gaji, $keterangan, $acc);
+            redirect('pegawai/biodata/' . $nip);
         }
     }
 
@@ -1443,19 +1440,16 @@ class pegawai extends CI_Controller {
         $tmt = $this->input->post('tmt', true);
         $no_sk = $this->input->post('no_sk', true);
         $tanggal_sk = $this->input->post('tanggal_sk', true);
-        $tahun = $this->input->post('masa_kerja', true);
-        $bulan = $this->input->post('bulan', true);
         $gaji = $this->input->post('gaji', true);
         $keterangan = $this->input->post('keterangan', true);
 
-        $masa_kerja = (($tahun * 12) + $bulan);
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
-            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         } else {
-            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $keterangan, $acc);
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
             redirect('pegawai/biodata/' . $nip);
         }
     }
@@ -1624,6 +1618,15 @@ class pegawai extends CI_Controller {
             $this->m_pegawai->delete_log_cuti($id_cuti);
             redirect('pegawai/biodata/' . $nip, 'refresh');
         } else {
+            
+        }
+    }
+    
+    public function delete_log_gaji($id_gaji, $nip){
+        if($this->session->userdata('role')==1){
+            $this->m_pegawai->delete_log_gaji($id_gaji);
+            redirect('pegawai/biodata/'.$nip, 'refresh');
+        }else{
             
         }
     }

@@ -37,9 +37,10 @@
                     table, th, td{
                         border: 1px solid black;
                     }
-                    .img{
-                        width:160px;
-                        height:145px;
+                    #gambar{
+                        height:  83px; 
+                        width: 80px; 
+                        overflow: hidden;
                     }
                     #pegawai{
                         width:100%;
@@ -82,10 +83,12 @@
             $nama = $q->gelar_depan . ". " . $q->nama_pegawai . "," . $q->gelar_belakang;
             $alamat = $q->alamat." KELURAHAN ".$q->kelurahan." KECAMATAN ".$q->kecamatan." KABUPATEN ".$q->kabupaten." PROVINSI ".$q->provinsi;
             $foto = base_url()."assets/images/".$q->foto;
+            $panjang = 218;
+            $lebar = 210;
             echo "<tr>
                             <td>NIP/NIP Lama</td>
                             <td>$q->nip/$q->nip_lama</td>
-                            <td rowspan='13'><img src='".$foto."' class='img'/></td>
+                            <td rowspan='13'><center><img src='".$foto."' height='".$panjang."' width='".$lebar."' /></center></td>
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
