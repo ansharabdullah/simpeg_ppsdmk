@@ -149,9 +149,9 @@
                 <p>
                     <label>Foto</label>
                 <div class="profilethumb">
-                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>" alt="" class="img-polaroid" />
+                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>" alt="" class="img-polaroid" style="height:  83px; width: 80px; overflow: hidden;"/>
                 </div><!--profilethumb-->
-                <span class="field"><input type="file" name="userfile" value="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>" required=""></span> 
+                <span class="field"><input type="file" name="userfile" value="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>"></span> 
                 </p>
                 <p>
                     <label>NO Kartu Pegawai</label>
