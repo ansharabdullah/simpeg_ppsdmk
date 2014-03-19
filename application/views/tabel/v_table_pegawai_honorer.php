@@ -19,9 +19,9 @@
 
     function konfirmasi() {
         var a = bootbox.alert("Periksa folder download anda");
-        setTimeout(function() { 
+        setTimeout(function() {
             a.modal('hide');
-        },3000);
+        }, 3000);
     }
 </script>
 
@@ -32,7 +32,7 @@
         <h1>Daftar Seluruh Pegawai</h1>
     </div>
 </div>
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai</h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai Honorer</h4>
 <div class="widgetcontent">
     <a href="<?php echo base_url(); ?>pegawai/input_biodata" class=" btn btn-success btn-rounded "><i class="iconfa-plus-sign icon-white"></i> Tambah Data Pegawai</a>
     <a href="<?php echo base_url(); ?>cetak/cetak_DSP" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Word</a>
@@ -48,12 +48,10 @@
         <thead>
             <tr>
                 <th class="head0 center">NO</th>
-                <th class="head0 center">NIP</th>
                 <th class="head1 center">NAMA PEGAWAI</th>
                 <th class="head0 center">JENIS KELAMIN</th>
                 <th class="head0 center">PENDIDIKAN TERAKHIR</th>
                 <th class="head1 center">UNIT</th>
-                <th class="head1 center">JABATAN</th>
                 <th class="head0 right">Aksi</th>
                 <th class="head0 center"></th>
             </tr>
@@ -62,24 +60,25 @@
             <?php
             $no = 1;
             foreach ($query as $row) {
-                $link = $row->NIP;
                 $id = $row->ID_PEGAWAI;
-                $gelar_belakang = str_replace($row->GELAR_BELAKANG, " ", ",");
-                $nama = $row->GELAR_DEPAN . " " . $row->NAMA_PEGAWAI . "" . $row->GELAR_BELAKANG;
+                $gelar_belakang = '';
+                if ($row->GELAR_BELAKANG) {
+                    $gelar_belakang = str_replace($row->GELAR_BELAKANG, " ", ",");
+                }
+                $nama = $row->GELAR_DEPAN . " " . $row->NAMA_PEGAWAI . "" . $gelar_belakang;
                 ?>
                 <tr class="gradeX">
                     <td class="center"><?php echo $no; ?></td>
-                    <td class="center"><?php echo $row->NIP; ?></td>
-                    <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $nama; ?></td>
+                    <td><?php echo $nama; ?></td>
                     <td class="center"><?php echo $row->JENIS_KELAMIN; ?></td>
                     <td class="center"><?php echo $row->TINGKAT_PENDIDIKAN; ?></td>
                     <td><?php echo $row->NAMA_UNIT; ?></td>
-                    <td><?php echo strtoupper($row->JABATAN); ?></td>
                     <td class="center"><a href="<?php echo base_url(); ?>pegawai/edit_biodata/<?php echo $id; ?>">Edit</a></td>
                     <td class="center"><a href="<?php echo base_url(); ?>pegawai/delete_pegawai/<?php echo $id; ?>">Hapus</a></td>
                 </tr>
                 <?php $no++;
-            } ?>		
+            }
+            ?>		
         </tbody>
     </table>
     <br />

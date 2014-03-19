@@ -71,7 +71,24 @@ class pegawai extends CI_Controller {
             redirect('./pegawai');
         }
     }
+    
+    public function honorer(){
+        if ($this->session->userdata('role') == 1) {
+            $this->get_honorer();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
+    }
 
+     public function get_honorer(){
+         if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->get_honorer();
+            $this->load->view('tabel/v_table_pegawai_honorer',array('query' => $query));
+        } else {
+            redirect('./pegawai');
+        }
+     }
 //INPUT FORM
     public function input_biodata() {
         $query = $this->m_pegawai->get_jabatan();
@@ -1709,7 +1726,6 @@ class pegawai extends CI_Controller {
         }
     }
 
-    //belum
     public function kenaikanPangkat() {
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->get_kp();
@@ -1724,23 +1740,6 @@ class pegawai extends CI_Controller {
 
     public function persetujuan() {
         if ($this->session->userdata('role') == 1) {
-//
-//            $doc = new DOMDocument();
-//            $doc->load('xml/coba.xml'); //xml file loading here
-//
-//            $employees = $doc->getElementsByTagName("employee");
-//            foreach ($employees as $employee) {
-//                $names = $employee->getElementsByTagName("name");
-//                $name = $names->item(0)->nodeValue;
-//
-//                $ages = $employee->getElementsByTagName("age");
-//                $age = $ages->item(0)->nodeValue;
-//
-//                $salaries = $employee->getElementsByTagName("salary");
-//                $salary = $salaries->item(0)->nodeValue;
-//
-//                //echo "<b>$name - $age - $salary\n</b><br>";
-//            }
 
             $query1 = $this->m_pegawai->get_alamat();
             $query2 = $this->m_pegawai->get_diklat();
@@ -1753,6 +1752,7 @@ class pegawai extends CI_Controller {
             $query9 = $this->m_pegawai->get_penugasan();
 
             $i = 0;
+            $data='';
             foreach ($query1->result() as $q) {
                 $data['id_log'][] = $q->ID_ALAMAT;
                 $data['nip'][] = $q->NIP;

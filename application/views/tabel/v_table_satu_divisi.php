@@ -48,11 +48,13 @@
 		$no = 1;
 		foreach($query1 as $row){
 		$link = $row->NIP;
+                $gelar_belakang = str_replace($row->GELAR_BELAKANG, " ", ",");
+                $nama = $row->GELAR_DEPAN . " " . $row->NAMA_PEGAWAI . "" . $row->GELAR_BELAKANG;
 		?>
 		<tr>
 			<td><?php echo $no;?></td>
 			<td><?php echo $row->NIP;?></td>
-			<td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI;?></a></td>
+			<td><a href="<?php echo base_url();?>pegawai/biodata/<?php echo $link; ?>"><?php echo $nama;?></a></td>
 			<td class="center"><?php echo $row->JENIS_KELAMIN;?></td>
 			<td class="center"><?php echo $row->TINGKAT_PENDIDIKAN;?></td>
 			<td class="center"><?php echo $row->GOLONGAN;?></td>

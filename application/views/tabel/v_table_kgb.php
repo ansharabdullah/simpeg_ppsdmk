@@ -56,6 +56,9 @@
             $no = 1;
             foreach ($query as $q) {
                 $link = $q->NIP;
+                
+                $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+                $nama = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
 
                 $tmt_tahun = substr($q->NIP, 8, 4);
                 $tmt_bulan = substr($q->NIP, 12, 2);
@@ -99,7 +102,7 @@
                     <tr style="background-color: <?php echo $warna ?>;">
                         <td><?php echo $no; ?></td>
                         <td><?php echo $q->NIP; ?></td>
-                        <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $q->NAMA_PEGAWAI; ?></a></td>
+                        <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $nama; ?></a></td>
                         <td class="center"><?php echo $q->JENIS_KELAMIN; ?></td>
                         <td class="center"><?php echo $q->GOLONGAN; ?>/<?php echo $q->JABATAN; ?></td>
                         <td class="center"><?php echo $q->NAMA_UNIT; ?></td>

@@ -25,6 +25,9 @@
                 </div>
             </li>
         <?php }
+        if($i==0){
+            echo"<br><center><h4>data tidak ditemukan</h4></center>";
+        }
         ?>
         <li></li>
     </ul>

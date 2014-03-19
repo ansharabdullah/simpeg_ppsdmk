@@ -187,13 +187,16 @@ class grafik extends CI_Controller {
                 $id = 1;
                 $nama_bagian = "BAGIAN TATA USAHA";
             } else if ($nama_bagian == "program_dan_kerjasama") {
-                $id = 2;
+                $id = 3;
                 $nama_bagian = "BAGIAN PROGRAM DAN KERJASAMA";
             } else if ($nama_bagian == "pengembangan_kompetensi_dan_kemetrologian") {
-                $id = 3;
+                $id = 2;
                 $nama_bagian = "BAGIAN PENGEMBANGAN KOMPETENSI DAN KEMETROLOGIAN";
             } else if ($nama_bagian == "widyaiswara") {
                 $id = 4;
+                $nama_bagian = "KEPALA PPSDMK";
+            }  else if ($nama_bagian == "kepala_ppsdmk") {
+                $id = 0;
                 $nama_bagian = "WIDYAISWARA";
             } else {
                 show_404();

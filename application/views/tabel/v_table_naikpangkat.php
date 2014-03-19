@@ -54,6 +54,8 @@
             <?php
             $no = 1;
             foreach ($query as $q) {
+                $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+                $nama = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
                 $link = $q->NIP;
                 //echo $q->TMT_GOLONGAN . " - ";
                 $tmt = new DateTime($q->TMT_GOLONGAN);
@@ -88,7 +90,7 @@
                     <tr style="background-color: <?php echo $warna ?>;">
                         <td><?php echo $no; ?></td>
                         <td><?php echo $q->NIP; ?></td>
-                        <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $q->NAMA_PEGAWAI; ?></a></td>
+                        <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $nama; ?></a></td>
                         <td class="center"><?php echo $q->GOLONGAN; ?>/<?php echo $q->NAMA_PANGKAT; ?></td>
                         <td class="center"><?php echo $q->NAMA_UNIT; ?></td>
                         <td class="center"><?php echo $q->TMT_GOLONGAN; ?></td>  
