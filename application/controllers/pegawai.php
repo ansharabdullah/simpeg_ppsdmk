@@ -1747,13 +1747,14 @@ class pegawai extends CI_Controller {
             $query7 = $this->m_pegawai->get_pendidikan();
             $query8 = $this->m_pegawai->get_penghargaan();
             $query9 = $this->m_pegawai->get_penugasan();
+            $query10 = $this->m_pegawai->get_cuti();
 
             $i = 0;
             $data='';
             foreach ($query1->result() as $q) {
                 $data['id_log'][] = $q->ID_ALAMAT;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_ALAMAT;
                 $data['ket'][] = "PERUBAHAN RIWAYAT ALAMAT";
                 $data['ket_id'][] = 1;
@@ -1765,7 +1766,7 @@ class pegawai extends CI_Controller {
             foreach ($query2->result() as $q) {
                 $data['id_log'][] = $q->ID_DIKLAT;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_DIKLAT;
                 $data['ket'][] = "PERUBAHAN RIWAYAT DIKLAT";
                 $data['ket_id'][] = 2;
@@ -1777,7 +1778,7 @@ class pegawai extends CI_Controller {
             foreach ($query3->result() as $q) {
                 $data['id_log'][] = $q->ID_JABATAN;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_JABATAN;
                 $data['ket'][] = "PERUBAHAN RIWAYAT JABATAN";
                 $data['ket_id'][] = 3;
@@ -1789,7 +1790,7 @@ class pegawai extends CI_Controller {
             foreach ($query4->result() as $q) {
                 $data['id_log'][] = $q->ID_KEPANGKATAN;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_KEPANGKATAN;
                 $data['ket'][] = "PERUBAHAN RIWAYAT KEPANGKATAN";
                 $data['ket_id'][] = 4;
@@ -1801,7 +1802,7 @@ class pegawai extends CI_Controller {
             foreach ($query5->result() as $q) {
                 $data['id_log'][] = $q->ID_MEDIS;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_MEDIS;
                 $data['ket'][] = "PERUBAHAN RIWAYAT MEDIS";
                 $data['ket_id'][] = 5;
@@ -1813,7 +1814,7 @@ class pegawai extends CI_Controller {
             foreach ($query6->result() as $q) {
                 $data['id_log'][] = $q->ID_ORGANISASI;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_ORGANISASI;
                 $data['ket'][] = "PERUBAHAN RIWAYAT ORGANISASI";
                 $data['ket_id'][] = 6;
@@ -1825,7 +1826,7 @@ class pegawai extends CI_Controller {
             foreach ($query7->result() as $q) {
                 $data['id_log'][] = $q->ID_PENDIDIKAN;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_PENDIDIKAN;
                 $data['ket'][] = "PERUBAHAN RIWAYAT PENDIDIKAN";
                 $data['ket_id'][] = 7;
@@ -1838,7 +1839,7 @@ class pegawai extends CI_Controller {
             foreach ($query8->result() as $q) {
                 $data['id_log'][] = $q->ID_LOG_PENGHARGAAN;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_PENGHARGAAN;
                 $data['ket'][] = "PERUBAHAN RIWAYAT PENGHARGAAN";
                 $data['ket_id'][] = 8;
@@ -1850,12 +1851,24 @@ class pegawai extends CI_Controller {
             foreach ($query9->result() as $q) {
                 $data['id_log'][] = $q->ID_PENUGASAN;
                 $data['nip'][] = $q->NIP;
-                $data['nama'][] = $q->NAMA_PEGAWAI;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
                 $data['tgl'][] = $q->TGL_LOG_PENUGASAN;
                 $data['ket'][] = "PERUBAHAN RIWAYAT PENUGASAN";
                 $data['ket_id'][] = 9;
                 $data['photo'][] = $q->FOTO;
-                $data['detail'][] = "NAMA PENUGASAN : " . $q->NAMA_PENUGASAN . "<br>PERANAN : " . $q->PERANAN . "<br>INSTANSI : " . $q->INSTANSI_PENUGASAN . "<br>LOKASI : " . $q->LOKASI_PENUGASAN . "<br>TANGGAL : " . $q->TGL_MULAI_PENUGASAN . " - " . $q->TGL_SELESAI_PENUGASAN;
+                $data['detail'][] = "NAMA PENUGASAN : " . $q->NAMA_PENUGASAN . "<br>PERANAN : " . $q->PERANAN . "<br>INSTANSI : " . $q->INSTANSI_PENUGASAN . "<br>LOKASI : " . $q->LOKASI_PENUGASAN . "<br>TANGGAL : " . $q->TGL_MULAI_PENUGASAN . " s/d " . $q->TGL_SELESAI_PENUGASAN;
+                $i++;
+            }
+            
+            foreach ($query10->result() as $q) {
+                $data['id_log'][] = $q->ID_CUTI;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN." ".$q->NAMA_PEGAWAI." ".$q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_CUTI;
+                $data['ket'][] = "PERUBAHAN RIWAYAT CUTI";
+                $data['ket_id'][] = 10;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "JENIS CUTI : " . $q->JENIS_CUTI . "<br>ALASAN CUTI : " . $q->ALASAN_CUTI . "<br>NO SK : " . $q->NO_SK_CUTI . "<br>TANGGAL : " . $q->TGL_MULAI_CUTI . " s/d " . $q->TGL_SELESAI_CUTI;
                 $i++;
             }
 
@@ -1889,6 +1902,8 @@ class pegawai extends CI_Controller {
                 $query = $this->m_pegawai->acc_penghargaan($id);
             } else if ($ket == 9) {
                 $query = $this->m_pegawai->acc_penugasan($id);
+            } else if ($ket == 10) {
+                $query = $this->m_pegawai->acc_cuti($id);
             } else {
                 
             }
@@ -1918,6 +1933,8 @@ class pegawai extends CI_Controller {
                 $query = $this->m_pegawai->reject_penghargaan($id);
             } else if ($ket == 9) {
                 $query = $this->m_pegawai->reject_penugasan($id);
+            } else if ($ket == 10) {
+                $query = $this->m_pegawai->reject_cuti($id);
             } else {
                 
             }

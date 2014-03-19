@@ -42,7 +42,9 @@
                                 nama = nama.replace(" ", "_");
                                 nama = nama.replace(" ", "_");
                                 nama = nama.toLowerCase();
+                                <?php if($alamat!="grafik/cuti"){ ?>
                                 location.href = '<?php echo base_url(),"",$alamat; ?>/' + nama;
+                                <?php } ?>
                             }
                         }
                     }

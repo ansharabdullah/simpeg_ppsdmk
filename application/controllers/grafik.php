@@ -157,6 +157,25 @@ class grafik extends CI_Controller {
         }
     }
 
+    public function semua_cuti() {
+        if ($this->session->userdata('role') == 1) {
+
+            $this->grafik_cuti_all();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function cuti($param) {
+        if ($this->session->userdata('role') == 1) {
+            $this->grafik_cuti($param);
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
 //====================================================================================================
 //    function program
     public function grafik_bagian_all() {
@@ -195,7 +214,7 @@ class grafik extends CI_Controller {
             } else if ($nama_bagian == "widyaiswara") {
                 $id = 4;
                 $nama_bagian = "KEPALA PPSDMK";
-            }  else if ($nama_bagian == "kepala_ppsdmk") {
+            } else if ($nama_bagian == "kepala_ppsdmk") {
                 $id = 0;
                 $nama_bagian = "WIDYAISWARA";
             } else {
@@ -257,7 +276,7 @@ class grafik extends CI_Controller {
                 $y2[] = $q->PEREMPUAN;
                 $i++;
             }
-            if($i == 0){
+            if ($i == 0) {
                 show_404();
             }
             $golongan = strtoupper($golongan);
@@ -307,7 +326,7 @@ class grafik extends CI_Controller {
                 $y2[] = $q->PEREMPUAN;
                 $i ++;
             }
-            if($i == 0){
+            if ($i == 0) {
                 show_404();
             }
             $where = "AND LP.TINGKAT_PENDIDIKAN='$tingkat_pendidikan'";
@@ -364,7 +383,7 @@ class grafik extends CI_Controller {
                 }
                 $i++;
             }
-            if($i == 0){
+            if ($i == 0) {
                 show_404();
             }
             $where = "AND round(datediff(now(),tgl_lahir)/365,0) between '$awal' and '$akhir'";
@@ -385,6 +404,7 @@ class grafik extends CI_Controller {
                 $y[] = $q->JUMLAH;
             }
 
+            print_r($query);
             $subtitle = "SEMUA STATUS_PEGAWAI";
             $alamat = "grafik/status_pegawai";
             $status = 5;
@@ -402,14 +422,113 @@ class grafik extends CI_Controller {
             $title = strtoupper($title);
             $title = str_replace("_", " ", $title);
             $query = $this->m_grafik->grafikPerStatusPegawai($id);
-            
+
             foreach ($query as $q) {
                 $x[] = $q->STATUS_PEGAWAI;
                 $y[] = $q->JUMLAH;
                 $y1[] = $q->LAKI;
                 $y2[] = $q->PEREMPUAN;
             }
-            if($y[0] == 0){
+            if ($y[0] == 0) {
+                show_404();
+            }
+            $where = "AND P.STATUS_PEGAWAI='$id'";
+            $query1 = $this->m_grafik->tabelPegawai($where);
+            $subtitle = $title;
+            $this->load->view("grafik/v_chart_satu_divisi", array('title' => $title, 'x' => $x, 'y1' => $y1, 'y2' => $y2, 'subtitle' => $subtitle));
+            $this->load->view("tabel/v_table_satu_divisi", array('query1' => $query1));
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function grafik_cuti_all() {
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_grafik->grafikCuti();
+
+            $y = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            foreach ($query as $q) {
+                if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '01') {
+                    $y[0] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '02') {
+                    $y[1] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '03') {
+                    $y[2] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '04') {
+                    $y[3] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '05') {
+                    $y[4] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '06') {
+                    $y[5] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '07') {
+                    $y[6] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '08') {
+                    $y[7] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '09') {
+                    $y[8] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '10') {
+                    $y[9] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '11') {
+                    $y[10] ++;
+                } else if (date("m", strtotime($q->TGL_MULAI_CUTI)) == '12') {
+                    $y[11] ++;
+                }
+            }
+            $x = array("JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER");
+
+            $data = array(
+                array("bulan" => "JANUARI",
+                    "jumlah" => $y[0]),
+                array("bulan" => "FEBRUARI",
+                    "jumlah" => $y[1]),
+                array("bulan" => "MARET",
+                    "jumlah" => $y[2]),
+                array("bulan" => "APRIL",
+                    "jumlah" => $y[3]),
+                array("bulan" => "MEI",
+                    "jumlah" => $y[4]),
+                array("bulan" => "JUNI",
+                    "jumlah" => $y[5]),
+                array("bulan" => "JULI",
+                    "jumlah" => $y[6]),
+                array("bulan" => "AGUSTUS",
+                    "jumlah" => $y[7]),
+                array("bulan" => "SEPTEMBER",
+                    "jumlah" => $y[8]),
+                array("bulan" => "OKTOBER",
+                    "jumlah" => $y[9]),
+                array("bulan" => "NOVEMBER",
+                    "jumlah" => $y[10]),
+                array("bulan" => "DESEMBER",
+                    "jumlah" => $y[11])
+            );
+            //print_r($data);
+
+            
+            $subtitle = "SEMUA CUTI DI TAHUN INI";
+            $alamat = "grafik/cuti";
+            $status = 6;
+            $judul = "CUTI PEGAWAI PPSDMK";
+            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("tabel/v_table_semua_divisi", array('query' => $data, 'status' => $status, 'judul' => $judul));
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function grafik_cuti($id) {
+        if ($this->session->userdata('role') == 1) {
+            $title = " Bulan:  $id";
+            $title = strtoupper($title);
+            $query = $this->m_grafik->grafikCutiPerbulan($id);
+
+            foreach ($query as $q) {
+                $x[] = $q->STATUS_PEGAWAI;
+                $y[] = $q->JUMLAH;
+                $y1[] = $q->LAKI;
+                $y2[] = $q->PEREMPUAN;
+            }
+            if ($y[0] == 0) {
                 show_404();
             }
             $where = "AND P.STATUS_PEGAWAI='$id'";

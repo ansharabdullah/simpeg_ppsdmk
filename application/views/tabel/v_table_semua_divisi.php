@@ -34,22 +34,30 @@
                 <th class="head0 center">No</th>
                 <?php
                 if ($status == 1) {
-                    echo "<th class='head1 center'>Nama Bagian</th>";
+                    echo "<th class='head1 center'>Nama Bagian</th>
+                <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 2) {
-                    echo "<th class='head1 center'>Nama Golongan</th>";
+                    echo "<th class='head1 center'>Nama Golongan</th>
+                <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 3) {
-                    echo "<th class='head1 center'>Nama Pendidikan Terakhir</th>";
+                    echo "<th class='head1 center'>Nama Pendidikan Terakhir</th>
+                <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 4) {
-                    echo "<th class='head1 center'>Jenjang Umur</th>";
+                    echo "<th class='head1 center'>Jenjang Umur</th>
+                <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 5) {
-                    echo "<th class='head1 center'>Status Kepegawaian</th>";
+                    echo "<th class='head1 center'>Status Kepegawaian</th>
+                <th class='head0 center'>Jumlah Pegawai</th>";
+                } else if ($status == 6) {
+                    echo "<th class='head1 center'>Bulan</th>
+                <th class='head0 center'>Jumlah Cuti</th>";
                 }
                 ?>
-                <th class="head0 center">Jumlah Pegawai</th>
             </tr>
         </thead>
         <tbody>
             <?php
+            $label = 0;
             $no = 1;
             foreach ($query as $row) {
                 $kolom1 = '';
@@ -84,6 +92,14 @@
                     $link = str_replace(" ", "_", $link);
                     $kolom1 = strtoupper($row->STATUS_PEGAWAI);
                     $kolom2 = $row->JUMLAH;
+                } else if ($status == 6) {
+                    $link = "grafik/cuti/" . $row['bulan'];
+                    $link = strtolower($link);
+                    $link = str_replace(" ", "_", $link);
+                    $kolom1 = strtoupper($row['bulan']);
+                    $kolom2 = $row['jumlah'];
+                    $label = 1;
+                    //echo $row['bulan'];
                 }
                 ?>
                 <tr>
@@ -91,8 +107,14 @@
                             <input type="checkbox" />
                         </span></td>
                     <td class="center"><?php echo $no; ?></td>
-                    <td class="center"><a href="<?php echo base_url(); ?><?php echo $link; ?>"><?php echo $kolom1; ?></a></td>
-                    <td class="center"><b><?php echo $kolom2; ?></b>&nbsp &nbsp Orang</td>
+                    <td class="center"> <?php if ($label == 1) {echo $kolom1;}else{?><a href="<?php echo base_url(); ?><?php echo $link; ?>"><?php echo $kolom1; }?></a></td>
+                    <td class="center"><b><?php echo $kolom2; ?></b>&nbsp &nbsp <?php
+                            if ($label == 1) {
+                                echo"Cuti";
+                            } else {
+                                echo"Orang";
+                            }
+                            ?></td>
                 </tr>
                 <?php
                 $no++;

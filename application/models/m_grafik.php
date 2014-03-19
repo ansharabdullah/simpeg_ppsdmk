@@ -107,6 +107,20 @@ class m_grafik extends CI_Model {
         return $query->result();
     }
 
+    public function grafikCuti() {
+        $query = $this->db->query("SELECT ID_CUTI, TGL_MULAI_CUTI, TGL_SELESAI_CUTI
+        FROM LOG_CUTI
+        WHERE ACC_CUTI=1");
+       return $query->result();
+    }
+
+    public function grafikCutiPerbulan() {
+        $query = $this->db->query("SELECT * 
+        from PEGAWAI P, LOG_CUTI LC
+        WHERE P.ID_PEGAWAI=LC.ID_PEGAWAI and p.status_aktif=1 and LC.ACC_CUTI=0");
+       return $query->result();
+    }
+
     public function tabelPegawaiDivisi($id_divisi) {
         $query = $this->db->query("SELECT P.NIP, P.NAMA_PEGAWAI, P.GELAR_DEPAN, P.GELAR_BELAKANG, P.JENIS_KELAMIN, JG.GOLONGAN, J.JABATAN, U.NAMA_UNIT "
                 . "FROM PEGAWAI P, UNIT_KERJA U, LOG_JABATAN LJ, JABATAN J, LOG_KEPANGKATAN LK, JENIS_GOLONGAN JG "

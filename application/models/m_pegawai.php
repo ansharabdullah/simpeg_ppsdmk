@@ -64,11 +64,8 @@ class m_pegawai extends CI_Model {
 
     //INSERT PEGAWAI
     public function insert_pegawai(
-                $nip,$nip_lama,$gelar_depan,$nama_pegawai,$gelar_belakang ,$tempat_lahir ,$tgl_lahir, 
-                $jenis_kelamin ,$alamat ,$kecamatan ,$kelurahan ,$kabupaten ,$provinsi ,$tmt_cpns ,
-                $tmt_pns ,$agama ,$status_perkawinan ,$status_pegawai ,$foto ,$keterangan ,$jabatan, 
-                $unit_kerja, $golongan , $pendidikan ,$nama_sekolah, $acc,$status_aktif
-            ){
+    $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $alamat, $kecamatan, $kelurahan, $kabupaten, $provinsi, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $foto, $keterangan, $jabatan, $unit_kerja, $golongan, $pendidikan, $nama_sekolah, $acc, $status_aktif
+    ) {
         $query = $this->db->query("INSERT INTO pegawai (NIP, NIP_LAMA, NAMA_PEGAWAI, GELAR_DEPAN, GELAR_BELAKANG, JENIS_KELAMIN, 
             TEMPAT_LAHIR, TGL_LAHIR, AGAMA, STATUS_PERKAWINAN, TMT_CPNS, TMT_PNS, KETERANGAN, STATUS_PEGAWAI, FOTO, ACC_PEGAWAI, STATUS_AKTIF) 
             VALUES ('$nip', '$nip_lama','$nama_pegawai', '$gelar_depan',  '$gelar_belakang', '$jenis_kelamin',
@@ -204,8 +201,8 @@ class m_pegawai extends CI_Model {
                 INSERT INTO log_medis (ID_PEGAWAI,INDIKASI, TINDAKAN, TAHUN_PEMERIKSAAN, KETERANGAN_MEDIS, ACC_MEDIS) 
                 VALUES ($id_pegawai, '$indikasi', '$tindakan','$tahun', '$keterangan', $acc)");
     }
-    
-    public function insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk,$tgl_sk, $tgl_mulai, $tgl_selesai, $acc){
+
+    public function insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc) {
         $query = $this->db->query("
                 INSERT INTO log_cuti (ID_PEGAWAI, JENIS_CUTI, ALASAN_CUTI, NO_SK_CUTI, TGL_SK_CUTI, TGL_MULAI_CUTI, TGL_SELESAI_CUTI, ACC_CUTI, STATUS_CUTI)
                 VALUES ($id_pegawai, '$jenis', '$alasan', '$no_sk','$tgl_sk', '$tgl_mulai', '$tgl_selesai', $acc, $aktif)
@@ -213,10 +210,10 @@ class m_pegawai extends CI_Model {
     }
 
     //DELETE
-    public function delete_pegawai($id_pegawai){
+    public function delete_pegawai($id_pegawai) {
         $query = $this->db->query("UPDATE PEGAWAI SET STATUS_AKTIF=0 WHERE ID_PEGAWAI='$id_pegawai'");
     }
-    
+
     public function delete_log_jabatan($id_jabatan) {
         $this->db->where('id_jabatan', $id_jabatan);
         $this->db->delete('log_jabatan');
@@ -271,7 +268,7 @@ class m_pegawai extends CI_Model {
         $this->db->where('ID_MEDIS', $ID_MEDIS);
         $this->db->delete('log_medis');
     }
-    
+
     public function delete_log_cuti($ID_CUTI) {
         $this->db->where('ID_CUTI', $ID_CUTI);
         $this->db->delete('log_cuti');
@@ -397,21 +394,22 @@ class m_pegawai extends CI_Model {
             WHERE AK.ID_PEGAWAI=P.ID_PEGAWAI AND P.NIP='$nip' AND AK.JENIS_AK=3 AND AK.ACC_AK=1");
         return $query->result();
     }
-    
-    public function get_log_cuti($nip){
+
+    public function get_log_cuti($nip) {
         $query = $this->db->query("SELECT LC.ID_CUTI, LC.JENIS_CUTI, LC.ALASAN_CUTI, LC.NO_SK_CUTI, LC.TGL_SK_CUTI, LC.TGL_MULAI_CUTI, LC.TGL_SELESAI_CUTI,LC.STATUS_CUTI
                 FROM LOG_CUTI LC, PEGAWAI P
                 WHERE LC.ID_PEGAWAI=P.ID_PEGAWAI AND P.NIP='$nip' AND LC.ACC_CUTI=1 order by LC.STATUS_CUTI desc");
         return $query->result();
     }
-    
-    public function get_log_gaji($nip){
+
+    public function get_log_gaji($nip) {
         $query = $this->db->query("SELECT LG.ID_GAJI, LG.TMT_GAJI, LG.NO_SK_GAJI, LG.TGL_SK_GAJI, LG.TOTAL_GAJI, LG.KETERANGAN_GAJI, LG.STATUS_GAJI
                 FROM LOG_GAJI LG, PEGAWAI P, LOG_KEPANGKATAN KP
                 WHERE LG.ID_KEPANGKATAN=KP.ID_KEPANGKATAN AND P.ID_PEGAWAI=LG.ID_PEGAWAI AND P.NIP='$nip' AND LG.ACC_GAJI=1 ORDER BY LG.STATUS_GAJI DESC");
-    
+
         return $query->result();
     }
+
     //SELECT FOR EDIT
     public function edit_biodata($id_pegawai) {
         $query = $this->db->query("select p.id_pegawai, p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns,p.tmt_pns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.keterangan, p.status_pegawai, p.no_kartu_pegawai,p.tgl_kartu_pegawai, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp, 
@@ -512,8 +510,8 @@ class m_pegawai extends CI_Model {
             WHERE LP.ID_PEGAWAI=P.ID_PEGAWAI AND LP.ID_LOG_PENGHARGAAN='$id_penghargaan'");
         return $query->result();
     }
-    
-    public function edit_log_cuti ($id_cuti){
+
+    public function edit_log_cuti($id_cuti) {
         $query = $this->db->query("SELECT P.NIP, LC.ID_CUTI, LC.JENIS_CUTI, LC.ALASAN_CUTI, LC.NO_SK_CUTI,
                 LC.TGL_SK_CUTI, LC.TGL_MULAI_CUTI, LC.TGL_SELESAI_CUTI, LC.STATUS_CUTI
                 FROM PEGAWAI P, LOG_CUTI LC
@@ -643,12 +641,14 @@ class m_pegawai extends CI_Model {
                     TAHUN_PEMERIKSAAN='$tahun', KETERANGAN_MEDIS='$keterangan', ACC_MEDIS=$acc 
                 WHERE ID_MEDIS=$id_medis");
     }
-    public function update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai,$acc) {
+
+    public function update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc) {
         $query = $this->db->query("
                 UPDATE log_cuti SET STATUS_CUTI=$aktif, JENIS_CUTI= '$jenis', 
                     ALASAN_CUTI='$alasan', NO_SK_CUTI='$no_sk', TGL_SK_CUTI='$tgl_sk', TGL_MULAI_CUTI='$tgl_mulai', TGL_SELESAI_CUTI= '$tgl_selesai',ACC_CUTI=$acc 
                 WHERE ID_CUTI=$id_cuti");
     }
+
     //
     public function get_pensiun() {
         $query = $this->db->query("SELECT P.ID_PEGAWAI, P.NIP, P.NAMA_PEGAWAI, P.GELAR_DEPAN, P.GELAR_BELAKANG, JG.GOLONGAN, P.JENIS_KELAMIN, LP.TINGKAT_PENDIDIKAN, J.JABATAN, U.NAMA_UNIT, (ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0)) AS UMUR, (696 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) AS PENSIUN
@@ -712,10 +712,18 @@ class m_pegawai extends CI_Model {
         where akun.id_pegawai=pegawai.id_pegawai and pegawai.NIP='$nip'");
     }
 
+    //persetujuan
     public function get_alamat() {
         $query = $this->db->query("select * 
         from pegawai p, log_alamat la
         where p.id_pegawai=la.id_pegawai and la.STATUS_ALAMAT=1 and p.STATUS_AKTIF=1 AND la.ACC_ALAMAT=0 and p.status_aktif=1");
+        return $query;
+    }
+
+    public function get_cuti() {
+        $query = $this->db->query("SELECT * 
+        from PEGAWAI P, LOG_CUTI LC
+        WHERE P.ID_PEGAWAI=LC.ID_PEGAWAI and p.status_aktif=1 and LC.ACC_CUTI=0");
         return $query;
     }
 
@@ -810,6 +818,10 @@ class m_pegawai extends CI_Model {
     public function acc_penugasan($id) {
         $query = $this->db->query("UPDATE LOG_penugasan SET ACC_penugasan=1 WHERE ID_penugasan=$id");
     }
+    
+    public function acc_cuti($id) {
+        $query = $this->db->query("UPDATE LOG_CUTI SET ACC_CUTI=1 WHERE ID_CUTI=$id");
+    }
 
     public function reject_alamat($id) {
         $query = $this->db->query("delete from log_alamat where id_alamat=$id");
@@ -845,6 +857,10 @@ class m_pegawai extends CI_Model {
 
     public function reject_penugasan($id) {
         $query = $this->db->query("delete from log_penugasan where id_penugasan=$id");
+    }
+    
+    public function reject_cuti($id) {
+        $query = $this->db->query("delete from log_cuti where id_cuti=$id");
     }
 
 }
