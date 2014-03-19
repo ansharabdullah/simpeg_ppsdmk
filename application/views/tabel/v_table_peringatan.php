@@ -55,6 +55,9 @@
             $no = 1;
             foreach ($query as $row) {
                 $link = $row->NIP;
+                
+                $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+                $nama = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
 
                 if ($row->PENSIUN < 12 && $row->PENSIUN > 3) {
                     $warna = "#FFF467";
@@ -65,7 +68,7 @@
                 <tr style="background-color: <?php echo $warna ?>;">
                     <td><?php echo $no; ?></td>
                     <td><?php echo $row->NIP; ?></td>
-                    <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $row->NAMA_PEGAWAI; ?></a></td>
+                    <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $link; ?>"><?php echo $nama; ?></a></td>
                     <td class="center"><?php echo $row->JENIS_KELAMIN; ?></td>
                     <td class="center"><?php echo $row->GOLONGAN; ?>/<?php echo $row->JABATAN; ?></td>
                     <td class="center"><?php echo $row->NAMA_UNIT; ?></td>
