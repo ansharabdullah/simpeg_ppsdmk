@@ -73,7 +73,7 @@
                             <li class="right">
                                     <div class="userloggedinfo">
                                         
-                                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" />
+                                    <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" style="height:  83px; width: 80px; overflow: hidden;"/>
                                     <div class="userinfo">
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
                                         <h5><small><?php echo $q->NIP; ?></small></h5>

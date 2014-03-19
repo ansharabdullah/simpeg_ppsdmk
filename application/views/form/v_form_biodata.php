@@ -93,7 +93,7 @@
                     </p>
                     <p>
                         <label>Alamat</label>
-                        <span class="field"><input type="text" name="alamat" class="input-large" placeholder="" required=""/></span>
+                         <span class="field"><textarea cols="40" rows="3" class="span5" name="alamat"></textarea></span> 
                     </p>
                     <p>
                         <label>Kecamatan</label>

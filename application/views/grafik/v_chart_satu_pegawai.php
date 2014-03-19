@@ -123,7 +123,7 @@
             <br />
             
             <div class="row-fluid" style="text-transform:uppercase;">    
-                <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>"  class="pull-right" style="height:  260px; width: 245px; overflow: hidden;"/></center>
+                <img src="<?php echo base_url(); ?>assets/images/<?php echo $FOTO;?>" style="height:  230px; width: 205px; overflow: hidden; padding-left:53px;"/></center>
                 <div class="span4"> 
                     <table class="table table-bordered table-invoice">
                         <th>DATA UTAMA</th>
@@ -1578,10 +1578,10 @@
                 <td><?php echo $TGL_SK_GAJI;?></td>
                 <td><?php echo $interval->format('%y TAHUN');?></td>
                 <td><?php echo $interval->format('%m BULAN')?></td>
-                <td><?php echo $TOTAL_GAJIGAJI;?></td>
+                <td><?php echo $TOTAL_GAJI;?></td>
                 <td><?php echo $KETERANGAN_GAJI;?></td>
                 <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_gaji_berkala/'.$row->ID_GAJI)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
-                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_pangkat'.'/'.$row->ID_GAJI.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
+                <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_gaji'.'/'.$row->ID_GAJI.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
                 </tr>
                 </tbody>
             <?php $NO_KGB++; }?>

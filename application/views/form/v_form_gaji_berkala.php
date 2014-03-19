@@ -12,7 +12,7 @@
             
             <div class="par">
                 <label>TMT</label>
-                <span class="field"><input  type="date" name="tmt" class="input-small" /></span>
+                <span class="field"><input  type="date" name="tmt" class="input-medium" /></span>
             </div>
                 
                 
@@ -23,19 +23,8 @@
                 
             <div class="par">
                 <label>Tanggal SK</label>
-                <span class="field"><input  type="date" name="tanggal_sk" class="input-small" /></span>
-            </div> 
-                
-            <div class="par">
-                <label>Masa Kerja</label>
-                <span class="field"><input  type="text" name="masa_kerja" class="input-small" /></span>
-            </div> 
-                
-            <p>
-                <label>Bulan</label>
-                <span class="field"><input type="text" name="bulan" class="input-large" placeholder="" /></span>
-            </p>
-                
+                <span class="field"><input  type="date" name="tanggal_sk" class="input-medium" /></span>
+            </div>        
             <div class="par">
                 <label>Gaji</label>
                 <div class="input-prepend">
