@@ -62,7 +62,7 @@ class cetak extends CI_Controller {
 
 
                     @page Section1{
-                        size: 29.7cm 21cm;
+                        size: 40cm 30cm;
                         margin: 2cm 1cm 2cm 1cm;
                         mso-page-orientation: landscape;
                         mso-footer:f1;
@@ -96,24 +96,24 @@ class cetak extends CI_Controller {
         foreach ($query as $q) {
             $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
             $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
-            
-            $date1 = $q->TMT_CPNS; 
-            $date2 = date('Y-m-d'); 
-            $diff = abs(strtotime($date2) - strtotime($date1)); 
-            $years_masakerja = floor($diff / (365*60*60*24)); 
-            $months_masakerja = floor(($diff - $years_masakerja * 365*60*60*24) / (30*60*60*24)); 
-            $days_masakerja = floor(($diff - $years_masakerja * 365*60*60*24 - $months_masakerja*30*60*60*24)/ (60*60*24));
-            
-            $date1 = $q->TGL_LAHIR; 
-            $date2 = date('Y-m-d'); 
-            $diff = abs(strtotime($date2) - strtotime($date1)); 
-            $years_usia = floor($diff / (365*60*60*24)); 
-            $months_usia = floor(($diff - $years_usia * 365*60*60*24) / (30*60*60*24)); 
-            $days_usia = floor(($diff - $years_usia * 365*60*60*24 - $months_usia*30*60*60*24)/ (60*60*24));
-            
+
+            $date1 = $q->TMT_CPNS;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_masakerja = floor($diff / (365 * 60 * 60 * 24));
+            $months_masakerja = floor(($diff - $years_masakerja * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_masakerja = floor(($diff - $years_masakerja * 365 * 60 * 60 * 24 - $months_masakerja * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            $date1 = $q->TGL_LAHIR;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_usia = floor($diff / (365 * 60 * 60 * 24));
+            $months_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24 - $months_usia * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
             echo "<tr>"
-                    . "<td>$i</td>"
-                    . "<td>$nama / $q->NIP</td>
+            . "<td>$i</td>"
+            . "<td>$nama / $q->NIP</td>
                             <td>$q->NAMA_PANGKAT /<br> $q->GOLONGAN</td>
                             <td>$q->TMT_GOLONGAN</td>
                             <td>$q->JABATAN</td>
@@ -125,7 +125,7 @@ class cetak extends CI_Controller {
                             <td>$q->TGL_LAHIR</td>
                             <td>$years_usia thn / $months_usia bln</td>
                             <td></td>"
-                    . "</tr>";
+            . "</tr>";
             $i++;
         }
         echo"</tbody>
@@ -163,7 +163,7 @@ class cetak extends CI_Controller {
 
 
                     @page Section1{
-                        size: 29.7cm 21cm;
+                        size: 40cm 30cm;
                         margin: 2cm 1cm 2cm 1cm;
                         mso-page-orientation: landscape;
                         mso-footer:f1;
@@ -175,56 +175,107 @@ class cetak extends CI_Controller {
                 <div class='Section1'>
                     <center><h2>DAFTAR SELURUH PEGAWAI NEGERI SIPIL<br>PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN</h2></center><br />
                     <table border=1>
-                        
+                    <tr>
+                        <th bgcolor='#CCCCCC'>NO</th>
+                        <th bgcolor='#CCCCCC'>NAMA LENGKAP</th>
+                        <th bgcolor='#CCCCCC'>TEMPAT LAHIR</th>
+                        <th bgcolor='#CCCCCC'>TGL LAHIR</th>
+                        <th bgcolor='#CCCCCC'>USIA</th>
+                        <th bgcolor='#CCCCCC'>JENIS<BR>KELAMIN</th>
+                        <th bgcolor='#CCCCCC'>NIP</th>
+                        <th bgcolor='#CCCCCC'>GOL</th>
+                        <th bgcolor='#CCCCCC'>PEND</th>
+                        <th bgcolor='#CCCCCC'>JURUSAN</th>
+                        <th bgcolor='#CCCCCC'>TGL IJAZAH</th>
+                        <th bgcolor='#CCCCCC'>TMT CPNS</th>
+                        <th bgcolor='#CCCCCC'>AGAMA</th>
+                        <th bgcolor='#CCCCCC'>KET.</th>
+                   </tr>
                         <tbody>";
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=DSP PPSDMK.doc");
         $no = 1;
         $bagian = '';
+        $i_sementara = -9999;
+        $i = '';
         foreach ($query as $q) {
             $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
             $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
-            if ($bagian != $q->BAGIAN && $no > 1) {
-                echo "<tr><td colspan='5'><b>$q->NAMA_UNIT</b></tr>";
-            }
 
-            echo "<tr>";
-            if ($q->BAGIAN > 0) {
-                if ($q->LEVEL > 1) {
-                    echo "<td colspan=$q->LEVEL></td>
-                    <td>$q->JABATAN</td>
-                    <td>$nama /<br>$q->NIP</td>";
-                    if ($q->LEVEL == 2) {
-                        echo "<td ></td>";
+            $date1 = $q->TGL_LAHIR;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_usia = floor($diff / (365 * 60 * 60 * 24));
+            $months_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24 - $months_usia * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            if ($q->LEVEL == 0) {
+                if ($q->SUBBAGIAN == 0) {
+                    if ($q->BAGIAN == 0) {
+                        $i = '';
+                    } else {
+                        $i = $q->BAGIAN;
                     }
                 } else {
-                    echo "<td colspan=1></td>
-                    <td>$q->JABATAN</td>
-                    <td>$nama /<br>$q->NIP</td>
-                    <td colspan=2></td>";
+                    $i = $q->BAGIAN . "." . $q->SUBBAGIAN;
                 }
             } else {
-                echo "
-                 <td colspan=3>$q->JABATAN</td>
-                 <td>$nama /<br>$q->NIP</td>
-                 <td></td>";
+                $i = $q->BAGIAN . "." . $q->SUBBAGIAN . "." . $q->LEVEL;
             }
-            echo "</tr>";
-            /*
-              echo "<tr>
-              <td>$no</td>
-              <td colspan=$q->LEVEL>$nama /<br>$q->NIP</td>
-              <td>$q->NAMA_PANGKAT / $q->GOLONGAN</td>
-              <td>$q->JABATAN</td>
-              <td>$q->BAGIAN</td>
-              <td>$q->SUBBAGIAN</td>
-              <td>$q->LEVEL</td>
-              <td></td>
-              </tr>";
-             * 
-             */
+            //$i = $q->BAGIAN . "." . $q->SUBBAGIAN . "." . $q->LEVEL;
+
+            if ($i != $i_sementara) {
+                $no = 1;
+
+                if ($q->LEVEL == 0) {
+                    if ($q->SUBBAGIAN == 0) {
+                        if ($q->BAGIAN == 0) {
+                            echo "<tr><td bgcolor='#E3A4A3'>$i</td><td colspan=13 bgcolor='#E3A4A3'>$q->JABATAN</td></tr>";
+                        } else {
+                            echo "<tr><td bgcolor='#C4C384'>$i</td><td colspan=13 bgcolor='#C4C384'>$q->JABATAN</td></tr>";
+                        }
+                    } else {
+                        echo "<tr><td bgcolor='#CCDFFC'>$i</td><td colspan=13 bgcolor='#CCDFFC'>$q->JABATAN</td></tr>";
+                    }
+                } else {
+                    echo "<tr><td bgcolor='#F5E427'>$i</td><td colspan=13 bgcolor='#F5E427'>$q->JABATAN</td></tr>";
+                }
+
+                //$display .= "<tr><td>$i</td><td colspan=13>$q->JABATAN</td></tr>";
+                echo "<tr>"
+                        . "<td>$no</td>"
+                        . "<td>$nama</td>"
+                        . "<td>$q->TEMPAT_LAHIR</td>"
+                        . "<td>$q->TGL_LAHIR</td>"
+                        . "<td>$years_usia</td>"
+                        . "<td>$q->JENIS_KELAMIN</td>"
+                        . "<td>$q->NIP</td>"
+                        . "<td>$q->GOLONGAN</td>"
+                        . "<td>$q->TINGKAT_PENDIDIKAN</td>"
+                        . "<td>$q->JURUSAN</td>"
+                        . "<td>$q->NO_IJAZAH</td>"
+                        . "<td>$q->TMT_CPNS</td>"
+                        . "<td>$q->AGAMA</td>"
+                        . "<td></td></tr>";
+            } else {
+                echo "<tr>"
+                        . "<td>$no</td>"
+                        . "<td>$nama</td>"
+                        . "<td>$q->TEMPAT_LAHIR</td>"
+                        . "<td>$q->TGL_LAHIR</td>"
+                        . "<td>$years_usia</td>"
+                        . "<td>$q->JENIS_KELAMIN</td>"
+                        . "<td>$q->NIP</td>"
+                        . "<td>$q->GOLONGAN</td>"
+                        . "<td>$q->TINGKAT_PENDIDIKAN</td>"
+                        . "<td>$q->JURUSAN</td>"
+                        . "<td>$q->NO_IJAZAH</td>"
+                        . "<td>$q->TMT_CPNS</td>"
+                        . "<td>$q->AGAMA</td>"
+                        . "<td></td></tr>";
+            }
             $no++;
-            $bagian = $q->BAGIAN;
+            $i_sementara = $i;
         }
         echo"</tbody>
                     </table>
@@ -257,21 +308,21 @@ class cetak extends CI_Controller {
         foreach ($query as $q) {
             $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
             $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
-            
-            $date1 = $q->TMT_CPNS; 
-            $date2 = date('Y-m-d'); 
-            $diff = abs(strtotime($date2) - strtotime($date1)); 
-            $years_masakerja = floor($diff / (365*60*60*24)); 
-            $months_masakerja = floor(($diff - $years_masakerja * 365*60*60*24) / (30*60*60*24)); 
-            $days_masakerja = floor(($diff - $years_masakerja * 365*60*60*24 - $months_masakerja*30*60*60*24)/ (60*60*24));
-            
-            $date1 = $q->TGL_LAHIR; 
-            $date2 = date('Y-m-d'); 
-            $diff = abs(strtotime($date2) - strtotime($date1)); 
-            $years_usia = floor($diff / (365*60*60*24)); 
-            $months_usia = floor(($diff - $years_usia * 365*60*60*24) / (30*60*60*24)); 
-            $days_usia = floor(($diff - $years_usia * 365*60*60*24 - $months_usia*30*60*60*24)/ (60*60*24));
-            
+
+            $date1 = $q->TMT_CPNS;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_masakerja = floor($diff / (365 * 60 * 60 * 24));
+            $months_masakerja = floor(($diff - $years_masakerja * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_masakerja = floor(($diff - $years_masakerja * 365 * 60 * 60 * 24 - $months_masakerja * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            $date1 = $q->TGL_LAHIR;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_usia = floor($diff / (365 * 60 * 60 * 24));
+            $months_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24 - $months_usia * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
             $display .= "<tr>"
                     . "<td>$i</td>"
                     . "<td>$nama / $q->NIP</td>
@@ -291,6 +342,120 @@ class cetak extends CI_Controller {
         }
         $table .= $display;
         $table .= '</td></tr></table>';
+
+
+        header("Content-type: application/x-msdownload");
+        # replace excelfile.xls with whatever you want the filename to default to
+        header("Content-Disposition: attachment; filename=$fn.xls");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        echo $table;
+    }
+
+    public function cetak_DSP_spreadsheet() {
+        $table = $display = "";
+        $fn = "DSP PPSDMK";
+        $query = $this->m_pegawai->get_dsp();
+        $table .= '<table><tr><td colspan=14><center><h3>DAFTAR SUSUNAN PEGAWAI<br>PUSAT PENGEMBANGAN SUMBER DAYA MANUSIA KEMETROLOGIAN</h3><center></td></tr></table><br>'
+                . '<table border="1" cellpadding="0" cellspacing="0" id="ctbl"><tr>';
+        $table .= '<th bgcolor="#CCCCCC">NO</th>
+                            <th bgcolor="#CCCCCC">NAMA LENGKAP</th>
+                            <th bgcolor="#CCCCCC">TEMPAT LAHIR</th>
+                            <th bgcolor="#CCCCCC">TGL LAHIR</th>
+                            <th bgcolor="#CCCCCC">USIA</th>
+                            <th bgcolor="#CCCCCC">JENIS<BR>KELAMIN</th>
+                            <th bgcolor="#CCCCCC">NIP</th>
+                            <th bgcolor="#CCCCCC">GOL</th>
+                            <th bgcolor="#CCCCCC">PEND</th>
+                            <th bgcolor="#CCCCCC">JURUSAN</th>
+                            <th bgcolor="#CCCCCC">TGL IJAZAH</th>
+                            <th bgcolor="#CCCCCC">TMT CPNS</th>
+                            <th bgcolor="#CCCCCC">AGAMA</th>
+                            <th bgcolor="#CCCCCC">KET.</th></tr>';
+
+        $i_sementara = -99;
+        $no = 0;
+        foreach ($query as $q) {
+            $gelar_belakang = str_replace($q->GELAR_BELAKANG, " ", ",");
+            $nama = $q->GELAR_DEPAN . "" . $q->NAMA_PEGAWAI . "" . $q->GELAR_BELAKANG;
+
+            $date1 = $q->TGL_LAHIR;
+            $date2 = date('Y-m-d');
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years_usia = floor($diff / (365 * 60 * 60 * 24));
+            $months_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days_usia = floor(($diff - $years_usia * 365 * 60 * 60 * 24 - $months_usia * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            if ($q->LEVEL == 0) {
+                if ($q->SUBBAGIAN == 0) {
+                    if ($q->BAGIAN == 0) {
+                        $i = '';
+                    } else {
+                        $i = $q->BAGIAN;
+                    }
+                } else {
+                    $i = $q->BAGIAN . "." . $q->SUBBAGIAN;
+                }
+            } else {
+                $i = $q->BAGIAN . "." . $q->SUBBAGIAN . "." . $q->LEVEL;
+            }
+            //$i = $q->BAGIAN . "." . $q->SUBBAGIAN . "." . $q->LEVEL;
+
+            if ($i != $i_sementara) {
+                $no = 1;
+
+                if ($q->LEVEL == 0) {
+                    if ($q->SUBBAGIAN == 0) {
+                        if ($q->BAGIAN == 0) {
+                            $display .= "<tr><td bgcolor='#E3A4A3'>$i</td><td colspan=13 bgcolor='#E3A4A3'>$q->JABATAN</td></tr>";
+                        } else {
+                            $display .= "<tr><td bgcolor='#C4C384'>$i</td><td colspan=13 bgcolor='#C4C384'>$q->JABATAN</td></tr>";
+                        }
+                    } else {
+                        $display .= "<tr><td bgcolor='#CCDFFC'>$i</td><td colspan=13 bgcolor='#CCDFFC'>$q->JABATAN</td></tr>";
+                    }
+                } else {
+                    $display .= "<tr><td bgcolor='#F5E427'>$i</td><td colspan=13 bgcolor='#F5E427'>$q->JABATAN</td></tr>";
+                }
+
+                //$display .= "<tr><td>$i</td><td colspan=13>$q->JABATAN</td></tr>";
+                $display .= "<tr>"
+                        . "<td>$no</td>"
+                        . "<td>$nama</td>"
+                        . "<td>$q->TEMPAT_LAHIR</td>"
+                        . "<td>$q->TGL_LAHIR</td>"
+                        . "<td>$years_usia</td>"
+                        . "<td>$q->JENIS_KELAMIN</td>"
+                        . "<td>$q->NIP</td>"
+                        . "<td>$q->GOLONGAN</td>"
+                        . "<td>$q->TINGKAT_PENDIDIKAN</td>"
+                        . "<td>$q->JURUSAN</td>"
+                        . "<td>$q->NO_IJAZAH</td>"
+                        . "<td>$q->TMT_CPNS</td>"
+                        . "<td>$q->AGAMA</td>"
+                        . "<td></td></tr>";
+            } else {
+                $display .= "<tr>"
+                        . "<td>$no</td>"
+                        . "<td>$nama</td>"
+                        . "<td>$q->TEMPAT_LAHIR</td>"
+                        . "<td>$q->TGL_LAHIR</td>"
+                        . "<td>$years_usia</td>"
+                        . "<td>$q->JENIS_KELAMIN</td>"
+                        . "<td>$q->NIP</td>"
+                        . "<td>$q->GOLONGAN</td>"
+                        . "<td>$q->TINGKAT_PENDIDIKAN</td>"
+                        . "<td>$q->JURUSAN</td>"
+                        . "<td>$q->NO_IJAZAH</td>"
+                        . "<td>$q->TMT_CPNS</td>"
+                        . "<td>$q->AGAMA</td>"
+                        . "<td></td></tr>";
+            }
+            $no++;
+            $i_sementara = $i;
+        }
+        $table .= $display;
+        $table .= '</tr></table>';
 
 
         header("Content-type: application/x-msdownload");

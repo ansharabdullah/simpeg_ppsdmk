@@ -10,17 +10,18 @@ class m_pegawai extends CI_Model {
         $query = $this->db->query("Select * from get_all_pegawai");
         return $query->result();
     }
-    public function get_foto($nip){
+
+    public function get_foto($nip) {
         $query = $this->db->query("SELECT FOTO FROM PEGAWAI WHERE NIP=$nip");
         return $query->result();
     }
-    
+
     public function get_pegawai($nip) {
         $query = $this->db->query("select p.id_pegawai, p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns,p.tmt_pns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.keterangan, p.status_pegawai, p.no_kartu_pegawai,p.tgl_kartu_pegawai, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp, 
         p.no_ktp, p.no_askes, p.tgl_askes, p.kode_wilayah_askes, p.gol_darah, p.rambut, p.bentuk_muka, p.warna_kulit, p.tinggi_badan, p.berat_badan, p.ciri_khas, p.cacat_tubuh, p.bahasa_asing, p.hobi, p.foto
         from pegawai p, jenis_golongan jg, jabatan j, log_alamat la, log_kepangkatan lk, log_jabatan lj 
         where p.id_pegawai=lj.id_pegawai and p.id_pegawai=lk.id_pegawai and p.id_pegawai=la.id_pegawai and lj.id_jenis_jabatan=j.id_jenis_jabatan and lk.id_jenis_golongan=jg.id_jenis_golongan 
-        and p.nip='$nip' and la.status_alamat=1 and lj.status_jabatan=1");
+        and p.nip='$nip' and la.status_alamat=1 and lj.status_jabatan=1 AND P.STATUS_AKTIF=1");
         return $query->result();
     }
 
@@ -94,6 +95,7 @@ class m_pegawai extends CI_Model {
                 ");
     }
 
+//========================================================================================================================================================================================================================
     //INSERT LOG
     public function insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc) {
         $query = $this->db->query("
@@ -193,7 +195,7 @@ class m_pegawai extends CI_Model {
                 INSERT INTO log_gaji(ID_PEGAWAI,STATUS_GAJI, TMT_GAJI, NO_SK_GAJI,TGL_SK_GAJI, TOTAL_GAJI, KETERANGAN_GAJI, ACC_GAJI) 
                 VALUES ($id_pegawai, $status, '$tmt', '$no_sk', '$tanggal_sk',  $gaji, '$keterangan', $acc)");
         $last_id = $this->db->insert_id();
-        $query2= $this->db->query("UPDATE log_gaji set ID_KEPANGKATAN=(SELECT ID_KEPANGKATAN FROM LOG_KEPANGKATAN WHERE STATUS_KEPANGKATAN=1 AND ID_PEGAWAI='$id_pegawai') WHERE ID_GAJI=$last_id");
+        $query2 = $this->db->query("UPDATE log_gaji set ID_KEPANGKATAN=(SELECT ID_KEPANGKATAN FROM LOG_KEPANGKATAN WHERE STATUS_KEPANGKATAN=1 AND ID_PEGAWAI='$id_pegawai') WHERE ID_GAJI=$last_id");
     }
 
     public function insert_log_penghargaan($id_pegawai, $nama, $instansi, $no_sk, $tanggal_sk, $tahun, $keterangan, $acc) {
@@ -215,6 +217,7 @@ class m_pegawai extends CI_Model {
                 ");
     }
 
+//========================================================================================================================================================================================================================
     //DELETE
     public function delete_pegawai($id_pegawai) {
         $query = $this->db->query("UPDATE PEGAWAI SET STATUS_AKTIF=0 WHERE ID_PEGAWAI='$id_pegawai'");
@@ -279,15 +282,17 @@ class m_pegawai extends CI_Model {
         $this->db->where('ID_CUTI', $ID_CUTI);
         $this->db->delete('log_cuti');
     }
-     public function delete_log_gaji($ID_GAJI) {
+
+    public function delete_log_gaji($ID_GAJI) {
         $this->db->where('ID_GAJI', $ID_GAJI);
         $this->db->delete('log_gaji');
     }
 
-    //GET LOG 
+//========================================================================================================================================================================================================================
+    //GET LOG
     public function get_log_jabatan($nip) {
         $query = $this->db->query("SELECT LJ.ID_JABATAN, LJ.STATUS_JABATAN,J.JABATAN, UK.NAMA_UNIT, LJ.NO_SK_JABATAN, LJ.TGL_SK_JABATAN, LJ.TMT_JABATAN FROM JABATAN J, UNIT_KERJA UK, LOG_JABATAN LJ, PEGAWAI P
-        WHERE J.ID_JENIS_JABATAN=LJ.ID_JENIS_JABATAN AND LJ.ID_PEGAWAI=P.ID_PEGAWAI AND LJ.ID_UNIT=UK.ID_UNIT AND P.NIP='$nip' AND LJ.ACC_JABATAN=1 order by lj.status_jabatan desc");
+        WHERE J.ID_JENIS_JABATAN=LJ.ID_JENIS_JABATAN AND LJ.ID_PEGAWAI=P.ID_PEGAWAI AND LJ.ID_UNIT=UK.ID_UNIT AND P.STATUS_AKTIF=1 AND P.NIP='$nip' AND LJ.ACC_JABATAN=1 order by lj.status_jabatan desc");
         return $query->result();
     }
 
@@ -419,7 +424,8 @@ class m_pegawai extends CI_Model {
 
         return $query->result();
     }
-
+    
+//========================================================================================================================================================================================================================
     //SELECT FOR EDIT
     public function edit_biodata($id_pegawai) {
         $query = $this->db->query("select p.id_pegawai, p.nip, p.nip_lama, p.gelar_depan, p.nama_pegawai,p.gelar_belakang, p.tempat_lahir, p.tgl_lahir, p.jenis_kelamin, p.tmt_cpns,p.tmt_pns, jg.nama_pangkat, jg.golongan,lk.tmt_golongan, j.jabatan, p.keterangan, p.status_pegawai, p.no_kartu_pegawai,p.tgl_kartu_pegawai, p.agama, p.status_perkawinan, la.alamat,la.kelurahan, la.kecamatan, la.kabupaten,la.provinsi, p.no_handphone, p.email,p.no_npwp, 
@@ -528,14 +534,15 @@ class m_pegawai extends CI_Model {
                 WHERE P.ID_PEGAWAI=LC.ID_PEGAWAI AND LC.ID_CUTI='$id_cuti'");
         return $query->result();
     }
-    
-    public function edit_log_gaji_berkala($id_gaji){
+
+    public function edit_log_gaji_berkala($id_gaji) {
         $query = $this->db->query("SELECT P.NIP, LG.ID_GAJI, LG.TMT_GAJI, LG.NO_SK_GAJI, LG.TGL_SK_GAJI, LG.TOTAL_GAJI, LG.STATUS_GAJI, LG.KETERANGAN_GAJI
                 FROM PEGAWAI P, LOG_GAJI LG
                 WHERE P.ID_PEGAWAI=LG.ID_PEGAWAI AND LG.ID_GAJI=$id_gaji");
-         return $query->result();
+        return $query->result();
     }
-
+    
+//========================================================================================================================================================================================================================
     //UPDATE
     public function update_biodata(
     $nip, $nip_lama, $gelar_depan, $nama_pegawai, $gelar_belakang, $tempat_lahir, $tgl_lahir, $jenis_kelamin, $tmt_cpns, $tmt_pns, $agama, $status_perkawinan, $status_pegawai, $keterangan, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi, $id_pegawai, $foto, $acc) {
@@ -638,7 +645,7 @@ class m_pegawai extends CI_Model {
                 WHERE ID_AK=$id_ak");
     }
 
-    public function update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk,$gaji, $keterangan, $acc) {
+    public function update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc) {
         $query = $this->db->query("
                UPDATE log_gaji SET STATUS_GAJI=$status, TMT_GAJI='$tmt', NO_SK_GAJI='$no_sk', TGL_SK_GAJI='$tanggal_sk', KETERANGAN_GAJI='$keterangan', ACC_GAJI=$acc
                 WHERE ID_GAJI=$id_gaji");
@@ -666,11 +673,12 @@ class m_pegawai extends CI_Model {
                 WHERE ID_CUTI=$id_cuti");
     }
 
-    //
+//========================================================================================================================================================================================================================
+    //PERINGATAN
     public function get_pensiun() {
         $query = $this->db->query("SELECT P.ID_PEGAWAI, P.NIP, P.NAMA_PEGAWAI, P.GELAR_DEPAN, P.GELAR_BELAKANG, JG.GOLONGAN, P.JENIS_KELAMIN, LP.TINGKAT_PENDIDIKAN, J.JABATAN, U.NAMA_UNIT, (ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0)) AS UMUR, (696 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) AS PENSIUN
         FROM PEGAWAI P, UNIT_KERJA U, JABATAN J, LOG_JABATAN LJ, LOG_PENDIDIKAN LP, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK
-        WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.ID_UNIT=U.ID_UNIT AND LP.ID_PEGAWAI=P.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LP.KETERANGAN_PENDIDIKAN=1 AND LK.ID_PEGAWAI=P.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND (696 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) <= 3
+        WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.ID_UNIT=U.ID_UNIT AND LP.ID_PEGAWAI=P.ID_PEGAWAI AND P.STATUS_AKTIF=1 AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LP.KETERANGAN_PENDIDIKAN=1 AND LK.ID_PEGAWAI=P.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND (696 -(ROUND(DATEDIFF(NOW(),TGL_LAHIR)/365,0))*12) <= 3
         ORDER BY P.NAMA_PEGAWAI ");
         return $query->result();
     }
@@ -678,7 +686,7 @@ class m_pegawai extends CI_Model {
     public function get_kgb() {
         $query = $this->db->query("SELECT P.ID_PEGAWAI, P.NIP, P.NAMA_PEGAWAI, P.GELAR_DEPAN, P.GELAR_BELAKANG, JG.GOLONGAN, LK.TMT_GOLONGAN, P.JENIS_KELAMIN, LP.TINGKAT_PENDIDIKAN, J.JABATAN, U.NAMA_UNIT
         FROM PEGAWAI P, UNIT_KERJA U, JABATAN J, LOG_JABATAN LJ, LOG_PENDIDIKAN LP, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK
-        WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.ID_UNIT=U.ID_UNIT AND LP.ID_PEGAWAI=P.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LP.KETERANGAN_PENDIDIKAN=1 AND LK.ID_PEGAWAI=P.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LJ.STATUS_JABATAN=1 and P.STATUS_PEGAWAI='PNS'
+        WHERE P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LJ.ID_UNIT=U.ID_UNIT AND LP.ID_PEGAWAI=P.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LP.KETERANGAN_PENDIDIKAN=1 AND LK.ID_PEGAWAI=P.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND LJ.STATUS_JABATAN=1 and P.STATUS_PEGAWAI='PNS' AND P.STATUS_AKTIF=1
         ORDER BY P.NAMA_PEGAWAI ");
         return $query->result();
     }
@@ -688,52 +696,19 @@ class m_pegawai extends CI_Model {
         return $query->result();
     }
 
-    public function get_duk() {
-        $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN,P.NAMA_PEGAWAI,P.GELAR_BELAKANG, JG.GOLONGAN, jg.NAMA_PANGKAT, LK.TMT_GOLONGAN, J.JABATAN, LJ.TMT_JABATAN, P.TGL_LAHIR, P.TMT_CPNS, LP.NAMA_SEKOLAH, LP.TAHUN_PENDIDIKAN, LP.TINGKAT_PENDIDIKAN
-        FROM PEGAWAI P, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK, LOG_JABATAN LJ, JABATAN J, LOG_PENDIDIKAN LP
-        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND JG.ID_JENIS_GOLONGAN=LK.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND P.ID_PEGAWAI=LP.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND P.STATUS_PEGAWAI='PNS'
-        ORDER BY JG.ID_JENIS_GOLONGAN DESC");
-        return $query->result();
-    }
-
-    public function get_dsp() {
-        $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN,P.NAMA_PEGAWAI,P.GELAR_BELAKANG, JG.GOLONGAN, jg.NAMA_PANGKAT,J.JABATAN, J.BAGIAN, J.SUBBAGIAN, J.LEVEL, U.NAMA_UNIT
-        FROM PEGAWAI P, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK, LOG_JABATAN LJ, JABATAN J, UNIT_KERJA U
-        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND JG.ID_JENIS_GOLONGAN=LK.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND LJ.ID_UNIT=U.ID_UNIT
-        ORDER BY `BAGIAN` ASC, `SUBBAGIAN` ASC, `LEVEL` ASC");
-        return $query->result();
-    }
-
     public function get_kp() {
         $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN,P.NAMA_PEGAWAI,P.GELAR_BELAKANG, JG.GOLONGAN, jg.NAMA_PANGKAT, LK.TMT_GOLONGAN, J.JABATAN, LJ.TMT_JABATAN, P.TGL_LAHIR, U.NAMA_UNIT
         FROM PEGAWAI P, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK, LOG_JABATAN LJ, JABATAN J,UNIT_KERJA U
-        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND JG.ID_JENIS_GOLONGAN=LK.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND U.ID_UNIT=LJ.ID_UNIT AND P.STATUS_PEGAWAI='PNS'
+        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND JG.ID_JENIS_GOLONGAN=LK.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND U.ID_UNIT=LJ.ID_UNIT AND P.STATUS_PEGAWAI='PNS' AND P.STATUS_AKTIF=1
         ORDER BY JG.ID_JENIS_GOLONGAN DESC");
         return $query->result();
     }
 
-    public function get_akun($NIP) {
-        $query = $this->db->query("select p.ID_PEGAWAI, p.NIP, p.NAMA_PEGAWAI, p.FOTO
-        from pegawai p, akun a
-        where p.id_pegawai=a.id_pegawai and p.nip='$NIP'");
-        return $query->result();
-    }
-
-    public function get_password($nip) {
-        $query = $this->db->query("select a.password from akun a, pegawai p where p.id_pegawai=a.id_pegawai and p.nip='$nip'");
-        return $query->result();
-    }
-
-    public function ubah_akun($nip, $password) {
-        $query = $this->db->query("update akun, pegawai set akun.password='$password'
-        where akun.id_pegawai=pegawai.id_pegawai and pegawai.NIP='$nip'");
-    }
-
-    //persetujuan
+    //PERSETUJUAN
     public function get_alamat() {
         $query = $this->db->query("select * 
         from pegawai p, log_alamat la
-        where p.id_pegawai=la.id_pegawai and la.STATUS_ALAMAT=1 and p.STATUS_AKTIF=1 AND la.ACC_ALAMAT=0 and p.status_aktif=1");
+        where p.id_pegawai=la.id_pegawai and la.STATUS_ALAMAT=1 and p.STATUS_AKTIF=1 AND la.ACC_ALAMAT=0");
         return $query;
     }
 
@@ -747,21 +722,21 @@ class m_pegawai extends CI_Model {
     public function get_diklat() {
         $query = $this->db->query("select * 
         from pegawai p, log_diklat ld
-        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_DIKLAT=0 and p.status_aktif=1;");
+        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_DIKLAT=0;");
         return $query;
     }
 
     public function get_acc_jabatan() {
         $query = $this->db->query("select * 
         from pegawai p, log_JABATAN ld, UNIT_KERJA U, JABATAN J
-        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_JABATAN=0 AND LD.ID_UNIT=U.ID_UNIT AND J.ID_JENIS_JABATAN=LD.ID_JENIS_JABATAN and p.status_aktif=1;");
+        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_JABATAN=0 AND LD.ID_UNIT=U.ID_UNIT AND J.ID_JENIS_JABATAN=LD.ID_JENIS_JABATAN;");
         return $query;
     }
 
     public function get_kepangkatan() {
         $query = $this->db->query("select * 
         from pegawai p, log_KEPANGKATAN ld, jenis_golongan jg
-        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_KEPANGKATAN=0 and jg.id_jenis_golongan=ld.id_jenis_golongan and p.STATUS_AKTIF=1;");
+        where p.id_pegawai=ld.id_pegawai and p.STATUS_AKTIF=1 and ld.ACC_KEPANGKATAN=0 and jg.id_jenis_golongan=ld.id_jenis_golongan;");
         return $query;
     }
 
@@ -835,7 +810,7 @@ class m_pegawai extends CI_Model {
     public function acc_penugasan($id) {
         $query = $this->db->query("UPDATE LOG_penugasan SET ACC_penugasan=1 WHERE ID_penugasan=$id");
     }
-    
+
     public function acc_cuti($id) {
         $query = $this->db->query("UPDATE LOG_CUTI SET ACC_CUTI=1 WHERE ID_CUTI=$id");
     }
@@ -875,9 +850,47 @@ class m_pegawai extends CI_Model {
     public function reject_penugasan($id) {
         $query = $this->db->query("delete from log_penugasan where id_penugasan=$id");
     }
-    
+
     public function reject_cuti($id) {
         $query = $this->db->query("delete from log_cuti where id_cuti=$id");
+    }
+
+//========================================================================================================================================================================================================================
+    //CETAK  
+    public function get_duk() {
+        $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN,P.NAMA_PEGAWAI,P.GELAR_BELAKANG, JG.GOLONGAN, jg.NAMA_PANGKAT, LK.TMT_GOLONGAN, J.JABATAN, LJ.TMT_JABATAN, P.TGL_LAHIR, P.TMT_CPNS, LP.NAMA_SEKOLAH, LP.TAHUN_PENDIDIKAN, LP.TINGKAT_PENDIDIKAN
+        FROM PEGAWAI P, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK, LOG_JABATAN LJ, JABATAN J, LOG_PENDIDIKAN LP
+        WHERE P.ID_PEGAWAI=LK.ID_PEGAWAI AND JG.ID_JENIS_GOLONGAN=LK.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND LK.STATUS_KEPANGKATAN=1 AND LJ.STATUS_JABATAN=1 AND P.ID_PEGAWAI=LP.ID_PEGAWAI AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND P.STATUS_PEGAWAI='PNS' AND P.STATUS_AKTIF=1
+        ORDER BY JG.ID_JENIS_GOLONGAN DESC");
+        return $query->result();
+    }
+
+    public function get_dsp() {
+        $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN, P.NAMA_PEGAWAI, P.GELAR_BELAKANG, P.TEMPAT_LAHIR, P.TGL_LAHIR, P.JENIS_KELAMIN, JG.GOLONGAN, LP.TINGKAT_PENDIDIKAN, LP.JURUSAN, LP.NO_IJAZAH, P.TMT_CPNS, P.AGAMA, U.NAMA_UNIT, J.JABATAN, J.BAGIAN, J.SUBBAGIAN, J.LEVEL
+        FROM JABATAN J, UNIT_KERJA U, PEGAWAI P, LOG_JABATAN LJ, LOG_KEPANGKATAN LK, JENIS_GOLONGAN JG, LOG_PENDIDIKAN LP
+        WHERE U.ID_UNIT=J.BAGIAN AND P.ID_PEGAWAI=LJ.ID_PEGAWAI AND LJ.ID_JENIS_JABATAN=J.ID_JENIS_JABATAN AND P.ID_PEGAWAI=LK.ID_PEGAWAI AND LK.ID_JENIS_GOLONGAN=JG.ID_JENIS_GOLONGAN AND P.ID_PEGAWAI=LP.ID_PEGAWAI 
+        AND LP.STATUS_PENDIDIKAN_TERAKHIR=1 AND LJ.STATUS_JABATAN=1 AND LK.STATUS_KEPANGKATAN=1 AND P.STATUS_AKTIF=1
+        ORDER BY J.BAGIAN ASC , J.SUBBAGIAN ASC, J.LEVEL ASC");
+        return $query->result();
+    }
+
+//========================================================================================================================================================================================================================
+    //AKUN 
+    public function get_akun($NIP) {
+        $query = $this->db->query("select p.ID_PEGAWAI, p.NIP, p.NAMA_PEGAWAI, p.FOTO
+        from pegawai p, akun a
+        where p.id_pegawai=a.id_pegawai and p.nip='$NIP'");
+        return $query->result();
+    }
+
+    public function get_password($nip) {
+        $query = $this->db->query("select a.password from akun a, pegawai p where p.id_pegawai=a.id_pegawai and p.nip='$nip'");
+        return $query->result();
+    }
+
+    public function ubah_akun($nip, $password) {
+        $query = $this->db->query("update akun, pegawai set akun.password='$password'
+        where akun.id_pegawai=pegawai.id_pegawai and pegawai.NIP='$nip'");
     }
 
 }

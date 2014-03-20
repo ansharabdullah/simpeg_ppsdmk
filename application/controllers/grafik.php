@@ -213,10 +213,10 @@ class grafik extends CI_Controller {
                 $nama_bagian = "BAGIAN PENGEMBANGAN KOMPETENSI DAN KEMETROLOGIAN";
             } else if ($nama_bagian == "widyaiswara") {
                 $id = 4;
-                $nama_bagian = "KEPALA PPSDMK";
+                $nama_bagian = "WIDYAISWARA";
             } else if ($nama_bagian == "kepala_ppsdmk") {
                 $id = 0;
-                $nama_bagian = "WIDYAISWARA";
+                $nama_bagian = "KEPALA PPSDMK";
             } else {
                 show_404();
             }
