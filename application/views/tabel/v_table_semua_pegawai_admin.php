@@ -35,7 +35,7 @@
 <h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai</h4>
 <div class="widgetcontent">
     <a href="<?php echo base_url(); ?>pegawai/input_biodata" class=" btn btn-success btn-rounded "><i class="iconfa-plus-sign icon-white"></i> Tambah Data Pegawai</a>
-    <a href="<?php echo base_url(); ?>cetak/cetak_DSP" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Word</a>
+    <a href="<?php echo base_url(); ?>cetak/cetak_DSP_word" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Word</a>
     <a href="<?php echo base_url(); ?>cetak/cetak_DSP_spreadsheet" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Spreadsheet</a>
     <table class="table table-bordered table-infinite" id="dyntable2">
         <colgroup>
