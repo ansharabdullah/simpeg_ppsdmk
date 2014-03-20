@@ -288,7 +288,7 @@
                 $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
                 $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
                 $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
+                $GAJI = $row->GAJI_GOLONGAN;
                 $PERATURAN =$row->PERATURAN;
                 $MASA_KERJA_GOLONGAN=$row->MASA_KERJA_GOLONGAN;
                 $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;  
@@ -980,15 +980,15 @@
                 </thead>"; 
            $NO_KGB=1;
                     
-            foreach ($query3 as $row) {
-                $STATUS_KEPANGKATAN = $row->STATUS_KEPANGKATAN;
-                $TMT_GOLONGAN_KEPANGKATAN = $row->TMT_GOLONGAN;
-                $NO_SK_KEPANGKATAN = $row->NO_SK_GOLONGAN;
-                $TGL_SK_KEPANGKATAN = $row->TGL_SK_GOLONGAN;
-                $GAJI = $row->BESAR_GAJI;
-                $KETERANGAN_KEPANGKATAN =$row->KETERANGAN_KEPANGKATAN;
+            foreach ($query20 as $row) {
+                $STATUS_GAJI = $row->STATUS_GAJI;
+                $TMT_GAJI = $row->TMT_GAJI;
+                $NO_SK_GAJI = $row->NO_SK_GAJI;
+                $TGL_SK_GAJI = $row->TGL_SK_GAJI;
+                $TOTAL_GAJI = $row->TOTAL_GAJI;
+                $KETERANGAN_GAJI =$row->KETERANGAN_GAJI;
                     
-                $datetime1 = new DateTime($TMT_GOLONGAN_KEPANGKATAN);
+                $datetime1 = new DateTime($TMT_GAJI);
                 $datetime2 = new DateTime();
                 $interval = $datetime1->diff($datetime2);
                 $tahun = $interval->format('%y TAHUN');
@@ -999,19 +999,19 @@
                         <td><?php echo $NO_KGB; ?></td>
                          <td>
                         ";
-                        if($STATUS_KEPANGKATAN==1){
+                        if($STATUS_GAJI==1){
                             echo"<input type='checkbox' checked='checked' disabled='disabled' /></td>";
-                        }else if($STATUS_KEPANGKATAN==0){
+                        }else if($STATUS_GAJI==0){
                             echo"<input type='checkbox'  disabled='disabled' /></td>";
                         }
                         echo "
-                <td> $TMT_GOLONGAN_KEPANGKATAN</td>
-                <td>$NO_SK_KEPANGKATAN</td>
-                <td>$TGL_SK_KEPANGKATAN</td>
+                <td> $TMT_GAJI</td>
+                <td>$NO_SK_GAJI</td>
+                <td>$TGL_SK_GAJI</td>
                 <td>$tahun</td>
                 <td>$bulan</td>
-                <td> $GAJI</td>
-                <td>$KETERANGAN_KEPANGKATAN</td>
+                <td> $TOTAL_GAJI</td>
+                <td>$KETERANGAN_GAJI</td>
             </tr>";$NO_KGB++;}echo"
                 </tbody>
             </table><br clear=all style='mso-special-character:line-break;' />";
@@ -1053,7 +1053,50 @@
                 </tbody>
             </table><br clear=all style='mso-special-character:line-break;' />";
                     
+             echo "<center><h3>RIWAYAT CUTI DAN IZIN</h3></center> 
+               <table border='1'>     
+               <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Aktif</th>
+                        <th>Jenis</th>
+                        <th>Alasan</th>
+                        <th>Nomor SK</th>
+                        <th>Tanggal SK</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                    </tr>
+                </thead> ";
+             $NO_CUTI=1;
+            foreach ($query19 as $row) {
+                $STATUS_CUTI = $row->STATUS_CUTI;
+                $JENIS_CUTI = $row->JENIS_CUTI;
+                $ALASAN_CUTI = $row->ALASAN_CUTI;
+                $NO_SK_CUTI = $row->NO_SK_CUTI;
+                $TGL_SK_CUTI = $row->TGL_SK_CUTI;
+                $TGL_MULAI_CUTI = $row->TGL_MULAI_CUTI;
+                $TGL_SELESAI_CUTI = $row->TGL_SELESAI_CUTI;
              
+              echo "<tbody>
+                    <tr>
+                        <td>$NO_CUTI</td>
+                        <td>
+                        ";
+                        if($STATUS_CUTI==1){
+                            echo"<input type='checkbox' checked='checked' disabled='disabled' /></td>";
+                        }else if($STATUS_CUTI==0){
+                            echo"<input type='checkbox'  disabled='disabled' /></td>";
+                        }
+                        echo "
+                        <td>$JENIS_CUTI</td>
+                        <td>$ALASAN_CUTI</td>
+                        <td>$NO_SK_CUTI</td>
+                        <td>$TGL_SK_CUTI</td>
+                        <td> $TGL_MULAI_CUTI</td>
+                        <td>$TGL_SELESAI_CUTI</td>
+             </tr>";$NO_CUTI++;} echo "
+                </tbody>
+            </table><br clear=all style='mso-special-character:line-break;' />";
              
              echo "<center><h3>RIWAYAT MEDIS</h3></center> 
                <table border='1'>     

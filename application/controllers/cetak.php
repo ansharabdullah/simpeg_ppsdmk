@@ -28,10 +28,13 @@ class cetak extends CI_Controller {
         $query16 = $this->m_pegawai->get_log_orang_tua($nip);
         $query17 = $this->m_pegawai->get_log_medis($nip);
         $query18 = $this->m_pegawai->get_log_penghargaan($nip);
+        $query19 = $this->m_pegawai->get_log_cuti($nip);
+        $query20 = $this->m_pegawai->get_log_gaji($nip);
 
         $this->load->view("form/cetak_pegawai", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5, 'query6' => $query6,
             'query7' => $query7, 'query8' => $query8, 'query9' => $query9, 'query10' => $query10, 'query11' => $query11,
-            'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18));
+            'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18,
+                'query19' => $query19, 'query20' => $query20));
     }
 
     public function cetak_DUK_word() {
