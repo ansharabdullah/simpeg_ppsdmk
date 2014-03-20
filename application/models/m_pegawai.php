@@ -825,7 +825,7 @@ class m_pegawai extends CI_Model {
     }
 
     public function acc_pendidikan($id) {
-        $query = $this->db->query("UPDATE LOG_pendidikan SET ACC_pendidikan=1 WHERE ID_pendididikan=$id");
+        $query = $this->db->query("UPDATE LOG_pendidikan SET ACC_pendidikan=1 WHERE ID_pendidikan=$id");
     }
 
     public function acc_penghargaan($id) {
@@ -879,5 +879,102 @@ class m_pegawai extends CI_Model {
     public function reject_cuti($id) {
         $query = $this->db->query("delete from log_cuti where id_cuti=$id");
     }
-
+    
+    public function count_status_jabatan($nip){
+        $query = $this->db->query("
+        SELECT a.id_jabatan,d.cnt
+        FROM log_jabatan a, pegawai b,
+        (SELECT COUNT(p.status_jabatan) AS cnt from log_jabatan p, pegawai peg where p.status_jabatan=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_jabatan=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_jabatan($id_jabatan){
+        $query = $this->db->query("UPDATE log_jabatan set status_jabatan=0 where id_jabatan=$id_jabatan");
+    }
+    
+    public function count_status_pangkat($nip){
+        $query = $this->db->query("
+        SELECT a.id_kepangkatan,d.cnt
+        FROM log_kepangkatan a, pegawai b,
+        (SELECT COUNT(p.status_kepangkatan) AS cnt from log_kepangkatan p, pegawai peg where p.status_kepangkatan=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_kepangkatan=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_pangkat($id_pangkat){
+        $query = $this->db->query("UPDATE log_kepangkatan set status_kepangkatan=0 where id_kepangkatan=$id_pangkat");
+    }
+    
+    
+    public function count_status_pendidikan($nip){
+        $query = $this->db->query("
+        SELECT a.id_pendidikan,d.cnt
+        FROM log_pendidikan a, pegawai b,
+        (SELECT COUNT(p.status_pendidikan_terakhir) AS cnt from log_pendidikan p, pegawai peg where p.status_pendidikan_terakhir=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_pendidikan_terakhir=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_pendidikan($id_pend){
+        $query = $this->db->query("UPDATE log_pendidikan set status_pendidikan_terakhir=0 where id_pendidikan=$id_pend");
+    }
+    
+    public function count_status_diklat($nip){
+        $query = $this->db->query("
+        SELECT a.id_diklat,d.cnt
+        FROM log_diklat a, pegawai b,
+        (SELECT COUNT(p.status_diklat) AS cnt from log_diklat p, pegawai peg where p.status_diklat=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_diklat=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_diklat($id_diklat){
+        $query = $this->db->query("UPDATE log_diklat set status_diklat=0 where id_diklat=$id_diklat");
+    }
+    
+    public function count_status_alamat($nip){
+        $query = $this->db->query("
+        SELECT a.id_alamat,d.cnt
+        FROM log_alamat a, pegawai b,
+        (SELECT COUNT(p.status_alamat) AS cnt from log_alamat p, pegawai peg where p.status_alamat=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_alamat=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_alamat($id_alamat){
+        $query = $this->db->query("UPDATE log_alamat set status_alamat=0 where id_alamat=$id_alamat");
+    }
+    
+    public function count_status_gaji($nip){
+        $query = $this->db->query("
+        SELECT a.id_gaji,d.cnt
+        FROM log_gaji a, pegawai b,
+        (SELECT COUNT(p.status_gaji) AS cnt from log_gaji p, pegawai peg where p.status_gaji=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_gaji=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_gaji($id_gaji){
+        $query = $this->db->query("UPDATE log_gaji set status_gaji=0 where id_gaji=$id_gaji");
+    }
+    public function count_status_cuti($nip){
+        $query = $this->db->query("
+        SELECT a.id_cuti,d.cnt
+        FROM log_cuti a, pegawai b,
+        (SELECT COUNT(p.status_cuti) AS cnt from log_cuti p, pegawai peg where p.status_cuti=1 and p.id_pegawai=peg.id_pegawai and peg.nip='$nip') as d
+        where a.status_cuti=1 and a.id_pegawai=b.id_pegawai and b.nip='$nip'        
+        ");
+        return $query->result();
+    }
+    
+    public function update_status_cuti($id_cuti){
+        $query = $this->db->query("UPDATE log_cuti set status_cuti=0 where id_cuti=$id_cuti");
+    }
 }
