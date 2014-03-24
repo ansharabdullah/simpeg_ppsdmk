@@ -4,14 +4,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SIMPEG PPSDMK</title>
-            
+        
         <!--icon-->
         <link rel="icon" type="image/png" href="<?php echo base_url();?>/assets/shamcey/images/logi1.png">
-            
+        
         <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/style.default_.css" type="text/css" />
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/responsive-tables.css">
-            
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/shamcey/css/responsive-tables.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/prettify/prettify.css" type="text/css" />
+        
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-migrate-1.1.1.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/jquery-ui-1.9.2.min.js"></script>
@@ -38,8 +39,27 @@
         <script type="text/javascript" src="<?php echo base_url();?>assets/shamcey/js/elements.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/fullcalendar.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.bxSlider.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                
+                //content slider
+                jQuery('#slidercontent').bxSlider({
+                    prevText: '',
+                    nextText: ''
+                });
+                
+                //slim scroll
+                jQuery('#scroll1').slimscroll({
+                    color: '#666',
+                    size: '10px',
+                    width: 'auto',
+                    height: '450px'
+                });
+            });
+        </script>
     </head>
-        
+    
     <body>
         
         <div>
@@ -62,8 +82,8 @@
                                     <span class="headmenu-label">Biodata</span>
                                 </a>
                             </li>
-                            
-                            
+                                
+                                
                             <li>
                                 <a herf="">
                                     <span class="head-icon head-archive"></span>
@@ -71,8 +91,8 @@
                                 </a>
                             </li>
                             <li class="right">
-                                    <div class="userloggedinfo">
-                                        
+                                <div class="userloggedinfo">
+                                    
                                     <img src="<?php echo base_url(); ?>assets/images/<?php echo $q->FOTO; ?>" alt="<?php echo $q->NIP; ?>" style="height:  83px; width: 80px; overflow: hidden;"/>
                                     <div class="userinfo">
                                         <h5><?php echo $q->NAMA_PEGAWAI; ?></h5>
@@ -89,7 +109,7 @@
                         </ul><!--headmenu-->
                     </div>
                 </div>
-                    
+                
                 <div class="maincontent">
                     <div class="maincontentinner">
                         

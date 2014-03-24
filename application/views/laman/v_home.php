@@ -55,7 +55,7 @@
         });
     });
 </script>
-
+    
 <div class="pageheader">
     <div class="pageicon"><span class="iconfa-home"></span></div>
     <div class="pagetitle">
@@ -66,14 +66,41 @@
 <div class="maincontent">
     <div class="maincontentinner">
         <div class="row-fluid">
-            <div id="dashboard-right" class="span7">
-               
-<h4 class="widgettitle"><span class="icon-signal icon-white"></span>GRAFIK SEMUA BAGIAN PPSDMK</h4>
-<div class="widgetcontent">
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-</div>
+            <div id="dashboard-right">     
+                <ul id="slidercontent">
+                    <li>
+                        <div class="slide_wrap">
+                            <div class="slide_content">
+                                <center><img src="<?php echo base_url(); ?>/assets/images/1.jpg" alt="" style="margin-left: -110px"/></center>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="slide_wrap">
+                            <div class="slide_content">
+                                <img src="" alt="" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <br/>
+            
+                
+            
+            
+            
+            
+            
+            <br/> 
+            <div id="dashboard-right" class="span6">
+                
+                <h4 class="widgettitle"><span class="icon-signal icon-white"></span>GRAFIK SEMUA BAGIAN PPSDMK</h4>
+                <div class="widgetcontent">
+                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div>
             </div><!--span8-->
-                        
+                
             <div id="dashboard-right" class="span5">
                 
                 <div class="alert alert-block">
@@ -81,11 +108,12 @@
                     <h4>Selamat Datang di Halaman Manager!</h4>
                     <p style="margin: 8px 0">PUSAT PENGEMBANGAN SUMBERDAYA MANUSIA KEMETROLOGIAN<br>Jl. Jalan Daeng Mohammad Ardiwinata (Cihanjuang) KM 3,4 Parongpong, Bandung</p>
                 </div><!--alert-->
-                                                 
+                    
                 <h4 class="widgettitle">Kalender</h4>
                 <div class="widgetcontent nopadding">
                     <div id="datepicker"></div>
                 </div>
             </div>  
+        </div>  
     </div><!--maincontentinner-->
 </div><!--maincontent-->
