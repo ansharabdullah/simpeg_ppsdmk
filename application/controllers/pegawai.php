@@ -243,7 +243,19 @@ class pegawai extends CI_Controller {
         $this->load->view("laman/v_footer");
     }
 
-    //view edit
+    public function input_log_mengajar($nip) {
+        $query = $this->m_pegawai->get_pegawai($nip);
+        $this->load->view("form/v_form_mengajar", array('query' => $query));
+        $this->load->view("laman/v_footer");
+    }
+
+    public function input_log_kti($nip) {
+        $query = $this->m_pegawai->get_pegawai($nip);
+        $this->load->view("form/v_form_kti", array('query' => $query));
+        $this->load->view("laman/v_footer");
+    }
+
+//view edit
     public function edit_biodata($id_pegawai) {
         $query = $this->m_pegawai->edit_biodata($id_pegawai);
         $query2 = $this->m_pegawai->get_jabatan();
@@ -389,7 +401,17 @@ class pegawai extends CI_Controller {
         $this->load->view("form/v_form_edit_cuti", array('query' => $query));
     }
 
-    //proses edit
+    public function edit_log_mengajar($id_akademis) {
+        $query = $this->m_pegawai->edit_log_mengajar($id_akademis);
+        $this->load->view("form/v_form_edit_mengajar", array('query' => $query));
+    }
+
+    public function edit_log_kti($id_akademis) {
+        $query = $this->m_pegawai->edit_log_kti($id_akademis);
+        $this->load->view("form/v_form_edit_kti", array('query' => $query));
+    }
+
+//proses edit
     public function proses_edit_biodata() {
         $nip = $this->input->post('nip', true);
         $nip_lama = $this->input->post('nip_lama', true);
@@ -482,51 +504,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_jabatan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_jabatan1 = $row->id_jabatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_jabatan1 = $row->id_jabatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_jabatan($id_jabatan1);
                         $acc = 1;
                         $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_jabatan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_jabatan1 = $row->id_jabatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_jabatan1 = $row->id_jabatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_jabatan($id_jabatan1);
                         $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -549,51 +560,40 @@ class pegawai extends CI_Controller {
         $masa_kerja = (($tahun * 12) + $bulan);
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_pangkat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pangkat = $row->id_kepangkatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pangkat = $row->id_kepangkatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pangkat($id_pangkat);
                         $acc = 1;
                         $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_pangkat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pangkat = $row->id_kepangkatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pangkat = $row->id_kepangkatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pangkat($id_pangkat);
                         $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -613,51 +613,41 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_pendidikan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pend = $row->id_pendidikan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pend = $row->id_pendidikan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pendidikan($id_pend);
                         $acc = 1;
                         $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_pendidikan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pend = $row->id_pendidikan;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pend = $row->id_pendidikan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pendidikan($id_pend);
                         $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_pendidikan($id_pendidikan, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -696,51 +686,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat1 = $row->id_diklat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat1 = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat1);
                         $acc = 1;
                         $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat = $row->id_diklat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat);
                         $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_diklat($id_diklat, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -939,51 +918,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_alamat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_alamat1 = $row->id_alamat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_alamat1 = $row->id_alamat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_alamat($id_alamat1);
                         $acc = 1;
                         $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_alamat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_alamat = $row->id_alamat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_alamat = $row->id_alamat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_alamat($id_alamat);
                         $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_alamat($id_alamat, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1048,51 +1016,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_gaji1 = $row->id_gaji;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_gaji1 = $row->id_gaji;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_gaji($id_gaji1);
                         $acc = 1;
                         $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_gaji = $row->id_gaji;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_gaji = $row->id_gaji;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_gaji($id_gaji);
                         $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_gaji_berkala($id_gaji, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1151,55 +1108,115 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_cuti($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_cuti1 = $row->id_cuti;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_cuti1 = $row->id_cuti;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_cuti($id_cuti1);
                         $acc = 1;
                         $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_cuti($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_cuti1 = $row->id_cuti;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_cuti1 = $row->id_cuti;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_cuti($id_cuti1);
                         $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->update_log_cuti($id_cuti, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
-    //============================================================================================//
+    public function proses_edit_log_mengajar() {
+        $id_akademis = $this->input->post('id_akademis', true);
+        $aktif = $this->input->post('aktif', true);
+        $mata_pelajaran = $this->input->post('mata_pelajaran', true);
+        $instansi = $this->input->post('instansi', true);
+        $tahun_mulai = $this->input->post('tahun_mulai', true);
+        $tahun_selesai = $this->input->post('tahun_selesai', true);
+        $keterangan = $this->input->post('keterangan', true);
+        $nip = $this->input->post('nip', true);
+        $acc = 0;
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->count_status_mengajar($nip);
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_akademis1 = $row->id_akademis;
+                    if ($count >= 1) {
+                        $this->m_pegawai->update_status_mengajar($id_akademis1);
+                        $acc = 1;
+                        $this->m_pegawai->update_log_mengajar($id_akademis, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+                        $uri = base_url() . 'pegawai/biodata/' . $nip;
+                        echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
+                    }
+                }
+            }
+            $acc = 1;
+            $this->m_pegawai->update_log_mengajar($id_akademis, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
+        } else {
+            $query = $this->m_pegawai->count_status_mengajar($nip);
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_akademis1 = $row->id_akademis;
+                    if ($count >= 1) {
+                        $this->m_pegawai->update_status_mengajar($id_akademis1);
+                        $this->m_pegawai->update_log_mengajar($id_akademis, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+                        $uri = base_url() . 'pegawai/biodata/' . $nip;
+                        echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+                    }
+                }
+            }
+            $this->m_pegawai->update_log_mengajar($id_akademis, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+        }
+    }
+
+    public function proses_edit_log_kti() {
+        $id_akademis = $this->input->post('id_akademis', TRUE);
+        $nip = $this->input->post('nip', true);
+        $judul = $this->input->post('judul', true);
+        $peranan = $this->input->post('peranan', true);
+        $instansi = $this->input->post('instansi', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+        $acc = 0;
+        if ($this->session->userdata('role') == 1) {
+            $acc = 1;
+            $this->m_pegawai->update_log_kti($id_akademis, $judul, $peranan, $instansi, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
+        } else {
+            $this->m_pegawai->update_log_kti($id_akademis, $judul, $peranan, $instansi, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+        }
+    }
+
+//============================================================================================//
 
     public function pegawai_pensiun() {
         if ($this->session->userdata('role') == 1) {
@@ -1326,51 +1343,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_jabatan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_jabatan = $row->id_jabatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_jabatan = $row->id_jabatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_jabatan($id_jabatan);
                         $acc = 1;
                         $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_jabatan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_jabatan = $row->id_jabatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_jabatan = $row->id_jabatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_jabatan($id_jabatan);
                         $ $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $ $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $ $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_jabatan($id_pegawai, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1393,51 +1399,40 @@ class pegawai extends CI_Controller {
         $masa_kerja = (($tahun * 12) + $bulan);
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_pangkat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pangkat = $row->id_kepangkatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pangkat = $row->id_kepangkatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pangkat($id_pangkat);
                         $acc = 1;
                         $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_pangkat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pangkat = $row->id_kepangkatan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pangkat = $row->id_kepangkatan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pangkat($id_pangkat);
                         $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_pangkat($id_pegawai, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1456,51 +1451,41 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_pendidikan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pend = $row->id_pendidikan;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pend = $row->id_pendidikan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pendidikan($id_pend);
                         $acc = 1;
                         $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_pendidikan($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_pend = $row->id_pendidikan;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_pend = $row->id_pendidikan;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_pendidikan($id_pend);
                         $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_pendidikan($id_pegawai, $aktif, $tingkat, $nama_sekolah, $lokasi, $fakultas, $jurusan, $no_ijazah, $tanggal_ijazah, $ipk, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1538,51 +1523,42 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat = $row->id_diklat;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat);
                         $acc = 1;
                         $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat = $row->id_diklat;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat);
                         $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1619,51 +1595,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat = $row->id_diklat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat);
                         $acc = 1;
                         $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_diklat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_diklat = $row->id_diklat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_diklat = $row->id_diklat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_diklat($id_diklat);
                         $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama_waktu, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1856,35 +1821,29 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_alamat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_alamat = $row->id_alamat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_alamat = $row->id_alamat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_alamat($id_alamat);
                         $acc = 1;
                         $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_alamat($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_alamat = $row->id_alamat;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_alamat = $row->id_alamat;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_alamat($id_alamat);
                         $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
@@ -1895,12 +1854,11 @@ class pegawai extends CI_Controller {
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_alamat($id_pegawai, $aktif, $alamat, $provinsi, $kabupaten, $kelurahan, $kecamatan, $kode_pos, $telepon, $fax, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -2010,51 +1968,40 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_gaji = $row->id_gaji;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_gaji = $row->id_gaji;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_gaji($id_gaji);
                         $acc = 1;
                         $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_gaji = $row->id_gaji;
-                if ($aktif == 1) {
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_gaji = $row->id_gaji;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_gaji($id_gaji);
                         $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_gaji_berkala($id_pegawai, $status, $tmt, $no_sk, $tanggal_sk, $gaji, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -2113,53 +2060,117 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_cuti($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_cuti = $row->id_cuti;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_cuti = $row->id_cuti;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_cuti($id_cuti);
                         $acc = 1;
                         $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $acc = 1;
-                        $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                        $uri = base_url() . 'pegawai/biodata/' . $nip;
-                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $acc = 1;
-                    $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $acc = 1;
+            $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_cuti($nip);
-            foreach ($query as $row) {
-                $count = $row->cnt;
-                $id_cuti = $row->id_cuti;
-                if ($aktif == 1) {
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_cuti = $row->id_cuti;
                     if ($count >= 1) {
                         $this->m_pegawai->update_status_cuti($id_cuti);
                         $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
-                    } else if ($count == 0) {
-                        $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+                    }
+                }
+            }
+            $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+        }
+    }
+
+    public function proses_insert_log_mengajar() {
+        $id_pegawai = $this->input->post('id_pegawai', true);
+        $aktif = $this->input->post('aktif', true);
+        $mata_pelajaran = $this->input->post('mata_pelajaran', true);
+        $instansi = $this->input->post('instansi', true);
+        $tahun_mulai = $this->input->post('tahun_mulai', true);
+        $tahun_selesai = $this->input->post('tahun_selesai', true);
+        $keterangan = $this->input->post('keterangan', true);
+        $nip = $this->input->post('nip', true);
+        $acc = 0;
+        if ($this->session->userdata('role') == 1) {
+            $query = $this->m_pegawai->count_status_mengajar($nip);
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_akademis = $row->id_akademis;
+                    if ($count >= 1) {
+                        $this->m_pegawai->update_status_mengajar($id_akademis);
+                        $acc = 1;
+                        $this->m_pegawai->insert_log_mengajar($id_pegawai, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+                        $uri = base_url() . 'pegawai/biodata/' . $nip;
+                        echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
+                    }
+                }
+            }
+            $acc = 1;
+            $this->m_pegawai->insert_log_mengajar($id_pegawai, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
+        } else {
+            $query = $this->m_pegawai->count_status_mengajar($nip);
+
+            if ($aktif == 1) {
+                foreach ($query as $row) {
+                    $count = $row->cnt;
+                    $id_akademis = $row->id_akademis;
+                    if ($count >= 1) {
+                        $this->m_pegawai->update_status_mengajar($id_akademis);
+                        $this->m_pegawai->insert_log_mengajar($id_pegawai, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
                         $uri = base_url() . 'pegawai/biodata/' . $nip;
                         echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                     }
-                } else if ($aktif == 0) {
-                    $this->m_pegawai->insert_log_cuti($id_pegawai, $aktif, $jenis, $alasan, $no_sk, $tgl_sk, $tgl_mulai, $tgl_selesai, $acc);
-                    $uri = base_url() . 'pegawai/biodata/' . $nip;
-                    echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
                 }
             }
+            $this->m_pegawai->insert_log_mengajar($id_pegawai, $aktif, $mata_pelajaran, $instansi, $tahun_mulai, $tahun_selesai, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
         }
     }
+
+    public function proses_insert_log_kti() {
+        $id_pegawai = $this->input->post('id_pegawai', TRUE);
+        $nip = $this->input->post('nip', true);
+        $judul = $this->input->post('judul', true);
+        $peranan = $this->input->post('peranan', true);
+        $instansi = $this->input->post('instansi', true);
+        $tahun = $this->input->post('tahun', true);
+        $keterangan = $this->input->post('keterangan', true);
+        $acc = 0;
+        if ($this->session->userdata('role') == 1) {
+            $acc = 1;
+            $this->m_pegawai->insert_log_kti($id_pegawai, $judul, $peranan, $instansi, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
+        } else {
+            $this->m_pegawai->insert_log_kti($id_pegawai, $judul, $peranan, $instansi, $tahun, $keterangan, $acc);
+            $uri = base_url() . 'pegawai/biodata/' . $nip;
+            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+        }
+    }
+
+///////////////////////DELETE 
 
     public function delete_log_jabatan($id_jabatan, $nip) {
         if ($this->session->userdata('role') == 1) {
@@ -2278,12 +2289,19 @@ class pegawai extends CI_Controller {
         }
     }
 
+    public function delete_log_akademis($id_akademis, $nip) {
+        if ($this->session->userdata('role') == 1) {
+            $this->m_pegawai->delete_log_akademis($id_akademis);
+            redirect('pegawai/biodata/' . $nip, 'refresh');
+        } else {
+            
+        }
+    }
+
     public function delete_pegawai($id_pegawai) {
         if ($this->session->userdata('role') == 1) {
             $this->m_pegawai->delete_pegawai($id_pegawai);
             echo "<script>javascript:alert('Anda Yakin?'); window.location = '" . $_SERVER['HTTP_REFERER'] . "'</script>";
-        } else {
-            
         }
     }
 
@@ -2326,11 +2344,13 @@ class pegawai extends CI_Controller {
         $query18 = $this->m_pegawai->get_log_penghargaan($nip);
         $query19 = $this->m_pegawai->get_log_cuti($nip);
         $query20 = $this->m_pegawai->get_log_gaji($nip);
+        $query21 = $this->m_pegawai->get_log_mengajar($nip);
+        $query22 = $this->m_pegawai->get_log_kti($nip);
 
         $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5, 'query6' => $query6,
             'query7' => $query7, 'query8' => $query8, 'query9' => $query9, 'query10' => $query10, 'query11' => $query11,
             'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18,
-            'query19' => $query19, 'query20' => $query20));
+            'query19' => $query19, 'query20' => $query20, 'query21' => $query21, 'query22' => $query22));
     }
 
 //notifikasi
