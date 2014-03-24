@@ -3,20 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/form/cetak_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_satu_pegawai.php</file>
-=======
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_semua_divisi.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_pegawai_honorer.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_divisi.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_grafik.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/grafik.php</file>
->>>>>>> 50c13bfe8da7af7cb7a01e4f57d8ee5f70b78841
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/cetak.php</file>
         </group>
     </open-files>

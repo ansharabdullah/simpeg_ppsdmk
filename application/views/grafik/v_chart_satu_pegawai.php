@@ -1255,7 +1255,7 @@
                 <a class="minimize">&#8211;</a>
             </div>
             
-            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT PASANGAN</h4> 
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>DATA PASANGAN</h4> 
         </div>
         
         <div class="widgetcontent" style="text-transform:uppercase;">
@@ -1335,7 +1335,7 @@
                 <a class="minimize">&#8211;</a>
             </div>
             
-            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ANAK</h4> 
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>DATA ANAK</h4> 
         </div>
         
         <div class="widgetcontent" style="text-transform:uppercase;" >
@@ -1405,7 +1405,7 @@
                 <a class="minimize">&#8211;</a>
             </div>
             
-            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT SAUDARA</h4> 
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>DATA SAUDARA</h4> 
         </div>
         
         <div class="widgetcontent"style="text-transform:uppercase;" >
@@ -1468,7 +1468,7 @@
                 <a class="minimize">&#8211;</a>
             </div>
             
-            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT ORANG TUA</h4> 
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>DATA ORANG TUA</h4> 
         </div>
         
         <div class="widgetcontent"style="text-transform:uppercase;" >
@@ -1777,6 +1777,136 @@
                     </tr>
                 </tbody>
                 <?php $NO_MEDIS++; }?>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Riwayat Mengajar--->
+<div id="dashboard-right">
+    <div class="widgetbox">
+        <div class="headtitle">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_mengajar/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                </ul>
+                 <a class="minimize">&#8211;</a>
+            </div>
+            
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT MENGAJAR</h4> 
+        </div>
+        
+        <div class="widgetcontent" style="text-transform:uppercase;" >
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Status</th>
+                        <th>Mata Pelajaran</th>
+                        <th>Instansi</th>
+                        <th>Tahun Mulai</th>
+                        <th>Tahun Selesai</th>
+                        <th>Lama Mengajar (tahun)</th>
+                        <th>Keterangan</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <?php
+                $NO_MENGAJAR=1;
+                
+                $MATA_PELAJARAN = "";
+                $TAHUN_MULAI= "";
+                $TAHUN_SELESAI= "";
+                $KETERANGAN_MENGAJAR= "";
+                $STATUS_MENGAJAR="";
+                $INSTANSI_AKADEMIS="";
+                    
+                foreach ($query21 as $row) {
+                    $MATA_PELAJARAN = $row->MATA_PELAJARAN;
+                    $INSTANSI_AKADEMIS = $row->INSTANSI_AKADEMIS;
+                    $TAHUN_MULAI= $row->TAHUN_AWAL_AKADEMIS;
+                    $TAHUN_SELESAI= $row->TAHUN_AKHIR_AKADEMIS;
+                    $KETERANGAN_AKADEMIS= $row->KETERANGAN_AKADEMIS;
+                    $STATUS_AKADEMIS=$row->STATUS_AKADEMIS;
+                    $LAMA_MENGAJAR=$TAHUN_SELESAI-$TAHUN_MULAI;
+                ?>
+                <tbody>
+                    <tr>
+                        <td><?PHP echo $NO_MENGAJAR;?></td>
+                        <td>
+                        <?php if($STATUS_AKADEMIS==1){?>
+                            <input type="checkbox" checked="checked" disabled="disabled" /></td>
+                        <?php }else if($STATUS_AKADEMIS==0){?>
+                <input type="checkbox"  disabled="disabled" /></td>
+                        <?php }?>
+                        <td><?PHP echo $MATA_PELAJARAN;?></td>
+                        <td><?PHP echo $INSTANSI_AKADEMIS;?></td>
+                        <td><?PHP echo $TAHUN_MULAI;?></td>
+                        <td><?PHP echo $TAHUN_SELESAI;?></td>
+                        <td><?PHP echo $LAMA_MENGAJAR;?></td>
+                        <td><?PHP echo $KETERANGAN_AKADEMIS;?></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_mengajar/'.$row->ID_AKADEMIS)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_akademis'.'/'.$row->ID_AKADEMIS.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
+                    </tr>
+                </tbody>
+                <?php $NO_MENGAJAR++;}?>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Riwayat Karya Tulis--->
+<div id="dashboard-right">
+    <div class="widgetbox">
+        <div class="headtitle">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="iconfa-th"></i> &nbsp; Aksi <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo base_url(); ?>pegawai/input_log_kti/<?php echo $NIP;?>"><i class="iconfa-plus"></i> &nbsp;Tambah Data</a></li>
+                </ul>
+                 <a class="minimize">&#8211;</a>
+            </div>
+            
+            <h4 class="widgettitle"><span class="icon-tasks icon-white"></span>RIWAYAT KARYA TULIS ILMIAH</h4> 
+        </div>
+        
+        <div class="widgetcontent" style="text-transform:uppercase;" >
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Judul</th>
+                        <th>Peranan</th>
+                        <th>Instansi</th>
+                        <th>Tahun</th>
+                        <th>Keterangan</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                
+                <?PHP
+                $NO_KTI=1;
+                foreach ($query22 as $row) {
+                    $INSTANSI_AKADEMIS = $row->INSTANSI_AKADEMIS;
+                    $TAHUN_SELESAI= $row->TAHUN_AKHIR_AKADEMIS;
+                    $KETERANGAN_AKADEMIS= $row->KETERANGAN_AKADEMIS;
+                    $JUDUL_KARYA = $row->JUDUL_KARYA;
+                    $PERANAN_AKADEMIS = $row->PERANAN_AKADEMIS;
+                ?>
+                <tbody>
+                    <tr>
+                        <td><?PHP echo $NO_KTI;?></td>
+                        <td><?PHP echo $JUDUL_KARYA;?></td>
+                        <td><?PHP echo $PERANAN_AKADEMIS;?></td>
+                        <td><?PHP echo $INSTANSI_AKADEMIS;?></td>
+                        <td><?PHP echo $TAHUN_SELESAI;?></td>
+                        <td><?PHP echo $KETERANGAN_AKADEMIS;?></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/edit_log_kti/'.$row->ID_AKADEMIS)?>" class="editprofileform"><span class="icon-pencil"></span></a></td>
+                        <td class="centeralign"><a href="<?php echo site_url('pegawai/delete_log_akademis'.'/'.$row->ID_AKADEMIS.'/'.$NIP)?>" class="deleterow" onClick="return confirm('Hapus data?')"><span class="icon-trash"></span></a></td>
+                    </tr>
+                </tbody>
+                <?php $NO_KTI++; }?>
             </table>
         </div>
     </div>
