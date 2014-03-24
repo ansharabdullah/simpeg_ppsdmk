@@ -691,11 +691,6 @@ class m_pegawai extends CI_Model {
         return $query->result();
     }
 
-    public function get_naikPangkat() {
-        $query = $this->db->query("Select * from get_all_pegawai");
-        return $query->result();
-    }
-
     public function get_kp() {
         $query = $this->db->query("SELECT P.NIP, P.GELAR_DEPAN,P.NAMA_PEGAWAI,P.GELAR_BELAKANG, JG.GOLONGAN, jg.NAMA_PANGKAT, LK.TMT_GOLONGAN, J.JABATAN, LJ.TMT_JABATAN, P.TGL_LAHIR, U.NAMA_UNIT
         FROM PEGAWAI P, JENIS_GOLONGAN JG, LOG_KEPANGKATAN LK, LOG_JABATAN LJ, JABATAN J,UNIT_KERJA U

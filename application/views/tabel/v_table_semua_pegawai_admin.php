@@ -52,7 +52,7 @@
                 <th class="head1 center">NAMA PEGAWAI</th>
                 <th class="head0 center">JENIS KELAMIN</th>
                 <th class="head0 center">PENDIDIKAN TERAKHIR</th>
-                <th class="head1 center">UNIT</th>
+                <th class="head1 center">BAGIAN/BIDANG/<br>KELOMPOK FUNSGIONAL</th>
                 <th class="head1 center">JABATAN</th>
                 <th class="head0 right">Aksi</th>
                 <th class="head0 center"></th>

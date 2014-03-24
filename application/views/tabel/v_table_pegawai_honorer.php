@@ -29,14 +29,11 @@
     <div class="pageicon"><span class="iconfa-group"></span></div>
     <div class="pagetitle">
         <h5>.</h5>
-        <h1>Daftar Seluruh Pegawai</h1>
+        <h1>Daftar Seluruh Pegawai Pemerintah  dengan  Perjanjian  Kerja</h1>
     </div>
 </div>
-<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai Honorer</h4>
+<h4 class="widgettitle"><span class="icon-list-alt icon-white"></span>Tabel Daftar Seluruh Pegawai Pemerintah  dengan  Perjanjian  Kerja</h4>
 <div class="widgetcontent">
-    <a href="<?php echo base_url(); ?>pegawai/input_biodata" class=" btn btn-success btn-rounded "><i class="iconfa-plus-sign icon-white"></i> Tambah Data Pegawai</a>
-    <a href="<?php echo base_url(); ?>cetak/cetak_DSP" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Word</a>
-    <a href="<?php echo base_url(); ?>cetak/cetak_DSP_spreadsheet" class=" btn btn-success btn-rounded " onclick=" return konfirmasi()"><i class="iconfa-print icon-white"></i> Cetak ke Spreadsheet</a>
     <table class="table table-bordered table-infinite" id="dyntable2">
         <colgroup>
             <col class="con1" />
@@ -51,7 +48,7 @@
                 <th class="head1 center">NAMA PEGAWAI</th>
                 <th class="head0 center">JENIS KELAMIN</th>
                 <th class="head0 center">PENDIDIKAN TERAKHIR</th>
-                <th class="head1 center">UNIT</th>
+                <th class="head1 center">BAGIAN/BIDANG/<br>KELOMPOK FUNSGIONAL</th>
                 <th class="head0 right">Aksi</th>
                 <th class="head0 center"></th>
             </tr>

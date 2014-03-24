@@ -75,7 +75,7 @@
                                 <li class="nav-header">Daftar Pegawai</li>
                                 <li><a href="<?php echo base_url(); ?>pegawai/seluruh_pegawai"><strong>Daftar Seluruh Pegawai (DSP)</strong></a></li>
                                 <li><a href="<?php echo base_url(); ?>pegawai/DUK"><strong>Daftar Urut Kepegawaian (DUK)</strong></a></li>
-                                <li><a href="<?php echo base_url(); ?>pegawai/honorer"><strong>Daftar Pegawai Honorer</strong></a></li>
+                                <li><a href="<?php echo base_url(); ?>pegawai/pppk"><strong>Daftar PPPK</strong></a></li>
                             </ul>
                         </li>
 
@@ -98,7 +98,8 @@
                         <li>
                             <a class="dropdown-toggle" data-toggle="dropdown" data-target="#">
                                 <span class="head-icon head-archive"></span>
-                                <span class="headmenu-label">Peringatan</span>
+                                <span class="headmenu-label">Peringatan
+                                </span><span class="count"><b><?php if ($jumlah>0)echo $jumlah?></b></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-header">Peringatan</li>

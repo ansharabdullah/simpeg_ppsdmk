@@ -45,7 +45,7 @@
                 <th class="head0 center">NAMA PEGAWAI</th>
                 <th class="head0 center">JENIS<br/>KELAMIN</th>
                 <th class="head1 center">GOL/<br>JABATAN</th>
-                <th class="head0 center">UNIT KERJA</th>
+                <th class="head0 center">BAGIAN/BIDANG/<br>KELOMPOK FUNSGIONAL</th>
                 <th class="head0 center">UMUR</th>
                 <th class="head0 center">SISA <br />KE PENSIUN</th>
             </tr>
