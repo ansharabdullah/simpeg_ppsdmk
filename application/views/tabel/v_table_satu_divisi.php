@@ -40,7 +40,7 @@
 			<th class="head0 center">PENDIDIKAN<br/>TERAKHIR</th>
 			<th class="head1 center">GOL</th>
 			<th class="head1 center">JABATAN</th>
-			<th class="head0 center">UNIT KERJA</th>
+			<th class="head0 center">BAGIAN/BIDANG/<br>KELOMPOK FUNSGIONAL</th>
 		</tr>
 	</thead>
 	<tbody>

@@ -9,6 +9,7 @@ class grafik extends CI_Controller {
         parent::__construct();
         $this->check_isvalidated();
         if ($this->session->userdata('role') == 1) {
+
             $this->header_admin($this->session->userdata('nip'));
         } else {
             $this->header_pegawai($this->session->userdata('nip'));
@@ -211,9 +212,9 @@ class grafik extends CI_Controller {
             } else if ($nama_bagian == "pengembangan_kompetensi_dan_kemetrologian") {
                 $id = 2;
                 $nama_bagian = "BAGIAN PENGEMBANGAN KOMPETENSI DAN KEMETROLOGIAN";
-            } else if ($nama_bagian == "widyaiswara") {
+            } else if ($nama_bagian == "jabatan_fungsional") {
                 $id = 4;
-                $nama_bagian = "WIDYAISWARA";
+                $nama_bagian = "JABATAN FUNGSIONAL";
             } else if ($nama_bagian == "kepala_ppsdmk") {
                 $id = 0;
                 $nama_bagian = "KEPALA PPSDMK";
@@ -224,10 +225,12 @@ class grafik extends CI_Controller {
             $query = $this->m_grafik->grafikPegawaiDivisi($id);
 
             foreach ($query as $q) {
-                $x[] = $q->JABATAN;
-                $y[] = $q->JUMLAH;
-                $y1[] = $q->LAKI;
-                $y2[] = $q->PEREMPUAN;
+                if ($q->JABATAN != 'Kelompok Widyaiswara') {
+                    $x[] = $q->JABATAN;
+                    $y[] = $q->JUMLAH;
+                    $y1[] = $q->LAKI;
+                    $y2[] = $q->PEREMPUAN;
+                }
             }
             $where = "AND J.BAGIAN='$id'";
             $query1 = $this->m_grafik->tabelPegawai($where);
@@ -303,7 +306,7 @@ class grafik extends CI_Controller {
             $subtitle = "SEMUA JENJANG PENDIDIKAN";
             $alamat = "grafik/pendidikan";
             $status = 3;
-            $judul = "Jumlah Pegawai Seluruh Jenjang Pendidikan Akhir PPSDMK";
+            $judul = "Jumlah Pegawai Seluruh Jenjang Pendidikan Terakhir PPSDMK";
             $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'jdul' => $judul));
         } else {
@@ -504,7 +507,7 @@ class grafik extends CI_Controller {
             );
             //print_r($data);
 
-            
+
             $subtitle = "SEMUA CUTI DI TAHUN INI";
             $alamat = "grafik/cuti";
             $status = 6;
@@ -542,8 +545,156 @@ class grafik extends CI_Controller {
     }
 
     public function header_admin($nip) {
+        $data = $this->get_persetujuan();
+        $jumlah = '';
+        $jumlah = count($data['nip']);
         $query = $this->m_pegawai->get_akun($nip);
-        $this->load->view('laman/v_header', array('query' => $query));
+        $this->load->view('laman/v_header', array('query' => $query, 'jumlah' => $jumlah));
+    }
+
+    public function get_persetujuan() {
+        if ($this->session->userdata('role') == 1) {
+
+            $query1 = $this->m_pegawai->get_alamat();
+            $query2 = $this->m_pegawai->get_diklat();
+            $query3 = $this->m_pegawai->get_acc_jabatan();
+            $query4 = $this->m_pegawai->get_kepangkatan();
+            $query5 = $this->m_pegawai->get_medis();
+            $query6 = $this->m_pegawai->get_organisasi();
+            $query7 = $this->m_pegawai->get_pendidikan();
+            $query8 = $this->m_pegawai->get_penghargaan();
+            $query9 = $this->m_pegawai->get_penugasan();
+            $query10 = $this->m_pegawai->get_cuti();
+
+            $i = 0;
+            foreach ($query1->result() as $q) {
+                $data['id_log'][] = $q->ID_ALAMAT;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_ALAMAT;
+                $data['ket'][] = "PERUBAHAN RIWAYAT ALAMAT";
+                $data['ket_id'][] = 1;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "ALAMAT : " . $q->ALAMAT . "<br>KEL. : " . $q->KELURAHAN . "<br>KEC. : " . $q->KECAMATAN . "<br>KAB. : " . $q->KABUPATEN . "<br>PROV. : " . $q->PROVINSI . "<br>KODE POS. : " . $q->KODE_POS . "<br>TELP. : " . $q->TELEPON;
+                $i++;
+            }
+
+            foreach ($query2->result() as $q) {
+                $data['id_log'][] = $q->ID_DIKLAT;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_DIKLAT;
+                $data['ket'][] = "PERUBAHAN RIWAYAT DIKLAT";
+                $data['ket_id'][] = 2;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA DIKLAT : " . $q->JUDUL_DIKLAT . "<br>NO.IJAZAH : " . $q->NO_IJAZAH_DIKLAT . "<br>LAMA : " . $q->LAMA_DIKLAT . "<br>TANGGAL MULAI : " . $q->TGL_MULAI_DIKLAT . "<br>TGL AKHIR : " . $q->TGL_AKHIR_DIKLAT;
+                $i++;
+            }
+
+            foreach ($query3->result() as $q) {
+                $data['id_log'][] = $q->ID_JABATAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_JABATAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT JABATAN";
+                $data['ket_id'][] = 3;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "JABATAN : " . $q->JABATAN . "<br>UNIT : " . $q->NAMA_UNIT . "<br>SK : " . $q->NO_SK_JABATAN . "<br>TMT : " . $q->TMT_JABATAN;
+                $i++;
+            }
+
+            foreach ($query4->result() as $q) {
+                $data['id_log'][] = $q->ID_KEPANGKATAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_KEPANGKATAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT KEPANGKATAN";
+                $data['ket_id'][] = 4;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "PANGKAT : " . $q->NAMA_PANGKAT . "/" . $q->GOLONGAN . "<br>TMT : " . $q->TMT_GOLONGAN . "<br>NO. SK / TANGGAL : " . $q->NO_SK_GOLONGAN . " / " . $q->TGL_SK_GOLONGAN;
+                $i++;
+            }
+
+            foreach ($query5->result() as $q) {
+                $data['id_log'][] = $q->ID_MEDIS;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_MEDIS;
+                $data['ket'][] = "PERUBAHAN RIWAYAT MEDIS";
+                $data['ket_id'][] = 5;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "INDIKASI : " . $q->INDIKASI . "<br>TINDAKAN : " . $q->TINDAKAN . "<br>TAHUN PERIKSA : " . $q->TAHUN_PEMERIKSAAN;
+                $i++;
+            }
+
+            foreach ($query6->result() as $q) {
+                $data['id_log'][] = $q->ID_ORGANISASI;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_ORGANISASI;
+                $data['ket'][] = "PERUBAHAN RIWAYAT ORGANISASI";
+                $data['ket_id'][] = 6;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA ORGANISASI : " . $q->NAMA_ORGANISASI . "<br>JABATAN : " . $q->JABATAN_ORGANISASI . "<br>TAHUN :" . $q->TAHUN_ORGANISASI;
+                $i++;
+            }
+
+            foreach ($query7->result() as $q) {
+                $data['id_log'][] = $q->ID_PENDIDIKAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_PENDIDIKAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENDIDIKAN";
+                $data['ket_id'][] = 7;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA INSTITUSI : " . $q->NAMA_SEKOLAH . "<br>JENJANG : " . $q->TINGKAT_PENDIDIKAN . "<br> FAKULTAS/JURUSAN : " . $q->FAKULTAS . "/" . $q->JURUSAN . "<br>NO IJAZAH / TANGGAL : " . $q->NO_IJAZAH . "/" . $q->TGL_IJAZAH;
+
+                $i++;
+            }
+
+            foreach ($query8->result() as $q) {
+                $data['id_log'][] = $q->ID_LOG_PENGHARGAAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_PENGHARGAAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENGHARGAAN";
+                $data['ket_id'][] = 8;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA PENGHARGAAN : " . $q->NAMA_PENGHARGAAN . "<br>INSTANSI : " . $q->INSTANSI_PENGHARGAAN . "<br>NO.SK / TAHUN : " . $q->NO_SK_PENGHARGAAN . " / " . $q->TAHUN_PENGHARGAAN;
+                $i++;
+            }
+
+            foreach ($query9->result() as $q) {
+                $data['id_log'][] = $q->ID_PENUGASAN;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_PENUGASAN;
+                $data['ket'][] = "PERUBAHAN RIWAYAT PENUGASAN";
+                $data['ket_id'][] = 9;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "NAMA PENUGASAN : " . $q->NAMA_PENUGASAN . "<br>PERANAN : " . $q->PERANAN . "<br>INSTANSI : " . $q->INSTANSI_PENUGASAN . "<br>LOKASI : " . $q->LOKASI_PENUGASAN . "<br>TANGGAL : " . $q->TGL_MULAI_PENUGASAN . " s/d " . $q->TGL_SELESAI_PENUGASAN;
+                $i++;
+            }
+
+            foreach ($query10->result() as $q) {
+                $data['id_log'][] = $q->ID_CUTI;
+                $data['nip'][] = $q->NIP;
+                $data['nama'][] = $q->GELAR_DEPAN . " " . $q->NAMA_PEGAWAI . " " . $q->GELAR_BELAKANG;
+                $data['tgl'][] = $q->TGL_LOG_CUTI;
+                $data['ket'][] = "PERUBAHAN RIWAYAT CUTI";
+                $data['ket_id'][] = 10;
+                $data['photo'][] = $q->FOTO;
+                $data['detail'][] = "JENIS CUTI : " . $q->JENIS_CUTI . "<br>ALASAN CUTI : " . $q->ALASAN_CUTI . "<br>NO SK : " . $q->NO_SK_CUTI . "<br>TANGGAL : " . $q->TGL_MULAI_CUTI . " s/d " . $q->TGL_SELESAI_CUTI;
+                $i++;
+            }
+            if ($i >= 1) {
+                return $data;
+            } else {
+                return 0;
+            }
+        } else {
+            redirect('./pegawai');
+        }
     }
 
     public function header_pegawai($nip) {

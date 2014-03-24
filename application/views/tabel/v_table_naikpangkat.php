@@ -44,7 +44,7 @@
                 <th class="head1 center">NIP</th>
                 <th class="head0 center">NAMA PEGAWAI</th>
                 <th class="head0 center">PANGKAT/<br/>GOLONGAN</th>
-                <th class="head0 center">UNIT KERJA</th>
+                <th class="head0 center">BAGIAN/BIDANG/<br>KELOMPOK FUNSGIONAL</th>
                 <th class="head0 center">TMT TERAKHIR</th>
                 <th class="head0 center">PERKIRAAN <br >KP</th>
                 <th class="head0 center">SISA KE<br >KP SELANJUTNYA</th>
