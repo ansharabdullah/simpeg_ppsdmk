@@ -1128,7 +1128,87 @@
                     echo"
                 </tbody>
             </table><br clear=all style='mso-special-character:line-break;' />";
+            
+            echo "<center><h3>RIWAYAT MENGAJAR</h3></center> 
+               <table border='1'>     
+               <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Status</th>
+                        <th>Mata Pelajaran</th>
+                        <th>Instansi</th>
+                        <th>Tahun Mulai</th>
+                        <th>Tahun Selesai</th>
+                        <th>Lama Mengajar (tahun)</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>";
+             $NO_MENGAJAR=1;
+              foreach ($query21 as $row) {
+                    $MATA_PELAJARAN = $row->MATA_PELAJARAN;
+                    $INSTANSI_AKADEMIS = $row->INSTANSI_AKADEMIS;
+                    $TAHUN_MULAI= $row->TAHUN_AWAL_AKADEMIS;
+                    $TAHUN_SELESAI= $row->TAHUN_AKHIR_AKADEMIS;
+                    $KETERANGAN_AKADEMIS= $row->KETERANGAN_AKADEMIS;
+                    $STATUS_AKADEMIS=$row->STATUS_AKADEMIS;
+                    $LAMA_MENGAJAR=$TAHUN_SELESAI-$TAHUN_MULAI;
+              
+                    echo "
+                    <tbody>
+                    <tr>
+                        <td>$NO_MENGAJAR</td>
+                        td>
+                        ";
+                        if($STATUS_AKADEMIS==1){
+                            echo"<input type='checkbox' checked='checked' disabled='disabled' /></td>";
+                        }else if($STATUS_AKADEMIS==0){
+                            echo"<input type='checkbox'  disabled='disabled' /></td>";
+                        }
+                        echo "
+                        <td>$MATA_PELAJARAN</td>
+                        <td>$INSTANSI_AKADEMIS</td>
+                        <td>$TAHUN_MULAI</td>
+                        <td>$TAHUN_SELESAI</td>
+                        <td>$LAMA_MENGAJAR</td>
+                        <td>$KETERANGAN_AKADEMIS</td>
+              </tr>";$NO_MENGAJAR++;}
+                    echo"
+                </tbody>
+            </table><br clear=all style='mso-special-character:line-break;' />";
                     
+            echo "<center><h3>RIWAYAT KARYA TULIS ILMIAH</h3></center> 
+               <table border='1'>     
+               <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Judul</th>
+                        <th>Peranan</th>
+                        <th>Instansi</th>
+                        <th>Tahun</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>";
+             $NO_KTI=1;
+                foreach ($query22 as $row) {
+                    $INSTANSI_AKADEMIS = $row->INSTANSI_AKADEMIS;
+                    $TAHUN_SELESAI= $row->TAHUN_AKHIR_AKADEMIS;
+                    $KETERANGAN_AKADEMIS= $row->KETERANGAN_AKADEMIS;
+                    $JUDUL_KARYA = $row->JUDUL_KARYA;
+                    $PERANAN_AKADEMIS = $row->PERANAN_AKADEMIS;
+              
+                    echo "
+                    <tbody>
+                    <tr>
+                        <td>$NO_KTI</td>
+                        <td>$JUDUL_KARYA</td>
+                        <td>$PERANAN_AKADEMIS</td>
+                        <td>$INSTANSI_AKADEMIS</td>
+                        <td>$TAHUN_SELESAI</td>
+                        <td>$KETERANGAN_AKADEMIS</td>
+              </tr>";$NO_KTI++;}
+                    echo"
+                </tbody>
+            </table><br clear=all style='mso-special-character:line-break;' />";       
               
            
         echo"

@@ -66,7 +66,7 @@
                 ?>
                 <tr class="gradeX">
                     <td class="center"><?php echo $no; ?></td>
-                    <td><?php echo $nama; ?></td>
+                    <td><a href="<?php echo base_url(); ?>pegawai/biodata/<?php echo $row->NIP; ?>"><?php echo $nama; ?></td>
                     <td class="center"><?php echo $row->JENIS_KELAMIN; ?></td>
                     <td class="center"><?php echo $row->TINGKAT_PENDIDIKAN; ?></td>
                     <td><?php echo $row->NAMA_UNIT; ?></td>
