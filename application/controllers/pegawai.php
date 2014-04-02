@@ -2306,16 +2306,6 @@ class pegawai extends CI_Controller {
     }
 
 //    program
-    public function input_nilai($nama) {
-        $nama_pegawai = str_replace("_", " ", $nama);
-        $query1 = $this->m_pegawai->get_pegawai($nama_pegawai);
-        $query2 = $this->m_pegawai->get_periode();
-
-        $cek_penilaian = $this->m_pegawai->cekPenilaian($nama_pegawai, $query2);
-
-        $this->load->view("admin/v_input_nilai", array('biodata' => $query1, 'periode' => $query2, 'nama' => $nama_pegawai, 'cek' => $cek_penilaian));
-        $this->load->view("admin/v_footer");
-    }
 
     public function allpegawai() {
         $query = $this->m_pegawai->get_all_pegawai();
@@ -2347,7 +2337,7 @@ class pegawai extends CI_Controller {
         $query21 = $this->m_pegawai->get_log_mengajar($nip);
         $query22 = $this->m_pegawai->get_log_kti($nip);
 
-        $this->load->view("grafik/v_chart_satu_pegawai", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5, 'query6' => $query6,
+        $this->load->view("tabel/v_biodata_pegawai", array('query' => $query, 'query2' => $query2, 'query3' => $query3, 'query4' => $query4, 'query5' => $query5, 'query6' => $query6,
             'query7' => $query7, 'query8' => $query8, 'query9' => $query9, 'query10' => $query10, 'query11' => $query11,
             'query12' => $query12, 'query13' => $query13, 'query14' => $query14, 'query15' => $query15, 'query16' => $query16, 'query17' => $query17, 'query18' => $query18,
             'query19' => $query19, 'query20' => $query20, 'query21' => $query21, 'query22' => $query22));

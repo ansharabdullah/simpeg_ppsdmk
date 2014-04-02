@@ -1,3 +1,21 @@
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                
+                //content slider
+                jQuery('#slidercontent').bxSlider({
+                    prevText: '',
+                    nextText: ''
+                });
+                
+                //slim scroll
+                jQuery('#scroll1').slimscroll({
+                    color: '#666',
+                    size: '10px',
+                    width: 'auto',
+                    height: '450px'
+                });
+            });
+        </script>
 <div class="pageheader">
     <div class="pageicon"><span class="iconfa-home"></span></div>
     <div class="pagetitle">

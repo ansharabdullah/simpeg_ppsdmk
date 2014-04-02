@@ -11,7 +11,6 @@
         <!--shamcey-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.default_.css" type="text/css" />
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/style.bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/css/responsive-tables.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/shamcey/prettify/prettify.css" type="text/css" />
         
@@ -55,25 +54,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/fullcalendar.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.bxSlider.min.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function(){
-                
-                //content slider
-                jQuery('#slidercontent').bxSlider({
-                    prevText: '',
-                    nextText: '',
-                    
-                });
-                
-                //slim scroll
-                jQuery('#scroll1').slimscroll({
-                    color: '#666',
-                    size: '10px',
-                    width: 'auto',
-                    height: '350px' 
-                });
-            });
-        </script>
+      
     </head>
 
     <body>

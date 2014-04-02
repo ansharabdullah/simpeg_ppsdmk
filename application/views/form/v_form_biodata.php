@@ -3,8 +3,6 @@
         
         // Smart Wizard 	
         jQuery('#wizard').smartWizard({onFinish: onFinishCallback});
-        jQuery('#wizard2').smartWizard({onFinish: onFinishCallback});
-        jQuery('#wizard3').smartWizard({onFinish: onFinishCallback});
         
         function onFinishCallback(){
             alert('Tambah Data?');
@@ -230,4 +228,6 @@
                 </div><!--#wiz1step3-->
             </div><!--#wizard-->
         </form>
+    </div>
+</div>
         <div class="clearfix"></div><br /><br />
