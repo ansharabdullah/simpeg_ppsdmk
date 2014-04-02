@@ -84,6 +84,7 @@ class m_pegawai extends CI_Model {
                 VALUES($last_id, '$pendidikan', '$nama_sekolah', 1,1, $acc)");
         $query5 = $this->db->query("INSERT INTO log_alamat (ID_PEGAWAI, STATUS_ALAMAT, ALAMAT, PROVINSI, KABUPATEN, KELURAHAN, KECAMATAN, ACC_ALAMAT)
                 VALUES($last_id, 1, '$alamat', '$provinsi', '$kabupaten', '$kelurahan', '$kecamatan', $acc)");
+        $query6 = $this->db->query("INSERT INTO akun (ID_PEGAWAI, PASSWORD, ROLE) VALUES ($last_id,'81dc9bdb52d04dc20036dbd8313ed055',2)");
     }
 
     public function insert_data_tambahan($id_pegawai, $no_kartu_pegawai, $tanggal_kartu_pegawai, $no_ktp, $npwp, $no_askes, $tanggal_askes, $kode_wilayah_askes, $no_handphone, $email, $golongan_darah, $rambut, $bentuk_muka, $warna_kulit, $tinggi_badan, $berat_badan, $ciri_khas, $cacat_tubuh, $bahasa_asing, $hobi, $acc) {

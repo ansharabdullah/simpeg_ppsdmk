@@ -888,16 +888,16 @@ class pegawai extends CI_Controller {
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
 
-        $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
             echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
+            $acc=1;
             $this->m_pegawai->update_log_organisasi($id_organisasi, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil diubah.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -967,7 +967,7 @@ class pegawai extends CI_Controller {
         $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $accs);
@@ -976,7 +976,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $accs);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -990,7 +990,7 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
@@ -999,7 +999,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->update_log_ak($id_ak, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil diubah.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1082,7 +1082,7 @@ class pegawai extends CI_Controller {
         $tindakan = $this->input->post('tindakan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan, $acc);
@@ -1091,7 +1091,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->update_log_medis($id_medis, $indikasi, $tindakan, $tahun, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil diubah. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil diubah.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1791,7 +1791,7 @@ class pegawai extends CI_Controller {
         $jabatan = $this->input->post('jabatan', true);
         $tahun = $this->input->post('tahun', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->insert_log_organisasi($id_pegawai, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
@@ -1800,7 +1800,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->insert_log_organisasi($id_pegawai, $kd_stat_organisasi, $nama_organisasi, $jabatan, $tahun, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil di input.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1874,7 +1874,7 @@ class pegawai extends CI_Controller {
         $tanggal_kariskarsu = $this->input->post('tanggal_kariskarsu', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
@@ -1883,7 +1883,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->insert_log_pasangan($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil di input.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1897,7 +1897,7 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
@@ -1906,7 +1906,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->insert_log_anak($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil di input.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1920,7 +1920,7 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
@@ -1929,7 +1929,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->insert_log_saudara($id_pegawai, $status, $nama, $jenis_kelamin, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil di input.'); window.location = '" . $uri . "'</script>";
         }
     }
 
@@ -1942,7 +1942,7 @@ class pegawai extends CI_Controller {
         $tempat_lahir = $this->input->post('tempat_lahir', true);
         $pekerjaan = $this->input->post('pekerjaan', true);
         $keterangan = $this->input->post('keterangan', true);
-        $acc = 0;
+        $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
             $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
@@ -1951,7 +1951,7 @@ class pegawai extends CI_Controller {
         } else {
             $this->m_pegawai->insert_log_orangtua($id_pegawai, $status, $nama, $tanggal_lahir, $tempat_lahir, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
-            echo "<script>javascript:alert('Data berhasil di input. Tunggu konfirmasi Admin'); window.location = '" . $uri . "'</script>";
+            echo "<script>javascript:alert('Data berhasil di input.'); window.location = '" . $uri . "'</script>";
         }
     }
 
