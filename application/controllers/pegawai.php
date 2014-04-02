@@ -1217,21 +1217,6 @@ class pegawai extends CI_Controller {
     }
 
 //============================================================================================//
-
-    public function pegawai_pensiun() {
-        if ($this->session->userdata('role') == 1) {
-            $this->usiaPensiun();
-            $this->load->view('laman/v_footer');
-        } else {
-            redirect('./pegawai');
-        }
-    }
-
-    public function logout() {
-        $this->session->sess_destroy();
-        redirect(base_url());
-    }
-
 //PROSES INSERT    
     public function input_pegawai() {
         $config['upload_path'] = '././assets/images/';
@@ -2757,6 +2742,20 @@ class pegawai extends CI_Controller {
     public function header_pegawai($nip) {
         $query = $this->m_pegawai->get_akun($nip);
         $this->load->view('laman/v_header_pegawai', array('query' => $query));
+    }
+
+    public function pegawai_pensiun() {
+        if ($this->session->userdata('role') == 1) {
+            $this->usiaPensiun();
+            $this->load->view('laman/v_footer');
+        } else {
+            redirect('./pegawai');
+        }
+    }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect(base_url());
     }
 
 }

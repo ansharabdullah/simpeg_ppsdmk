@@ -192,7 +192,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/bagian";
             $status = 1;
             $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
         } else {
             redirect('./pegawai');
@@ -255,7 +255,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/golongan";
             $status = 2;
             $judul = "Jumlah Pegawai Seluruh Golongan PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
         } else {
             redirect('./pegawai');
@@ -307,7 +307,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/pendidikan";
             $status = 3;
             $judul = "Jumlah Pegawai Seluruh Jenjang Pendidikan Terakhir PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'jdul' => $judul));
         } else {
             redirect('./pegawai');
@@ -354,7 +354,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/jenjang_umur";
             $status = 4;
             $judul = "Jumlah Pegawai Seluruh Jenjang Umur PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
         } else {
             redirect('./pegawai');
@@ -412,7 +412,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/status_pegawai";
             $status = 5;
             $judul = "Jumlah Pegawai Seluruh Status Kepegawaian PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
         } else {
             redirect('./pegawai');
@@ -512,7 +512,7 @@ class grafik extends CI_Controller {
             $alamat = "grafik/cuti";
             $status = 6;
             $judul = "CUTI PEGAWAI PPSDMK";
-            $this->load->view("grafik/v_chart_semua_divisi", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
+            $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $data, 'status' => $status, 'judul' => $judul));
         } else {
             redirect('./pegawai');
