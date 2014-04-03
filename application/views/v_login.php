@@ -41,7 +41,8 @@
         <hr />
         <div class="loginpanel">
             <div class="loginpanelinner">
-                <div class="logo animate0 bounceIn"><img src="<?php echo base_url(); ?>assets/shamcey/images/logo_ppsdmk.png" alt="" width="55%"/></div>
+                <div class="logo animate0 bounceIn"><img src="<?php echo base_url(); ?>assets/shamcey/images/logo_ppsdmk.png" alt="" width="55%"/>
+                <br><font color="white" size="2" align="left">SISTEM INFORMASI MANAJEMEN KEPEGAWAIAN PPSDMK</font></div>
                 <form action='<?php echo base_url(); ?>login/process' method='post' name='process'>
                     <div class="inputwrapper login-alert">
                         <div class="alert alert-error">Invalid username or password</div>
