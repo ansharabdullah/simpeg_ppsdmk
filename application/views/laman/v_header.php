@@ -54,7 +54,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/fullcalendar.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/shamcey/js/jquery.bxSlider.min.js"></script>
-      
+
     </head>
 
     <body>
