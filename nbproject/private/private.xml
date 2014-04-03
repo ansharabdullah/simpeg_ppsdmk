@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_pegawai_admin.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/cetak.php</file>
         </group>
     </open-files>
 </project-private>

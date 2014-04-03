@@ -97,20 +97,14 @@
                     <li>
                         <div class="slide_wrap">
                             <div class="slide_content">
-                                <img src="" alt="" />
+                                <center><img src="" alt="" style="margin-left: -110px"/></center>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
             <br/>
-            
-                
-            
-            
-            
-            
-            
+
             <br/> 
             <div id="dashboard-right" class="span6">
                 

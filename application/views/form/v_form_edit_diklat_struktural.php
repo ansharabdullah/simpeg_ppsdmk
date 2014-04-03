@@ -58,7 +58,7 @@
                         
             <div class="par">
                 <label>Tanggal Sertifikat</label>
-                <span class="field"><input type="date" name="tanggal_ijazah" class="input-small" value="<?php echo $TGL_IJAZAH_DIKLAT;?>" /></span>
+                <span class="field"><input type="date" name="tanggal_ijazah" class="input-medium" value="<?php echo $TGL_IJAZAH_DIKLAT;?>" /></span>
             </div>
                         
            <p>

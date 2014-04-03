@@ -1,7 +1,6 @@
 <?php          
     foreach ($query as $row) {
     $ID_ORGANISASI = $row->ID_ORGANISASI;
-    $ID_JENIS_ORGANISASI = $row->ID_JENIS_ORGANISASI;
     $nip = $row->NIP;   
     $JENIS_ORGANISASI =$row->JENIS_ORGANISASI;
     $NAMA_ORGANISASI =$row->NAMA_ORGANISASI;
@@ -50,7 +49,7 @@
                         
             <p>
                 <label>Keterangan</label>
-                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan" value="<?php echo $KETERANGAN_ORGANISASI?>"></textarea></span> 
+                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan" value=""><?php echo $KETERANGAN_ORGANISASI?></textarea></span> 
             </p>
                         
             <p class="stdformbutton">

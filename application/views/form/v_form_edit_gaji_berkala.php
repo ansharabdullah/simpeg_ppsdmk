@@ -53,7 +53,7 @@
                 
             <p>
                 <label>Keterangan</label>
-                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan" value="<?php echo $KETERANGAN_GAJI?>"></textarea></span> 
+                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan"><?php echo $KETERANGAN_GAJI?></textarea></span> 
             </p>
                 
             <p class="stdformbutton">

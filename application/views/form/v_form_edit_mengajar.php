@@ -46,7 +46,7 @@ foreach ($query as $row) {
             </div> 
               <p>
                 <label>Keterangan</label>
-                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan" value="<?php echo $KETERANGAN_AKADEMIS;?>"></textarea></span> 
+                <span class="field"><textarea cols="40" rows="3" class="span5" name="keterangan" value=""><?php echo $KETERANGAN_AKADEMIS;?></textarea></span> 
             </p>                         
             <p class="stdformbutton"> 
                 <a href="<?php echo site_url('pegawai/biodata/'.$nip) ?>" class="btn">Cancel</a>

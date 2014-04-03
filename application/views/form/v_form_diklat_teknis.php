@@ -37,12 +37,12 @@
                         
             <div class="par">
                 <label>Tanggal Mulai</label>
-                <span class="field"><input type="date" name="tanggal_mulai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_mulai" class="input-medium" /></span>
             </div> 
                         
             <div class="par">
                 <label>Tanggal Selesai</label>
-                <span class="field"><input type="date" name="tanggal_selesai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_selesai" class="input-medium" /></span>
             </div>
  <?php          
     foreach ($query as $row) {

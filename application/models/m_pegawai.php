@@ -119,14 +119,14 @@ class m_pegawai extends CI_Model {
     public function insert_log_diklat_struktural($id_pegawai, $aktif, $jenis, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan, $rangking, $acc) {
         $query = $this->db->query(" 
                 INSERT INTO log_diklat (ID_PEGAWAI, STATUS_DIKLAT, ID_JENIS_DIKLAT, INSTANSI_DIKLAT, NO_IJAZAH_DIKLAT, TGL_IJAZAH_DIKLAT, LAMA_DIKLAT, TGL_MULAI_DIKLAT, TGL_SELESAI_DIKLAT, ANGKATAN_DIKLAT, RANGKING_DIKLAT, ACC_DIKLAT, TGL_LOG_DIKLAT)
-                VALUES ($id_pegawai, $aktif, $jenis, '$instansi',$no_ijazah, '$tanggal_ijazah', '$lama', '$tanggal_mulai', '$tanggal_selesai', '$angkatan', '$rangking' , $acc, NOW())
+                VALUES ($id_pegawai, $aktif, $jenis, '$instansi','$no_ijazah', '$tanggal_ijazah', '$lama', '$tanggal_mulai', '$tanggal_selesai', '$angkatan', '$rangking' , $acc, NOW())
                 ");
     }
 
     public function insert_log_diklat_fungsional($id_pegawai, $aktif, $jenis, $nama_diklat, $instansi, $no_ijazah, $tanggal_ijazah, $lama, $tanggal_mulai, $tanggal_selesai, $angkatan, $acc) {
         $query = $this->db->query(" 
                 INSERT INTO log_diklat (ID_PEGAWAI, STATUS_DIKLAT, ID_JENIS_DIKLAT, JUDUL_DIKLAT, INSTANSI_DIKLAT, NO_IJAZAH_DIKLAT, TGL_IJAZAH_DIKLAT, LAMA_DIKLAT, TGL_MULAI_DIKLAT, TGL_SELESAI_DIKLAT, ANGKATAN_DIKLAT, ACC_DIKLAT, TGL_LOG_DIKLAT)
-                VALUES ($id_pegawai, $aktif, $jenis,'$nama_diklat', '$instansi',$no_ijazah, '$tanggal_ijazah', '$lama', '$tanggal_mulai', '$tanggal_selesai', '$angkatan', $acc, NOW())
+                VALUES ($id_pegawai, $aktif, $jenis,'$nama_diklat', '$instansi','$no_ijazah', '$tanggal_ijazah', '$lama', '$tanggal_mulai', '$tanggal_selesai', '$angkatan', $acc, NOW())
                 ");
     }
 
@@ -344,9 +344,9 @@ class m_pegawai extends CI_Model {
     }
 
     PUBLIC FUNCTION get_log_diklat_teknis($nip) {
-        $query = $this->db->query("SELECT LD.ID_DIKLAT,LD.STATUS_DIKLAT,D.NAMA_DIKLAT,LD.JUDUL_DIKLAT, LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
-            FROM  DIKLAT D,LOG_DIKLAT LD, PEGAWAI P
-            WHERE D.ID_JENIS_DIKLAT=LD.ID_JENIS_DIKLAT AND P.ID_PEGAWAI=LD.ID_PEGAWAI AND LD.KETERANGAN_DIKLAT=3 AND P.NIP='$nip' AND LD.ACC_DIKLAT=1 order by LD.STATUS_DIKLAT desc");
+        $query = $this->db->query("SELECT LD.ID_DIKLAT,LD.STATUS_DIKLAT,LD.JUDUL_DIKLAT, LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
+            FROM  LOG_DIKLAT LD, PEGAWAI P
+            WHERE P.ID_PEGAWAI=LD.ID_PEGAWAI AND LD.KETERANGAN_DIKLAT=3 AND P.NIP='$nip' AND LD.ACC_DIKLAT=1");
         return $query->result();
     }
 
@@ -493,7 +493,15 @@ class m_pegawai extends CI_Model {
         WHERE D.ID_JENIS_DIKLAT=LD.ID_JENIS_DIKLAT AND P.ID_PEGAWAI=LD.ID_PEGAWAI AND LD.ID_DIKLAT='$id_diklat'");
         return $query->result();
     }
-
+    
+    PUBLIC FUNCTION edit_log_diklat_teknis($id_diklat) {
+        $query = $this->db->query("SELECT LD.ID_DIKLAT,P.NIP,LD.ID_JENIS_DIKLAT,LD.STATUS_DIKLAT,LD.JUDUL_DIKLAT,LD.INSTANSI_DIKLAT, LD.NO_IJAZAH_DIKLAT, LD.TGL_IJAZAH_DIKLAT, LD.LAMA_DIKLAT, LD.TGL_MULAI_DIKLAT, LD.TGL_SELESAI_DIKLAT, LD.ANGKATAN_DIKLAT, LD.RANGKING_DIKLAT
+        FROM LOG_DIKLAT LD, PEGAWAI P
+        WHERE P.ID_PEGAWAI=LD.ID_PEGAWAI AND LD.ID_DIKLAT='$id_diklat' AND LD.KETERANGAN_DIKLAT=3");
+        return $query->result();
+    }
+    
+    
     public function edit_log_toefl($id_pendidikan) {
         $query = $this->db->query("SELECT LP.ID_PENDIDIKAN,P.NIP,LP.STATUS_PENDIDIKAN_TERAKHIR, LP.JENIS_PENDIDIKAN, LP.TAHUN_PENDIDIKAN, LP.INSTANSI, LP.NO_IJAZAH, LP.TGL_IJAZAH, LP.IPK 
             FROM LOG_PENDIDIKAN LP, PEGAWAI P
@@ -516,9 +524,9 @@ class m_pegawai extends CI_Model {
     }
 
     public function edit_log_organisasi($id_organisasi) {
-        $query = $this->db->query("SELECT LO.ID_ORGANISASI,LO.JENIS_ORGANISASI,P.NIP,JO.JENIS_ORGANISASI, LO.NAMA_ORGANISASI, LO.JABATAN_ORGANISASI, LO.TAHUN_ORGANISASI, LO.KETERANGAN_ORGANISASI 
+        $query = $this->db->query("SELECT LO.ID_ORGANISASI,LO.JENIS_ORGANISASI,P.NIP, LO.NAMA_ORGANISASI, LO.JABATAN_ORGANISASI, LO.TAHUN_ORGANISASI, LO.KETERANGAN_ORGANISASI 
 
-        FROM JENIS_ORGANISASI JO, LOG_ORGANISASI LO, PEGAWAI P
+        FROM LOG_ORGANISASI LO, PEGAWAI P
         WHERE P.ID_PEGAWAI=LO.ID_PEGAWAI AND LO.ID_ORGANISASI='$id_organisasi'");
         return $query->result();
     }
@@ -602,14 +610,14 @@ class m_pegawai extends CI_Model {
     public function update_log_jabatan($id_jabatan, $aktif, $jabatan, $unit_kerja, $no_sk, $tanggal_sk, $tmt, $acc) {
         $query = $this->db->query("
                 UPDATE log_jabatan set STATUS_JABATAN= $aktif, ID_JENIS_JABATAN=$jabatan, 
-                ID_UNIT=$unit_kerja, NO_SK_JABATAN=$no_sk, TGL_SK_JABATAN='$tanggal_sk', TMT_JABATAN='$tmt', ACC_JABATAN=$acc, TGL_LOG_JABATAN=NOW() 
+                ID_UNIT=$unit_kerja, NO_SK_JABATAN='$no_sk', TGL_SK_JABATAN='$tanggal_sk', TMT_JABATAN='$tmt', ACC_JABATAN=$acc, TGL_LOG_JABATAN=NOW() 
                 WHERE id_jabatan=$id_jabatan");
     }
 
     public function update_log_pangkat($id_kepangkatan, $aktif, $golongan, $jenis_kenaikan, $tmt, $no_sk, $tanggal_sk, $masa_kerja, $gaji, $peraturan, $keterangan, $acc) {
         $query = $this->db->query("
                 UPDATE log_kepangkatan SET STATUS_KEPANGKATAN=$aktif, ID_JENIS_GOLONGAN='$golongan',
-                JENIS_KENAIKAN='$jenis_kenaikan',  TMT_GOLONGAN='$tmt', NO_SK_GOLONGAN=$no_sk,TGL_SK_GOLONGAN='$tanggal_sk',MASA_KERJA_GOLONGAN=$masa_kerja, GAJI_GOLONGAN='$gaji', PERATURAN='$peraturan', KETERANGAN_KEPANGKATAN='$keterangan', ACC_KEPANGKATAN=$acc, TGL_LOG_KEPANGKATAN=NOW() 
+                JENIS_KENAIKAN='$jenis_kenaikan',  TMT_GOLONGAN='$tmt', NO_SK_GOLONGAN='$no_sk',TGL_SK_GOLONGAN='$tanggal_sk',MASA_KERJA_GOLONGAN=$masa_kerja, GAJI_GOLONGAN='$gaji', PERATURAN='$peraturan', KETERANGAN_KEPANGKATAN='$keterangan', ACC_KEPANGKATAN=$acc, TGL_LOG_KEPANGKATAN=NOW() 
                 WHERE ID_KEPANGKATAN=$id_kepangkatan");
     }
 

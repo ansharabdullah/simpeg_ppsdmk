@@ -20,7 +20,7 @@
     <div class="pageicon"><span class="iconfa-home"></span></div>
     <div class="pagetitle">
         <h5></h5>
-        <h1>HOMEPAGE</h1>
+        <h1>HOME</h1>
     </div>
 </div><!--pageheader-->
 <div class="maincontent">
