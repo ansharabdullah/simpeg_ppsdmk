@@ -305,7 +305,7 @@ class pegawai extends CI_Controller {
     }
 
     public function edit_log_diklat_teknis($id_diklat) {
-        $query = $this->m_pegawai->edit_log_diklat($id_diklat);
+        $query = $this->m_pegawai->edit_log_diklat_teknis($id_diklat);
 
         $this->load->view("form/v_form_edit_diklat_teknis", array('query' => $query));
         $this->load->view("laman/v_footer");
@@ -970,11 +970,11 @@ class pegawai extends CI_Controller {
         $acc = 1;
         if ($this->session->userdata('role') == 1) {
             $acc = 1;
-            $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $accs);
+            $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
             echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
-            $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $accs);
+            $this->m_pegawai->update_log_pasangan($id_pasangan, $status, $nama, $tanggal_lahir, $tempat_lahir, $tanggal_nikah, $no_kariskarsu, $tanggal_kariskarsu, $pekerjaan, $keterangan, $acc);
             $uri = base_url() . 'pegawai/biodata/' . $nip;
             echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         }
@@ -1016,7 +1016,7 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            if ($aktif == 1) {
+            if ($status == 1) {
                 foreach ($query as $row) {
                     $count = $row->cnt;
                     $id_gaji1 = $row->id_gaji;
@@ -1035,7 +1035,7 @@ class pegawai extends CI_Controller {
             echo "<script>javascript:alert('Data berhasil diubah'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            if ($aktif == 1) {
+            if ($status == 1) {
                 foreach ($query as $row) {
                     $count = $row->cnt;
                     $id_gaji = $row->id_gaji;
@@ -1953,7 +1953,7 @@ class pegawai extends CI_Controller {
         $acc = 0;
         if ($this->session->userdata('role') == 1) {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            if ($aktif == 1) {
+            if ($status == 1) {
                 foreach ($query as $row) {
                     $count = $row->cnt;
                     $id_gaji = $row->id_gaji;
@@ -1972,7 +1972,7 @@ class pegawai extends CI_Controller {
             echo "<script>javascript:alert('Data berhasil di input'); window.location = '" . $uri . "'</script>";
         } else {
             $query = $this->m_pegawai->count_status_gaji($nip);
-            if ($aktif == 1) {
+            if ($status == 1) {
                 foreach ($query as $row) {
                     $count = $row->cnt;
                     $id_gaji = $row->id_gaji;
@@ -2285,8 +2285,9 @@ class pegawai extends CI_Controller {
 
     public function delete_pegawai($id_pegawai) {
         if ($this->session->userdata('role') == 1) {
-            $this->m_pegawai->delete_pegawai($id_pegawai);
-            echo "<script>javascript:alert('Anda Yakin?'); window.location = '" . $_SERVER['HTTP_REFERER'] . "'</script>";
+          $this->m_pegawai->delete_pegawai($id_pegawai);
+            
+            echo "<script> window.location = '" . $_SERVER['HTTP_REFERER'] . "'</script>";
         }
     }
 

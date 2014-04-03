@@ -1144,7 +1144,6 @@
                             ?>
                             
                         </td>
-                        <td><?PHP echo $JENIS_ORGANISASI;?></td>
                         <td><?PHP echo $NAMA_ORGANISASI;?></td>
                         <td><?PHP echo $JABATAN_ORGANISASI;?></td>
                         <td><?PHP echo $TAHUN_ORGANISASI;?></td>

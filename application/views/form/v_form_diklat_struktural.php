@@ -35,7 +35,7 @@
                         
             <div class="par">
                 <label>Tanggal Sertifikat</label>
-                <span class="field"><input type="date" name="tanggal_ijazah" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_ijazah" class="input-medium" /></span>
             </div>
                         
             <p>
@@ -54,12 +54,12 @@
                         
             <div class="par">
                 <label>Tanggal Mulai</label>
-                <span class="field"><input type="date" name="tanggal_mulai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_mulai" class="input-medium" /></span>
             </div> 
                         
             <div class="par">
                 <label>Tanggal Selesai</label>
-                <span class="field"><input type="date" name="tanggal_selesai" class="input-small" /></span>
+                <span class="field"><input type="date" name="tanggal_selesai" class="input-medium" /></span>
             </div>
                         
             <p>
