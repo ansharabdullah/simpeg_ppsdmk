@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_pegawai_admin.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/models/m_pegawai.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_home.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_home_pegawai.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/pegawai.php</file>
-<<<<<<< HEAD
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_header.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/tabel/v_table_semua_divisi.php</file>
             <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/controllers/grafik.php</file>
-            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/grafik/v_chart_semua.php</file>
-=======
->>>>>>> 25948a6b86cc4cd187739f711a69c4c0ccc42f4c
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/laman/v_header_pegawai.php</file>
+            <file>file:/C:/xampp/htdocs/simpeg_ppsdmk/application/views/v_login.php</file>
         </group>
     </open-files>
 </project-private>

@@ -54,7 +54,7 @@
                         <input type="password" name="password" id="password" placeholder="PASSWORD" />
                     </div>
                     <div class="inputwrapper animate3 bounceIn" style="width:45%;">
-                        <button name="submit">Sign In</button>
+                        <button name="submit">Log In</button>
                     </div>
                     
                     <?php if(! is_null($msg)) echo "<div class='inputwrapper animate1 bounceIn' style='width:100%; margin-left:60px';>".$msg."</div>";?>

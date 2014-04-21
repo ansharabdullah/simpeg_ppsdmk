@@ -31,10 +31,10 @@ class grafik extends CI_Controller {
                 $y[] = $q->JUMLAH;
             }
 
-            $subtitle = "SEMUA BAGIAN";
+            $subtitle = "SEMUA BAGIAN/BIDANG/KELOMPOK FUNGSIONAL";
             $alamat = "grafik/bagian";
             $status = 1;
-            $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
+            $judul = "Jumlah Pegawai Seluruh Bagian/Bidang/Kelompok Fungsional PPSDMK";
             $this->load->view("laman/v_home", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
         } else {
             $this->load->view('laman/v_home_pegawai');
@@ -188,10 +188,10 @@ class grafik extends CI_Controller {
                 $y[] = $q->JUMLAH;
             }
 
-            $subtitle = "SEMUA BAGIAN";
+            $subtitle = "SEMUA BAGIAN/BIDANG/KELOMPOK FUNGSIONAL";
             $alamat = "grafik/bagian";
             $status = 1;
-            $judul = "Jumlah Pegawai Seluruh Bagian PPSDMK";
+            $judul = "Jumlah Pegawai Seluruh Bagian/Bidang/Kelompok Fungsional PPSDMK";
             $this->load->view("grafik/v_chart_semua", array('x' => $x, 'y' => $y, 'subtitle' => $subtitle, 'alamat' => $alamat, 'judul' => $judul));
             $this->load->view("tabel/v_table_semua_divisi", array('query' => $query, 'status' => $status, 'judul' => $judul));
         } else {

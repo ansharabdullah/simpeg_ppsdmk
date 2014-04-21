@@ -34,13 +34,13 @@
                 <th class="head0 center">No</th>
                 <?php
                 if ($status == 1) {
-                    echo "<th class='head1 center'>Nama Bagian</th>
+                    echo "<th class='head1 center'>Bagian/Bidang/Kelompok Fungsional</th>
                 <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 2) {
-                    echo "<th class='head1 center'>Nama Golongan</th>
+                    echo "<th class='head1 center'>Golongan</th>
                 <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 3) {
-                    echo "<th class='head1 center'>Nama Pendidikan Terakhir</th>
+                    echo "<th class='head1 center'>Pendidikan Terakhir</th>
                 <th class='head0 center'>Jumlah Pegawai</th>";
                 } else if ($status == 4) {
                     echo "<th class='head1 center'>Jenjang Umur</th>

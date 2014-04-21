@@ -67,7 +67,7 @@
                                 <li>
                                     <a href="<?php echo base_url(); ?>pegawai/peringatan/<?php echo $q->NIP; ?>">
                                         <span class="head-icon head-archive"></span>
-                                        <span class="headmenu-label">Biodata</span>
+                                        <span class="headmenu-label">Peringatan</span>
                                     </a>
                                 </li>
                                 
